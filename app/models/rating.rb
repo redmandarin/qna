@@ -1,9 +1,9 @@
 class Rating < ActiveRecord::Base
   validates :model_id, :model_name, presence: true
 
-  belongs_to :user, foreign_key: "model_id"
-  belongs_to :question, foreign_key: "model_id"
-  belongs_to :answer, foreign_key: "model_id"
+  belongs_to :user
+  belongs_to :question
+  belongs_to :answer
   has_many :votes
 
 end
