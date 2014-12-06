@@ -4,6 +4,6 @@ class Question < ActiveRecord::Base
   has_many :answers
   has_many :comments
   belongs_to :user
-  has_one :rating
+  has_one :rating, as: "model"
 
 end
