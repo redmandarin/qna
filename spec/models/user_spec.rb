@@ -8,4 +8,10 @@ RSpec.describe User, :type => :model do
   it { should have_many :votes }
   it { should have_one :rating }
 
+  it "should get user rating" do
+    @user = User.create(name: "some_name")
+    @rating = Rating.create(model_id: @user.id, model_name: @user.class.to_s)
+    expect(@user.rating.first).to eq(@rating)
+  end
+
 end
