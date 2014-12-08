@@ -7,4 +7,5 @@ RSpec.describe Answer, :type => :model do
   it { should belong_to :question }
   it { should belong_to :user }
   it { should have_one :rating }
+  it { should have_many :comments }
 end
