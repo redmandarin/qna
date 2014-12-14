@@ -1,0 +1,8 @@
+%h4= @question.title
+%p= @question.body
+%hr
+.mute Ответы:
+- @question.answers.each do |answer|
+  = answer.body
+  %hr
+= button_to "Ответить", new_question_answer_path(@question), method: "get"

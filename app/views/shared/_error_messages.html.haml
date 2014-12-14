@@ -1,0 +1,9 @@
+- if target.errors.any?
+  %div.error-explanation
+    %h4
+      = target.errors.count
+      = t("error", count: target.errors.size)
+      мешают сохранению.
+    %ul
+      - target.errors.full_messages.each do |msg| 
+        %li= msg

@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe AnswersController, :type => :controller do
   let(:question) { create(:question) }
   let(:answer) { create(:answer, question_id: question.id) }
+  let(:user) { create(:user) }
+  before { sign_in user }
 
   describe "GET #new" do
     before { get :new, question_id: question }
@@ -15,6 +17,14 @@ RSpec.describe AnswersController, :type => :controller do
     it "renders new view" do
       expect(response).to render_template(:new)
     end
+
+    context "not signed in" do
+      it "redirects to sign in" do
+        sign_out user
+        get :new, question_id: question
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   describe "GET #edit" do
@@ -26,6 +36,14 @@ RSpec.describe AnswersController, :type => :controller do
 
     it "renders edit view" do
       expect(response).to render_template(:edit)
+    end
+
+    context "not signed in" do
+      it "redirects to sign in" do
+        sign_out user
+        get :edit, question_id: question, id: answer
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 
@@ -49,6 +67,14 @@ RSpec.describe AnswersController, :type => :controller do
       it "re-render new view" do
         post :create, question_id: question, answer: attributes_for(:invalid_answer)
         expect(response).to render_template(:new)
+      end
+    end
+
+    context "not signed in" do
+      it "redirects to sign in" do
+        sign_out user
+        post :create, question_id: question, answer: attributes_for(:answer)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
@@ -84,18 +110,13 @@ RSpec.describe AnswersController, :type => :controller do
         expect(response).to render_template(:edit)
       end
     end
-  end
 
-  describe "DELETE #destroy" do
-    before { answer }
-
-    it "delete answer" do
-      expect { delete :destroy, question_id: question, id: answer }.to change(Answer, :count).by(-1)
-    end
-
-    it "redirects to parent question view" do
-      delete :destroy, question_id: question, id: answer
-      expect(response).to redirect_to(question_path(question))
+    context "not signed in" do
+      it "redirects to sign in" do
+        sign_out user
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id)
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 end

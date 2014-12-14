@@ -4,5 +4,5 @@ class Answer < ActiveRecord::Base
   has_one :rating, as: :rateable
   has_many :comments, as: :commentable, dependent: :destroy
 
-  validates :body, :user_id, :question_id, presence: true
+  validates :body, presence: true
 end

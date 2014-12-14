@@ -1,7 +1,9 @@
 class AnswersController < ApplicationController
-  before_filter :set_answer, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_filter :set_answer, only: [:edit, :update]
 
   def new
+    @question = Question.find(params[:question_id])
     @answer = Answer.new
   end
 
@@ -13,7 +15,7 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to question_path(params[:question_id])
     else
-      render :new
+      render "new"
     end
   end
 
@@ -23,11 +25,6 @@ class AnswersController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def destroy
-    @answer.destroy
-    redirect_to question_path(@answer.question_id)
   end
 
   private

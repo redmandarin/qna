@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, :type => :controller do
   let(:question) { create(:question) }
+  let(:user) { create(:user) }
+  before { sign_in user }
 
   describe "GET #index" do 
     let(:questions) { create_list(:question, 2) }
@@ -38,6 +40,14 @@ RSpec.describe QuestionsController, :type => :controller do
     it "renders new view" do
       expect(response).to render_template(:new)
     end
+
+    context "not signed in" do
+      it "redirects to sign_in" do
+        sign_out user
+        get :new
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   describe "GET #edit" do
@@ -49,7 +59,15 @@ RSpec.describe QuestionsController, :type => :controller do
 
     it "renders edit view" do
       expect(response).to render_template(:edit)
-    end   
+    end
+
+    context "not signed in" do
+      it "redirects to sign_in" do
+        sign_out user
+        get :edit, id: question 
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   describe "POST #create" do
@@ -72,6 +90,14 @@ RSpec.describe QuestionsController, :type => :controller do
       it "re-render new view" do
         post :create, question: attributes_for(:invalid_question)
         expect(response).to render_template(:new)
+      end
+    end
+
+    context "not signed in" do
+      it "redirects to sign_in" do
+        sign_out user
+        post :create, question: attributes_for(:question)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
@@ -109,6 +135,14 @@ RSpec.describe QuestionsController, :type => :controller do
         expect(response).to render_template(:edit)
       end
     end
+
+    context "not signed in" do
+      it "redirects to sign_in" do
+        sign_out user
+        patch :update, id: question, question: { title: "new title", body: "new body" }
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   describe "DELETE #destroy" do
@@ -122,6 +156,13 @@ RSpec.describe QuestionsController, :type => :controller do
       delete :destroy, id: question
       expect(response).to redirect_to(questions_path)
     end
-  end
 
+    context "not signed in" do
+      it "redirects to sign_in" do
+        sign_out user
+        delete :destroy, id: question
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+  end
 end

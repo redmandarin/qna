@@ -1,0 +1,6 @@
+= render 'shared/error_messages', target: @answer
+= form_for [:question, @answer] do |f|
+  %fieldset
+    = f.text_area :body, rows: 10
+    = f.hidden_field :question_id, value: params[:question_id]
+    = f.submit

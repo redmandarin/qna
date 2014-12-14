@@ -1,0 +1,6 @@
+- @questions.each do |q|
+  %h5
+    = link_to q.title, q
+    .right.mute= q.created_at.strftime("%d.%m.%Y")
+  %hr
+  

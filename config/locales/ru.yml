@@ -1,0 +1,28 @@
+ru:
+  error:
+    one: "ошибка"
+    other: "ошибки"
+  helpers:
+    label:
+      question:
+        title: "Заголовок"
+        body: "Вопрос"
+  activerecord:
+    attributes:
+      answer:
+        body: "Ответ"
+      question:
+        title: "Заголовок"
+        body: "Вопрос"
+    errors:
+      models:
+        answer:
+          attributes:
+            body:
+              blank: "не может быть пустым"
+        question:
+          attributes:
+            title: 
+              blank: "не может быть пустым"
+            body: 
+              blank: "не может быть пустым"

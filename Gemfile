@@ -27,6 +27,10 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'haml-rails'
+gem 'bourbon'
+gem 'neat'
+gem 'bitters'
+gem 'devise'
 
 group :test, :development do
   gem 'rspec-rails'
