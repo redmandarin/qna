@@ -1,3 +1,4 @@
+%p= link_to "Задать вопрос", new_question_path
 - @questions.each do |q|
   %h5
     = link_to q.title, q

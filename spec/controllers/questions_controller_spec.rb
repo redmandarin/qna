@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe QuestionsController, :type => :controller do
   let(:question) { create(:question) }
   let(:user) { create(:user) }
-  before { sign_in user }
 
   describe "GET #index" do 
     let(:questions) { create_list(:question, 2) }
@@ -31,6 +30,7 @@ RSpec.describe QuestionsController, :type => :controller do
   end
 
   describe "GET #new" do
+    sign_in_user
     before { get :new }
 
     it "assigns a new Question to @question" do
@@ -43,7 +43,7 @@ RSpec.describe QuestionsController, :type => :controller do
 
     context "not signed in" do
       it "redirects to sign_in" do
-        sign_out user
+        sign_out @user
         get :new
         expect(response).to redirect_to(new_user_session_path)
       end
@@ -51,6 +51,7 @@ RSpec.describe QuestionsController, :type => :controller do
   end
 
   describe "GET #edit" do
+    sign_in_user
     before { get :edit, id: question }
 
     it "assigns the requested question to @question" do
@@ -63,7 +64,7 @@ RSpec.describe QuestionsController, :type => :controller do
 
     context "not signed in" do
       it "redirects to sign_in" do
-        sign_out user
+        sign_out @user
         get :edit, id: question 
         expect(response).to redirect_to(new_user_session_path)
       end
@@ -71,6 +72,7 @@ RSpec.describe QuestionsController, :type => :controller do
   end
 
   describe "POST #create" do
+    sign_in_user
     context "with valid attributes" do
       it "saves the new question in the database" do
         expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
@@ -95,7 +97,7 @@ RSpec.describe QuestionsController, :type => :controller do
 
     context "not signed in" do
       it "redirects to sign_in" do
-        sign_out user
+        sign_out @user
         post :create, question: attributes_for(:question)
         expect(response).to redirect_to(new_user_session_path)
       end
@@ -103,6 +105,7 @@ RSpec.describe QuestionsController, :type => :controller do
   end
 
   describe "PATCH #update" do
+    sign_in_user
     context "valid attributes" do
       it "assigns the requested question to @question" do
         patch :update, id: question, question: attributes_for(:question)
@@ -138,7 +141,7 @@ RSpec.describe QuestionsController, :type => :controller do
 
     context "not signed in" do
       it "redirects to sign_in" do
-        sign_out user
+        sign_out @user
         patch :update, id: question, question: { title: "new title", body: "new body" }
         expect(response).to redirect_to(new_user_session_path)
       end
@@ -146,6 +149,7 @@ RSpec.describe QuestionsController, :type => :controller do
   end
 
   describe "DELETE #destroy" do
+    sign_in_user
     before { question}
 
     it "delete question" do
@@ -159,7 +163,7 @@ RSpec.describe QuestionsController, :type => :controller do
 
     context "not signed in" do
       it "redirects to sign_in" do
-        sign_out user
+        sign_out @user
         delete :destroy, id: question
         expect(response).to redirect_to(new_user_session_path)
       end

@@ -1,4 +1,13 @@
+# ru.devise.failure.user.unauthenticated
 ru:
+  devise:
+    failure:
+      user:
+        unauthenticated: "Сначала вам нужно войти или зарегестрироваться."
+        not_found_in_database: "Неверный email или пароль."
+    sessions:
+      user:
+        signed_in: "Вход успешно выполнен."
   error:
     one: "ошибка"
     other: "ошибки"

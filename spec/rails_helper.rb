@@ -29,6 +29,8 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
 
   config.include Devise::TestHelpers, :type => :controller
+  config.extend ControllerMacros, type: :controller
+  config.include AcceptanceHelper, type: :feature
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
