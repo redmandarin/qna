@@ -4,5 +4,13 @@ class Answer < ActiveRecord::Base
   has_one :rating, as: :rateable
   has_many :comments, as: :commentable, dependent: :destroy
 
-  validates :body, presence: true
+  validates :body, :user_id, :question_id, presence: true
+
+  def author?(user)
+    if self.user_id == user.id
+      return true
+    else
+      return false
+    end
+  end
 end

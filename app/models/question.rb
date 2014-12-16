@@ -6,5 +6,13 @@ class Question < ActiveRecord::Base
   has_one :rating, as: :rateable, dependent: :destroy
   belongs_to :user
 
-  validates :title, :body, presence: true
+  validates :title, :body, :user_id, presence: true
+
+  def author?(user)
+    unless self.user_id == user.id
+      return false
+    else
+      return true
+    end
+  end
 end

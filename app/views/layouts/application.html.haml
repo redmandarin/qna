@@ -7,6 +7,14 @@
     = csrf_meta_tags
   %body
     %div.container
+      %header
+        - if signed_in?
+          вы вошли как
+          = current_user.name
+          | 
+          = link_to 'выйти', destroy_user_session_path, method: "delete"
+        - else
+          = link_to 'войти', new_user_session_path
       %p.notice= notice
       %p.alert= alert
       = yield

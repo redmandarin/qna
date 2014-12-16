@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, :type => :controller do
-  let(:question) { create(:question) }
   let(:user) { create(:user) }
+  let(:another_user) { create(:user) }
+  let(:question) { create(:question, user_id: @user.id) }
+  let(:another_question) { create(:question) }
 
   describe "GET #index" do 
     let(:questions) { create_list(:question, 2) }
@@ -18,10 +20,10 @@ RSpec.describe QuestionsController, :type => :controller do
   end
 
   describe "GET #show" do
-    before { get :show, id: question }
+    before { get :show, id: another_question }
     
     it "assigns the requested question to @question" do
-      expect(assigns(:question)).to eq(question)
+      expect(assigns(:question)).to eq(another_question)
     end
 
     it "renders show view" do
@@ -51,15 +53,26 @@ RSpec.describe QuestionsController, :type => :controller do
   end
 
   describe "GET #edit" do
-    sign_in_user
-    before { get :edit, id: question }
+    sign_in_user_and_create_question
+    before { get :edit, id: @question }
+
 
     it "assigns the requested question to @question" do
-      expect(assigns(:question)).to eq(question)
+      expect(assigns(:question)).to eq(@question)
     end
 
     it "renders edit view" do
       expect(response).to render_template(:edit)
+    end
+
+    context "non-author" do
+      it "should not be able to edit question" do
+        sign_out @user
+        sign_in another_user
+        get :edit, id: @question
+
+        expect(response).to redirect_to(question_path(@question))
+      end
     end
 
     context "not signed in" do
@@ -75,8 +88,14 @@ RSpec.describe QuestionsController, :type => :controller do
     sign_in_user
     context "with valid attributes" do
       it "saves the new question in the database" do
-        expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
+        expect { post :create, question: attributes_for(:question, tag_list: "tag1, tag2") }.to change(Question, :count).by(1)
       end
+
+      # it "saves with tags" do
+      #   post :create, question: attributes_for(:question, tag_list: "tag1, tag2")
+      #   expect(assigns(:question).tags[0].name).to eq(tag1)
+      #   expect(assigns(:question).tags[1].name).to eq(tag2)
+      # end
 
       it "redirects to show view" do
         post :create, question: attributes_for(:question)
@@ -125,6 +144,17 @@ RSpec.describe QuestionsController, :type => :controller do
       end
     end
 
+    context "not-author" do
+      it "should not be able to #update question" do
+        another_user = create(:user)
+        sign_in another_user
+        patch :update, id: question, question: { title: "new title", body: "new body" }
+        question.reload
+        expect(question.title).not_to eq("new title")
+        expect(question.body).not_to eq("new body")
+      end
+    end
+
     context "invalid attributes" do
       before { patch :update, id: question, question: { title: "new title", body: nil } }
       
@@ -150,10 +180,16 @@ RSpec.describe QuestionsController, :type => :controller do
 
   describe "DELETE #destroy" do
     sign_in_user
-    before { question}
+    before { question }
+    let(:another_user) { create(:user) }
 
     it "delete question" do
       expect { delete :destroy, id: question}.to change(Question, :count).by(-1)
+    end
+
+    it "can't delete question as not author" do
+      sign_in another_user
+      expect { delete :destroy, id: question }.not_to change(Question, :count)
     end
 
     it "redirects to index view" do

@@ -10,4 +10,13 @@ RSpec.describe Question, :type => :model do
 
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
+  it { should validate_presence_of :user_id }
+
+  it "should validate user authority for quesiton" do
+    user = create(:user)
+    another_user = create(:user)
+    question = create(:question, user_id: user.id)
+
+    expect(question.author?(another_user)).to eq(false)
+  end
 end

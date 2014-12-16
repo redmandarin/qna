@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, :type => :controller do
   let(:question) { create(:question) }
-  let(:answer) { create(:answer, question_id: question.id) }
   let(:user) { create(:user) }
+  let(:another_user) { create(:user) }
+  let(:answer) { create(:answer, question_id: question.id, user: user) }
   before { sign_in user }
 
   describe "GET #new" do
@@ -12,7 +13,6 @@ RSpec.describe AnswersController, :type => :controller do
     it "assigns new answer to @answer" do
       expect(assigns(:answer)).to be_a_new(Answer)
     end
-
 
     it "renders new view" do
       expect(response).to render_template(:new)
@@ -36,6 +36,16 @@ RSpec.describe AnswersController, :type => :controller do
 
     it "renders edit view" do
       expect(response).to render_template(:edit)
+    end
+
+    context "not an author" do
+      it "redirects to question" do
+        sign_out user
+        sign_in another_user
+        get :edit, question_id: question, id: answer
+
+        expect(response).to redirect_to(question_path(question))
+      end
     end
 
     context "not signed in" do
@@ -95,6 +105,16 @@ RSpec.describe AnswersController, :type => :controller do
       it "redirects to parent question vies" do
         patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id)
         expect(response).to redirect_to(question_path(question))
+      end
+    end
+
+    context "not an author" do
+      it "redirects to question" do
+        sign_out user
+        sign_in another_user
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id)
+
+        expect(answer.body).not_to eq("brand new title")
       end
     end
 

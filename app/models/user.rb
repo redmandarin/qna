@@ -9,5 +9,5 @@ class User < ActiveRecord::Base
   has_many :comments, as: :commentable
   has_one :rating, as: :rateable
 
-  # validates :name, presence: true
+  validates :name, presence: true
 end

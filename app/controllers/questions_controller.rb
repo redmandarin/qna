@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
+  before_action :authorize, only: [:edit, :update, :destroy]
 
   def index
     @questions = Question.all.includes(:answers).order(created_at: :desc)
@@ -39,6 +40,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     redirect_to questions_path
+    flash[:notice] = "Вопрос успешно удален."
   end
 
   private
@@ -48,6 +50,13 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, :user_id)
+  end
+
+  def authorize
+    unless @question.author?(current_user)
+      redirect_to question_path(@question)
+      flash[:alert] = "У вас нехватает прав для выполнения этого действия."
+    end
   end
 end

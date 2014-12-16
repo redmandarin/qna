@@ -1,8 +1,20 @@
 %h4= @question.title
 %p= @question.body
+%p
+  Автор: 
+  = User.find(@question.user_id).name
+- if @question.user_id == current_user.id
+  %div.actions
+    = link_to 'удалить вопрос', question_path(@question), method: :delete
+    | 
+    = link_to 'редактировать', edit_question_path(@question)
+
 %hr
 .mute Ответы:
 - @question.answers.each do |answer|
   = answer.body
+  - if answer.author?(current_user)
+    %p= link_to 'редактировать ответ', edit_question_answer_path(@question, answer)
   %hr
+  
 = button_to "Ответить", new_question_answer_path(@question), method: "get"
