@@ -1,8 +1,8 @@
 = render 'shared/error_messages', target: @answer
 = form_for [@question, @answer] do |f|
   %fieldset
-    = f.label :body
+    = f.label :body, I18n.t('answer_body')
     = f.text_area :body, rows: 10
     = f.hidden_field :user_id, value: current_user.id
-    = f.hidden_field :question_id, value: params[:question_id]
+    = f.hidden_field :question_id, value: @question.id
     = f.submit "Сохранить ответ"

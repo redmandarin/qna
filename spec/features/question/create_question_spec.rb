@@ -30,6 +30,7 @@ feature 'Create question', %q{
 
     expect(page).to have_content 'Вам необходимо войти в систему или зарегистрироваться.'
   end
-  
+
+
 end
 

@@ -1,10 +1,10 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_filter :set_answer, only: [:edit, :update]
+  before_action :set_answer, only: [:edit, :update]
+  before_action :set_question
   before_action :authorize, only: [:edit, :update]
 
   def new
-    @question = Question.find(params[:question_id])
     @answer = Answer.new
   end
 
@@ -16,7 +16,7 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to question_path(params[:question_id])
     else
-      render "new"
+      render action: :new
     end
   end
 
@@ -32,6 +32,9 @@ class AnswersController < ApplicationController
 
   def set_answer
     @answer = Answer.find(params[:id])
+  end
+
+  def set_question
     @question = Question.find(params[:question_id])
   end
 

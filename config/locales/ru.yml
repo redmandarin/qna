@@ -1,5 +1,6 @@
 # ru.devise.sessions.user.signed_out
 ru:
+  answer_body: "Ответ"
   error:
     one: "ошибка"
     other: "ошибки"
@@ -27,10 +28,10 @@ ru:
         answer:
           attributes:
             body:
-              blank: "не может быть пустым"
+              blank: "не может быть пустым."
         question:
           attributes:
             title: 
-              blank: "не может быть пустым"
+              blank: "не может быть пустым."
             body: 
-              blank: "не может быть пустым"
+              blank: "не может быть пустым."
