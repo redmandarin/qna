@@ -8,7 +8,6 @@ class QuestionsController < ApplicationController
   end
 
   def show
-
   end
 
   def new
@@ -21,6 +20,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    @question.user = current_user
     if @question.save
       redirect_to @question
       flash[:notice] = "Ваш вопрос успешно создан."
@@ -50,7 +50,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, :user_id)
+    params.require(:question).permit(:title, :body)
   end
 
   def authorize
