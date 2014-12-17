@@ -17,7 +17,7 @@ feature 'User sign in', %q{
 
   scenario 'Non-registered user try to sign in' do
     visit new_user_session_path
-    fill_in 'Имейл', with: 'nonuser@email.com'
+    fill_in 'Эл. почта', with: 'nonuser@email.com'
     fill_in 'Пароль', with: "12345678"
     click_on 'Log in'
 

@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe AnswersController, :type => :controller do
   let(:question) { create(:question) }
   let(:user) { create(:user) }
-  let(:another_user) { create(:user) }
-  let(:answer) { create(:answer, question_id: question.id, user: user) }
+  let(:answer) { create(:answer, question: question, user: user) }
+  let(:another_answer) { create(:answer) }
   before { sign_in user }
 
   describe "GET #new" do
@@ -40,10 +40,8 @@ RSpec.describe AnswersController, :type => :controller do
 
     context "not an author" do
       it "redirects to question" do
-        sign_out user
-        sign_in another_user
-        get :edit, question_id: question, id: answer
-
+        get :edit, question_id: question, id: another_answer
+        
         expect(response).to redirect_to(question_path(question))
       end
     end
@@ -110,8 +108,6 @@ RSpec.describe AnswersController, :type => :controller do
 
     context "not an author" do
       it "redirects to question" do
-        sign_out user
-        sign_in another_user
         patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id)
 
         expect(answer.body).not_to eq("brand new title")

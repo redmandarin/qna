@@ -1,4 +1,6 @@
 class Question < ActiveRecord::Base
+  include Authority
+
   has_many :answers, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :taggings, dependent: :destroy
@@ -8,11 +10,4 @@ class Question < ActiveRecord::Base
 
   validates :title, :body, :user_id, presence: true
 
-  def author?(user)
-    unless self.user_id == user.id
-      return false
-    else
-      return true
-    end
-  end
 end

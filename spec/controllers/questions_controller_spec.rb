@@ -1,17 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, :type => :controller do
-  let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-  let(:question) { create(:question, user_id: @user.id) }
-  let(:another_question) { create(:question) }
+  let(:question) { create(:question, user: @user) }
+  let!(:another_question) { create(:question) }
 
   describe "GET #index" do 
     let(:questions) { create_list(:question, 2) }
     before { get :index }
 
     it "populates an array of all questions" do
-      expect(assigns(:questions)).to match_array(questions)
+      expect(assigns(:questions)).to match_array(questions << another_question)
     end
 
     it "renders index view" do
@@ -67,18 +66,16 @@ RSpec.describe QuestionsController, :type => :controller do
 
     context "non-author" do
       it "should not be able to edit question" do
-        sign_out @user
-        sign_in another_user
-        get :edit, id: @question
+        get :edit, id: another_question
 
-        expect(response).to redirect_to(question_path(@question))
+        expect(response).to redirect_to(question_path(another_question))
       end
     end
 
     context "not signed in" do
       it "redirects to sign_in" do
         sign_out @user
-        get :edit, id: question 
+        get :edit, id: another_question 
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -88,7 +85,7 @@ RSpec.describe QuestionsController, :type => :controller do
     sign_in_user
     context "with valid attributes" do
       it "saves the new question in the database" do
-        expect { post :create, question: attributes_for(:question, tag_list: "tag1, tag2") }.to change(Question, :count).by(1)
+        expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
       end
 
       # it "saves with tags" do
@@ -144,7 +141,7 @@ RSpec.describe QuestionsController, :type => :controller do
       end
     end
 
-    context "not-author" do
+    context "not author" do
       it "should not be able to #update question" do
         another_user = create(:user)
         sign_in another_user
@@ -181,15 +178,13 @@ RSpec.describe QuestionsController, :type => :controller do
   describe "DELETE #destroy" do
     sign_in_user
     before { question }
-    let(:another_user) { create(:user) }
 
     it "delete question" do
       expect { delete :destroy, id: question}.to change(Question, :count).by(-1)
     end
 
     it "can't delete question as not author" do
-      sign_in another_user
-      expect { delete :destroy, id: question }.not_to change(Question, :count)
+      expect { delete :destroy, id: another_question }.not_to change(Question, :count)
     end
 
     it "redirects to index view" do

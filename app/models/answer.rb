@@ -1,4 +1,5 @@
 class Answer < ActiveRecord::Base
+  include Authority
   belongs_to :question
   belongs_to :user
   has_one :rating, as: :rateable
@@ -6,11 +7,4 @@ class Answer < ActiveRecord::Base
 
   validates :body, :user_id, :question_id, presence: true
 
-  def author?(user)
-    if self.user_id == user.id
-      return true
-    else
-      return false
-    end
-  end
 end

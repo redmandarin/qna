@@ -10,13 +10,20 @@ RSpec.describe Answer, :type => :model do
   it { should validate_presence_of :user_id }
   it { should validate_presence_of :question_id }
 
-  it "check author? with given user" do
-    user = create(:user)
-    another_user = create(:user)
-    question = create(:question, user: user)
-    answer = create(:answer, question: question, user: user)
+  describe "#author?" do
+    let(:user) { create(:user) }
+    let(:another_user) { create(:user) }
+    let(:question) { create(:question, user: user) }
+    let(:answer) { create(:answer, question: question, user: user) }
 
-    expect(answer.author?(another_user)).to eq(false)
-    expect(answer.author?(user)).to eq(true)
+    it "should return true" do
+      puts "hello"
+      puts answer.id
+      expect(answer.author?(user)).to eq(true)
+    end
+
+    it "should return false" do
+      expect(answer.author?(another_user)).to eq(false)
+    end
   end
 end

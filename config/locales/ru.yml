@@ -10,7 +10,7 @@ ru:
         body: "Ответ"
       user:
         name: "Имя"
-        email: "Имейл"
+        email: "Эл. почта"
         password: "Пароль"
         password_confirmation: "Подтверждение"
       question:

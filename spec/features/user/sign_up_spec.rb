@@ -9,7 +9,7 @@ feature 'User sign up', %q{
   scenario 'non User try to sign up' do
     visit new_user_registration_path
     fill_in 'Имя', with: 'My Name'
-    fill_in 'Имейл', with: 'email@mail.com'
+    fill_in 'Эл. почта', with: 'email@mail.com'
     fill_in 'Пароль', with: '12345678'
     fill_in 'Подтверждение', with: '12345678'
     click_on 'Зарегистрироваться'
