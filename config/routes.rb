@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: "questions#index"
   devise_for :users, path: "u"
+
+  get 'tags/:tag', to: 'questions#index', as: 'tag'
   
   resources :questions do
     resources :answers

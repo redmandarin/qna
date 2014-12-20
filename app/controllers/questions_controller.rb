@@ -4,7 +4,11 @@ class QuestionsController < ApplicationController
   before_action :authorize, only: [:edit, :update, :destroy]
 
   def index
-    @questions = Question.all.includes(:answers).order(created_at: :desc)
+    if params[:tag]
+      @questions = Question.tagged_with(params[:tag])
+    else
+      @questions = Question.all.includes(:answers).order(created_at: :desc)
+    end
   end
 
   def show
@@ -49,7 +53,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, :tag_list)
   end
 
   def authorize

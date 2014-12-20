@@ -19,10 +19,13 @@ feature "Edit Question", %{
     click_on 'редактировать'
     fill_in 'Заголовок', with: "New"
     fill_in 'Вопрос', with: "Brand New"
+    fill_in 'Список тегов', with: "another1, another2"
     click_on 'Сохранить вопрос'
 
     expect(page).to have_content('New')
     expect(page).to have_content('Brand New')
+    expect(page).to have_content('another1')
+    expect(page).to have_content('another2')
     expect(page).not_to have_content(title)
     expect(page).not_to have_content(body)
     expect(current_path).to eq(question_path(question))

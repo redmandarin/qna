@@ -25,4 +25,28 @@ RSpec.describe Question, :type => :model do
       expect(question.author?(another_user)).to eq(false)
     end
   end
+
+  describe "Tag" do
+    let(:question) { create(:question) }
+    tag_list = "tag1, tag2"
+
+    it "#tags_before_create" do
+      question.tag_list=(tag_list)
+
+      expect(question.tags[0].name).to eq("tag1")
+      expect(question.tags[1].name).to eq("tag2")
+    end
+
+    it "#tag_list" do
+      question.tag_list=(tag_list)
+
+      expect(question.tag_list).to eq("tag1, tag2")
+    end
+
+    it ".tagged_with" do
+      question = create(:question, tag_list: "tag1, tag2")
+
+      expect(Question.tagged_with("tag1")).to match_array([question])
+    end
+  end
 end

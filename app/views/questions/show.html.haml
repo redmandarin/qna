@@ -3,7 +3,9 @@
 %p
   Автор: 
   = User.find(@question.user_id).name
-- if @question.user_id == current_user.id
+  Список тегов:
+  = tag_links(@question.tag_list)
+- if current_user && @question.user_id == current_user.id
   %div.actions
     = link_to 'удалить вопрос', question_path(@question), method: :delete
     | 

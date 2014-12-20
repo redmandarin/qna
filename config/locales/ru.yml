@@ -16,6 +16,7 @@ ru:
       question:
         title: "Заголовок"
         body: "Вопрос"
+        tag_list: "Список тегов"
   activerecord:
     attributes:
       answer:

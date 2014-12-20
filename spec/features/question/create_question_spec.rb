@@ -15,12 +15,12 @@ feature 'Create question', %q{
     click_on 'Задать вопрос'
     fill_in 'Заголовок', with: 'Test question'
     fill_in 'Вопрос', with: 'Тело вопроса'
-    # fill_in 'Теги', with: 'tag1, tag2'
+    fill_in 'Список тегов', with: 'tag1, tag2'
     click_on 'Сохранить вопрос'
 
     expect(page).to have_content("Ваш вопрос успешно создан.")
-    # expect(page).to have_content("tag1")
-    # expect(page).to have_content("tag2")
+    expect(page).to have_content("tag1")
+    expect(page).to have_content("tag2")
     expect(page).to have_content("Автор: #{user.name}")
   end
 
