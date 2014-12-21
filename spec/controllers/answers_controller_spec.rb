@@ -58,7 +58,7 @@ RSpec.describe AnswersController, :type => :controller do
   describe "POST #create" do
     context "with valid attributes" do
       it "saves the new answer in the database" do
-        expect { post :create, question_id: question, answer: attributes_for(:answer) }.to change(Answer, :count)
+        expect { post :create, question_id: question, answer: attributes_for(:answer) }.to change(question.answers, :count).by(1)
       end
 
       it "redirect to question path" do
@@ -74,7 +74,7 @@ RSpec.describe AnswersController, :type => :controller do
 
       it "re-render new view" do
         post :create, question_id: question, answer: attributes_for(:invalid_answer)
-        expect(response).to render_template(:new)
+        expect(response).to redirect_to(question_path(question))
       end
     end
 
