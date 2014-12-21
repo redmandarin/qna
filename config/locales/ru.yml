@@ -1,6 +1,7 @@
 # ru.devise.sessions.user.signed_out
 ru:
   answer_body: "Ответ"
+  answer_submit: "Сохранить ответ"
   error:
     one: "ошибка"
     other: "ошибки"
@@ -14,6 +15,9 @@ ru:
         password: "Пароль"
         password_confirmation: "Подтверждение"
       question:
+        answer:
+          submit: "Сохранить ответ"
+          body: "Ответ"
         title: "Заголовок"
         body: "Вопрос"
         tag_list: "Список тегов"
@@ -22,6 +26,8 @@ ru:
       answer:
         body: "Ответ"
       question:
+        answer:
+          body: "Ответ"
         title: "Заголовок"
         body: "Вопрос"
     errors:
