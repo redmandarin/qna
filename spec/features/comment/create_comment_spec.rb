@@ -1,4 +1,4 @@
-# require 'rails_helper'
+# require_relative "../feature_helper"
 
 # feature "User answer", %q{
 #   In order to commenting questions and answers

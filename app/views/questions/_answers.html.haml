@@ -3,6 +3,6 @@
   - if answer.user_id
     Автор:
     = User.find(answer.user_id).name
-  - if signed_in? && answer.author?(current_user)
+  - if signed_in? && answer.author?(current_user) && answer.id.present?
     %p= link_to 'редактировать ответ', edit_question_answer_path(@question, answer)
   %hr

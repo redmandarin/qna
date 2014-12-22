@@ -14,6 +14,7 @@
 = form_for [@question, @answer], remote: true do |f|
   = f.label :body, t('answer_body')
   = f.text_area :body
+  .answer-errors
   = f.submit t('answer_submit')
 
 %hr

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative "../feature_helper"
 
 feature "Edit Question", %{
   In order to correct errors

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative "../feature_helper"
 
 feature 'User sign out', %q{
   In order to be able close working session

@@ -1,4 +1,4 @@
-require "rails_helper"
+require_relative "../feature_helper"
 
 feature "Create Answer", %q{
   In order to help people with theirs problems
@@ -8,10 +8,10 @@ feature "Create Answer", %q{
 
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
-  given(:question) { create(:question, user: user) }
+  given!(:question) { create(:question, user: user) }
 
   scenario "Authenticated user create answer", js: true do
-    sign_in(another_user)
+    sign_in(user)
     visit question_path(question)
 
     fill_in "Ответ", with: "Some text"
@@ -24,4 +24,12 @@ feature "Create Answer", %q{
     end
   end
 
+  scenario 'User try to create invalid answer', js: true do
+    sign_in(user)
+    visit question_path(question)
+
+    click_on 'Сохранить ответ'
+
+    expect(page).to have_content('Ответ не может быть пустым')
+  end
 end
