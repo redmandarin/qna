@@ -1,33 +1,46 @@
-require_relative "../feature_helper"
+require_relative '../feature_helper.rb'
 
-feature "edit Answer", %q{
-  In order to correct errors
-  As an User
-  I want to be able to edit an answer
+feature 'Answer editing', %q{
+  In order to fix mistake
+  As an author of the Answer
+  I want to be able to edit my answer
 } do
 
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
-  given(:question) { create(:question, user_id: user.id) }
-  given(:answer) { create(:answer, question_id: question.id, user_id: user.id) }
+  given!(:question) { create(:question, user: user) }
+  given!(:answer) { create(:answer, user: user, question: question) }
 
-  scenario "edit answer as author" do
-    sign_in(user)
-    answer
+  scenario 'Unauthenticated user try to edit the answer' do
     visit question_path(question)
 
-    click_on 'редактировать ответ'
-    fill_in 'Ответ', with: "New text"
-    click_on 'Сохранить ответ'
-
-    expect(page).to have_content('New text')
+    expect(page).to_not have_link('редактировать ответ')
   end
 
-  scenario "edit as non author" do
-    sign_in(another_user)
-    answer
-    visit question_path(question)
+  describe 'Authenticated user' do
+    before do
+      sign_in(user)
+      visit question_path(question)
+    end
 
-    expect(page).not_to have_content("редактировать ответ")
+    scenario 'sees link to edit' do
+      within('.answers') do
+        expect(page).to have_link('редактировать ответ')
+      end
+    end
+
+    scenario 'try to edit his answer', js: true do
+      within '.answers' do
+        click_on('редактировать ответ')
+        fill_in 'Ответ', with: "edited answer"
+        click_on 'Сохранить ответ'
+
+        expect(page).not_to have_content answer.body
+        expect(page).to have_content 'edited answer'
+        expect(page).to_not have_selector('textarea')
+      end
+    end
+
+    scenario 'try to edit not his answer'
   end
 end

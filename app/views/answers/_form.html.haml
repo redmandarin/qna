@@ -1,5 +1,5 @@
-= render 'shared/error_messages', target: @answer
-= form_for [@question, @answer] do |f|
+- render 'shared/error_messages', target: @answer
+= form_for [question, answer], remote: true do |f|
   %fieldset
     = f.label :body, I18n.t('answer_body')
     .answer-errors

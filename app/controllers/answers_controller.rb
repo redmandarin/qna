@@ -21,11 +21,7 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if @answer.update(answer_params)
-      redirect_to question_path(params[:question_id])
-    else
-      render :edit
-    end
+    @answer.update(answer_params)
   end
 
   private

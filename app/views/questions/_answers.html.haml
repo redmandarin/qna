@@ -1,8 +1,14 @@
-- @question.answers.each do |answer|
-  = answer.body
-  - if answer.user_id
-    Автор:
-    = User.find(answer.user_id).name
-  - if signed_in? && answer.author?(current_user) && answer.id.present?
-    %p= link_to 'редактировать ответ', edit_question_answer_path(@question, answer)
-  %hr
+- @question.answers.order(created_at: :asc).each do |answer|
+  - if answer.persisted?
+    = answer.body
+    - if signed_in?
+      %p= link_to 'редактировать ответ', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+      %p
+        = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+          %fieldset
+            = f.label :body, I18n.t('answer_body')
+            .answer-errors
+            = f.text_area :body, rows: 10
+            = f.submit "Сохранить ответ"
+    %hr
+

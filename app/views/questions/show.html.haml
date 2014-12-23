@@ -11,16 +11,14 @@
     | 
     = link_to 'редактировать', edit_question_path(@question)
 
-= form_for [@question, @answer], remote: true do |f|
-  = f.label :body, t('answer_body')
-  = f.text_area :body
-  .answer-errors
-  = f.submit t('answer_submit')
+.new_answer_form
+  = form_for [@question, @answer], remote: true do |f|
+    = f.label :body, t('answer_body')
+    = f.text_area :body
+    .answer-errors
+    = f.submit t('answer_submit')
 
 %hr
 .mute Ответы:
 .answers
   = render 'answers'
-
-  
-= button_to "Ответить", new_question_answer_path(@question), method: "get"

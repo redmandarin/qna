@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, :type => :controller do
-  let(:question) { create(:question) }
+  let!(:question) { create(:question) }
   let(:user) { create(:user) }
   let(:answer) { create(:answer, question: question, user: user) }
   let(:another_answer) { create(:answer) }
@@ -90,40 +90,41 @@ RSpec.describe AnswersController, :type => :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "assigns requested answer to @answer" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id)
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :js
         expect(assigns(:answer)).to eq(answer)
       end
 
       it "changes answer attributes" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id)
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new body", quesition_id: question.id), format: :js
         answer.reload
-        expect(answer.body).to eq("brand new title")
+        expect(answer.body).to eq("brand new body")
       end
 
-      it "redirects to parent question vies" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id)
-        expect(response).to redirect_to(question_path(question))
+      it "assigns the question" do
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :js
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it "render update template" do
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :js
+        expect(response).to render_template(:update)
       end
     end
 
     context "not an author" do
       it "redirects to question" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id)
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id), format: :js
 
         expect(answer.body).not_to eq("brand new title")
       end
     end
 
     context "with invalid attributes" do
-      before { patch :update, question_id: question, id: answer, answer: { body: nil } }
+      before { patch :update, question_id: question, id: answer, answer: { body: nil }, format: :js }
 
       it "does not change answer attributes" do
         answer.reload
         expect(answer.body).to eq("MyText")
-      end
-
-      it "re-render edit view" do
-        expect(response).to render_template(:edit)
       end
     end
 
