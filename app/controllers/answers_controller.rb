@@ -13,11 +13,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer = @question.answers.build(answer_params.merge(user: current_user))
-    if @answer.save
-      #redirect_to question_path(@answer.question)
-    else
-      #redirect_to question_path(@answer.question)
-    end
+    @answer.save
   end
 
   def update

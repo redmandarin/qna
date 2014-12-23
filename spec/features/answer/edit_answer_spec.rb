@@ -41,6 +41,14 @@ feature 'Answer editing', %q{
       end
     end
 
-    scenario 'try to edit not his answer'
+    scenario 'try to edit not his answer', js: true do
+      click_on 'выйти'
+      sign_in(another_user)
+      visit question_path(question)
+      
+      within '.answers' do
+        expect(page).not_to have_link('редактировать ответ')
+      end
+    end
   end
 end
