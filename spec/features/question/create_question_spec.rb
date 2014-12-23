@@ -8,20 +8,31 @@ feature 'Create question', %q{
 
   given(:user) { create(:user) }
 
-  scenario 'Authenticated user creates questions' do
-    sign_in(user)
+  describe 'Authenticated user' do
+    before do
+      sign_in(user)
+      visit questions_path
+    end
 
-    visit questions_path
-    click_on 'Задать вопрос'
-    fill_in 'Заголовок', with: 'Test question'
-    fill_in 'Вопрос', with: 'Тело вопроса'
-    fill_in 'Список тегов', with: 'tag1, tag2'
-    click_on 'Сохранить вопрос'
+    scenario 'creates questions' do
+      click_on 'Задать вопрос'
+      fill_in 'Заголовок', with: 'Test question'
+      fill_in 'Вопрос', with: 'Тело вопроса'
+      fill_in 'Список тегов', with: 'tag1, tag2'
+      click_on 'Сохранить вопрос'
 
-    expect(page).to have_content("Ваш вопрос успешно создан.")
-    expect(page).to have_content("tag1")
-    expect(page).to have_content("tag2")
-    expect(page).to have_content("Автор: #{user.name}")
+      expect(page).to have_content("Ваш вопрос успешно создан.")
+      expect(page).to have_content("tag1")
+      expect(page).to have_content("tag2")
+      expect(page).to have_content("Автор: #{user.name}")
+    end
+
+    scenario 'Authenticated user try to create invalid quesiton' do
+      click_on 'Задать вопрос'
+      click_on 'Сохранить вопрос'
+
+      expect(page).to have_content('Вопрос не может быть пустым')
+    end
   end
 
   scenario 'Non-authenticated user try to create question' do

@@ -1,0 +1,20 @@
+%h4= @question.title
+%p= @question.body
+- if user_signed_in? && @question.author?(current_user)
+  %div.actions
+    = link_to 'удалить вопрос', question_path(@question), method: :delete
+    | 
+    = link_to 'редактировать', '', class: 'edit-question-link'
+%p
+  Автор: 
+  = User.find(@question.user_id).name
+  Список тегов:
+  = tag_links(@question.tag_list)
+  = form_for @question, remote: true do |f|
+    = f.label :title
+    = f.text_field :title
+    = f.label :body
+    = f.text_area :body
+    = f.label :tag_list
+    = f.text_field :tag_list
+    = f.submit "Сохранить вопрос"

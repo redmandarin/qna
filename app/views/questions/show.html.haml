@@ -1,15 +1,5 @@
-%h4= @question.title
-%p= @question.body
-%p
-  Автор: 
-  = User.find(@question.user_id).name
-  Список тегов:
-  = tag_links(@question.tag_list)
-- if current_user && @question.user_id == current_user.id
-  %div.actions
-    = link_to 'удалить вопрос', question_path(@question), method: :delete
-    | 
-    = link_to 'редактировать', edit_question_path(@question)
+.question
+  = render 'question'
 
 .new_answer_form
   = form_for [@question, @answer], remote: true do |f|
