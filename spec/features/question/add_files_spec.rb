@@ -21,6 +21,5 @@ feature 'Add files to question', %q{
     click_on 'Сохранить вопрос'
 
     expect(page).to have_link('spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb')
-    
   end
 end

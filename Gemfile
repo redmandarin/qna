@@ -32,6 +32,7 @@ gem 'neat'
 gem 'bitters'
 gem 'devise'
 gem 'carrierwave'
+gem 'remotipart'
 
 group :test, :development do
   gem 'rspec-rails'

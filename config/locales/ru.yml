@@ -7,6 +7,8 @@ ru:
     other: "ошибки"
   helpers:
     label:
+      attachments:
+        file: "Файл"
       attachment:
         file: "Файл"
       answer:
