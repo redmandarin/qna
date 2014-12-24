@@ -5,7 +5,7 @@ class Question < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
-  has_many :attachments
+  has_many :attachments, as: :attachmentable
   has_one :rating, as: :rateable, dependent: :destroy
   belongs_to :user
 

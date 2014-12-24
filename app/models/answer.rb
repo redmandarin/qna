@@ -4,6 +4,9 @@ class Answer < ActiveRecord::Base
   belongs_to :user
   has_one :rating, as: :rateable
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :attachments, as: :attachmentable
+
+  accepts_nested_attributes_for :attachments
 
   validates :body, :user_id, :question_id, presence: true
 
