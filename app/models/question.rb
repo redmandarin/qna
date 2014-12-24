@@ -5,10 +5,13 @@ class Question < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
+  has_many :attachments
   has_one :rating, as: :rateable, dependent: :destroy
   belongs_to :user
 
   validates :title, :body, :user_id, presence: true
+
+  accepts_nested_attributes_for :attachments
 
   def self.tagged_with(name)
     Tag.where(name: name).first.questions

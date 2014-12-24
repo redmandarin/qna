@@ -31,6 +31,7 @@ gem 'bourbon'
 gem 'neat'
 gem 'bitters'
 gem 'devise'
+gem 'carrierwave'
 
 group :test, :development do
   gem 'rspec-rails'
