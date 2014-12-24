@@ -11,6 +11,7 @@
   Список тегов:
   = tag_links(@question.tag_list)
   = form_for @question, remote: true do |f|
+    .question-errors
     = f.label :title
     = f.text_field :title
     = f.label :body

@@ -62,7 +62,15 @@ feature "Edit Question", %{
     end
 
     scenario 'try to edit question with invalid attr.', js: true do
+      within '.question' do
+        click_on 'редактировать'
+        fill_in 'Вопрос', with: ""
+        fill_in 'Заголовок', with: ""
+        click_on 'Сохранить вопрос'
 
+        expect(page).to have_content('Вопрос не может быть пустым.')
+        expect(page).to have_content('Заголовок не может быть пустым.')
+      end
     end
   end
 
