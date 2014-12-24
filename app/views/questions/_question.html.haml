@@ -1,5 +1,9 @@
 %h4= @question.title
 %p= @question.body
+%p Файлы:
+%ul
+  - @question.attachments.each do |a|
+    %li= a.file.file.filename
 - if user_signed_in? && @question.author?(current_user)
   %div.actions
     = link_to 'удалить вопрос', question_path(@question), method: :delete

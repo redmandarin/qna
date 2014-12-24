@@ -17,7 +17,7 @@ feature 'Add files to question', %q{
     fill_in 'Заголовок', with: 'Test question'
     fill_in 'Вопрос', with: 'Тело вопроса'
     fill_in 'Список тегов', with: 'tag1, tag2'
-    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+    attach_file 'Файл', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Сохранить вопрос'
 
     expect(page).to have_content('spec_helper.rb')
