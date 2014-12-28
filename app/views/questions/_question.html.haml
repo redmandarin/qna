@@ -3,7 +3,8 @@
 %p Файлы:
 %ul
   - @question.attachments.each do |a|
-    %li= link_to a.file.identifier, a.file.url
+    - if a.file.present?
+      %li= link_to a.file.file.filename, a.file.url
 - if user_signed_in? && @question.author?(current_user)
   %div.actions
     = link_to 'удалить вопрос', question_path(@question), method: :delete

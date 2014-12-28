@@ -11,7 +11,7 @@ class Question < ActiveRecord::Base
 
   validates :title, :body, :user_id, presence: true
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
   def self.tagged_with(name)
     Tag.where(name: name).first.questions
