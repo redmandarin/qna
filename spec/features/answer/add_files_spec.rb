@@ -23,4 +23,14 @@ feature 'Add files to answer', %q{
       expect(page).to have_link('spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb')
     end
   end
+
+  scenario 'User adds multiple files', js: true do
+    fill_in 'Ответ', with: "Some text"
+    click_on "Добавить файл"
+    attach_files(".fields")
+    click_on 'Сохранить ответ'
+    
+    expect(page).to have_link('spec_helper', href: '/uploads/attachment/file/1/spec_helper.rb')
+    expect(page).to have_link('rails_helper', href: '/uploads/attachment/file/2/rails_helper.rb')
+  end
 end

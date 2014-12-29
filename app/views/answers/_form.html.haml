@@ -1,10 +1,12 @@
 - render 'shared/error_messages', target: @answer
 
-= form_for [@question, @answer], remote: true do |f|
+= nested_form_for [@question, @answer], remote: true do |f|
   = f.label :body, t('answer_body')
   = f.text_area :body
   = f.fields_for :attachments do |a|
     = a.label :file
     = a.file_field :file
+    = a.link_to_remove "Удалить файл"
+  = f.link_to_add "Добавить файл", :attachments
   .answer-errors
   = f.submit t('answer_submit')
