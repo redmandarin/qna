@@ -27,54 +27,26 @@ RSpec.describe AnswersController, :type => :controller do
     end
   end
 
-  describe "GET #edit" do
-    before { get :edit, question_id: question, id: answer }
-
-    it "assigns the requested answer to @answer" do
-      expect(assigns(:answer)).to eq(answer)
-    end
-
-    it "renders edit view" do
-      expect(response).to render_template(:edit)
-    end
-
-    context "not an author" do
-      it "redirects to question" do
-        get :edit, question_id: question, id: another_answer
-        
-        expect(response).to redirect_to(question_path(question))
-      end
-    end
-
-    context "not signed in" do
-      it "redirects to sign in" do
-        sign_out user
-        get :edit, question_id: question, id: answer
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-  end
-
   describe "POST #create" do
     context "with valid attributes" do
       it "saves the new answer in the database" do
-        expect { post :create, question_id: question, answer: attributes_for(:answer), format: :js }.to change(question.answers, :count).by(1)
+        expect { post :create, question_id: question, answer: attributes_for(:answer), format: :json }.to change(question.answers, :count).by(1)
       end
 
-      it "render create template" do
-        post :create, question_id: question, answer: attributes_for(:answer, question_id: question.id), format: :js
-        expect(response).to render_template(:create)
+      it "200" do
+        post :create, question_id: question, answer: attributes_for(:answer, question_id: question.id), format: :json
+        expect(response.status).to eq(200)
       end
     end
 
     context "with invalid attributes" do
       it "does not save answer" do
-        expect { post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js }.not_to change(Answer, :count)
+        expect { post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :json }.not_to change(Answer, :count)
       end
 
-      it "render create template" do
-        post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js
-        expect(response).to render_template(:create)
+      it "422 error" do
+        post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :json
+        expect(response.status).to eq(422)
       end
     end
 
@@ -90,37 +62,37 @@ RSpec.describe AnswersController, :type => :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "assigns requested answer to @answer" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :js
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :json
         expect(assigns(:answer)).to eq(answer)
       end
 
       it "changes answer attributes" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new body", quesition_id: question.id), format: :js
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new body", quesition_id: question.id), format: :json
         answer.reload
         expect(answer.body).to eq("brand new body")
       end
 
       it "assigns the question" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :js
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :json
         expect(assigns(:question)).to eq(question)
       end
 
-      it "render update template" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :js
-        expect(response).to render_template(:update)
+      it "200" do
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :json
+        expect(response.status).to eq(200)
       end
     end
 
     context "not an author" do
       it "redirects to question" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id), format: :js
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id), format: :json
 
         expect(answer.body).not_to eq("brand new title")
       end
     end
 
     context "with invalid attributes" do
-      before { patch :update, question_id: question, id: answer, answer: { body: nil }, format: :js }
+      before { patch :update, question_id: question, id: answer, answer: { body: nil }, format: :json }
 
       it "does not change answer attributes" do
         answer.reload

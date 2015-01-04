@@ -4,7 +4,10 @@
 %ul
   - @question.attachments.each do |a|
     - if a.file.present?
-      %li= link_to a.file.file.filename, a.file.url
+      %li
+        = link_to a.file.file.filename, a.file.url
+        –
+        = link_to "удалить файл", "/attachments/#{a.id}", method: :delete, remote: true, data: { format: :json }, class: "destroy-question-file"
 - if user_signed_in? && @question.author?(current_user)
   %div.actions
     = link_to 'удалить вопрос', question_path(@question), method: :delete
@@ -15,7 +18,7 @@
   = User.find(@question.user_id).name
   Список тегов:
   = tag_links(@question.tag_list)
-  = form_for @question, remote: true do |f|
+  = nested_form_for @question, remote: true do |f|
     .question-errors
     = f.label :title
     = f.text_field :title
@@ -23,4 +26,9 @@
     = f.text_area :body
     = f.label :tag_list
     = f.text_field :tag_list
+    = f.fields_for :attachments do |a|
+      = a.label :file
+      = a.file_field :file, name: "answer"
+      = a.link_to_remove "Удалить файл"
+    = f.link_to_add "Добавить файл", :attachments, class: "add-file-to-question"
     = f.submit "Сохранить вопрос"

@@ -8,16 +8,25 @@ class AnswersController < ApplicationController
     @answer = Answer.new
   end
 
-  def edit
-  end
-
   def create
     @answer = @question.answers.build(answer_params.merge(user: current_user))
-    @answer.save
+    respond_to do |format|
+      if @answer.save
+        format.json { render json: @answer.to_json(include: :attachments) }
+      else
+        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
-    @answer.update(answer_params)
+    respond_to do |format|
+      if @answer.update(answer_params)
+        format.json { render json: @answer.to_json(include: :attachments) }
+      else
+        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

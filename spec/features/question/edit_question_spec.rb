@@ -19,11 +19,15 @@ feature "Edit Question", %{
       tags = question.tags
     end
 
+    scenario "can delete file", js: true do
+      create_question_with_one_file
+      click_on 'удалить файл'
+
+      expect(page).not_to have_link("spec_helper.rb")
+    end
+
     scenario "auhtor of the question edit question", js: true do
       click_on 'редактировать'
-
-      expect(current_path).not_to eq(edit_question_path(question))
-
       fill_in 'Заголовок', with: "New"
       fill_in 'Вопрос', with: "Brand New"
       fill_in 'Список тегов', with: "another1, another2"

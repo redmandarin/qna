@@ -108,12 +108,6 @@ RSpec.describe QuestionsController, :type => :controller do
         expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
       end
 
-      # it "saves with tags" do
-      #   post :create, question: attributes_for(:question, tag_list: "tag1, tag2")
-      #   expect(assigns(:question).tags[0].name).to eq(tag1)
-      #   expect(assigns(:question).tags[1].name).to eq(tag2)
-      # end
-
       it "redirects to show view" do
         post :create, question: attributes_for(:question)
         expect(response).to redirect_to(question_path(assigns(:question)))

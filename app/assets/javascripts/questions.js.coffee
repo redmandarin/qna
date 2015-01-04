@@ -7,3 +7,6 @@ $ ->
     $(this).hide()
     $('.edit_question').show()
     e.preventDefault()
+
+  $('.question').on 'ajax:success', '.destroy-question-file', ->
+    $(this).parent().hide()

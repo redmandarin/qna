@@ -10,4 +10,13 @@ FactoryGirl.define do
     body nil
   end
 
+  factory :question_with_file, class: Question do
+    title "Some title"
+    body "Some body"
+    user
+
+    after(:build) do |question, eval|
+        question.attachments << FactoryGirl.build(:attachment, attachmentable: question)
+    end
+  end
 end

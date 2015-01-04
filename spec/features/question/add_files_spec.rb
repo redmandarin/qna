@@ -28,7 +28,7 @@ feature 'Add files to question', %q{
     fill_in 'Вопрос', with: 'Тело вопроса'
     fill_in 'Список тегов', with: 'tag1, tag2'
     click_link 'Добавить файл'
-    attach_files(".fields")
+    attach_files(".new_question", ".fields")
     click_on 'Сохранить вопрос'
     
     expect(page).to have_link('spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb')

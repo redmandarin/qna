@@ -8,6 +8,6 @@ class Answer < ActiveRecord::Base
 
   validates :body, :user_id, :question_id, presence: true
   
-  accepts_nested_attributes_for :attachments, allow_destroy: true
+  accepts_nested_attributes_for :attachments, allow_destroy: true, :reject_if => lambda { |a| a['file'].blank? }
 
 end

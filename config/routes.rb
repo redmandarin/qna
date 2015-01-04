@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root to: "questions#index"
   devise_for :users, path: "u"
 
+  delete 'attachments/:id', to: 'attachments#destroy'
+  
   get 'tags/:tag', to: 'questions#index', as: 'tag'
   
   resources :questions do
