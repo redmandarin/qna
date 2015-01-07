@@ -10,6 +10,20 @@ FactoryGirl.define do
     body nil
   end
 
+  factory :question_with_answer, class: Question do
+    title "MyTitle"
+    body "MyBody"
+    user
+    answers { [create(:answer)] }
+  end
+
+  factory :question_with_comment, class: Question do
+    title "MyTitle"
+    body "MyBody"
+    user
+    comments { [create(:comment)] }
+  end
+
   factory :question_with_file, class: Question do
     title "Some title"
     body "Some body"

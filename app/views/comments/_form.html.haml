@@ -1,0 +1,6 @@
+= form_for [target, Comment.new], remote: true do |f|
+  %fieldset
+    .comment-errors
+    = f.label :body
+    = f.text_area :body
+    = f.submit "Сохранить комментарий"

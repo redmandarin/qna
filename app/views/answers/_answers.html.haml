@@ -16,6 +16,7 @@
               = a.label :file
               = a.file_field :file
               = a.link_to_remove "удалить файл"
-            = f.link_to_add 'Добавить файл', :attachments, class: "add-file-to-question"
+            = f.link_to_add 'Добавить файл', :attachments, data: { :'blueprint-id' => "answer_attachments_fields_blueprint" }
+            = render 'answers/blueprint_answer_file'
             = f.submit "Сохранить ответ"
       %hr

@@ -1,16 +1,44 @@
 
 div.container {
   @include outer-container;
+  word-wrap: break-word;
 }
 
 .mute { color: #777; }
 
 .right { text-align: right; float: right; }
 
-.edit_answer, .edit_question { display: none; }
+.edit_answer, .edit_question, .new_comment { display: none; }
 
+hr { margin: .5em 0; }
 
-.heading { margin-bottom: .5em }
+.comment {
+  hr { 
+    margin: .3em 0; 
+  }
+  .comment-body, .comment-author { padding: 0 1em; }
+  text-align: right;
+} 
+
+.comments{
+  margin-bottom: 1em;
+}
+
+.actions { text-align: right; }
+
+header, .question-author { 
+  text-align: right;
+}
+
+.tag {
+  border: 2px solid #43bac9;
+  padding: .1em .5em .3em .5em;
+}
+
+.notice {
+  border: 2px solid #43bac9;
+  padding: 7px;
+}
 
 .error-explanation {
   border: 2px solid #c95243;

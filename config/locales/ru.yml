@@ -1,4 +1,3 @@
-# ru.devise.sessions.user.signed_out
 ru:
   answer_body: "Ответ"
   answer_submit: "Сохранить ответ"
@@ -7,6 +6,8 @@ ru:
     other: "ошибки"
   helpers:
     label:
+      comment:
+        body: "Комментарий"
       attachments:
         file: "Файл"
       attachment:
@@ -27,6 +28,8 @@ ru:
         tag_list: "Список тегов"
   activerecord:
     attributes:
+      comment: 
+        body: "Комментарий"
       answer:
         body: "Ответ"
       question:
@@ -36,6 +39,10 @@ ru:
         body: "Вопрос"
     errors:
       models:
+        comment:
+          attributes:
+            body:
+              blank: "не может быть пустым."
         answer:
           attributes:
             body:

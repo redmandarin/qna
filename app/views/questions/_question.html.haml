@@ -10,14 +10,14 @@
         = link_to "удалить файл", "/attachments/#{a.id}", method: :delete, remote: true, data: { format: :json }, class: "destroy-question-file"
 - if user_signed_in? && @question.author?(current_user)
   %div.actions
-    = link_to 'удалить вопрос', question_path(@question), method: :delete
-    | 
-    = link_to 'редактировать', '', class: 'edit-question-link'
+    = link_to '[удалить вопрос]', question_path(@question), method: :delete
+    = link_to '[редактировать]', '', class: 'edit-question-link'
 %p
-  Автор: 
-  = User.find(@question.user_id).name
-  Список тегов:
-  = tag_links(@question.tag_list)
+  .question-author
+    Автор: 
+    = User.find(@question.user_id).name
+  - @question.tags.each do |tag|
+    = link_to tag.name, tag_path(tag.name), class: "tag"
   = nested_form_for @question, remote: true do |f|
     .question-errors
     = f.label :title

@@ -17,9 +17,8 @@ $ ->
       parts = name.split('/')
       name = parts[parts.length-1]
       files += "<li><a href='" + value.file["url"] + "'>" + name + "</li>"
-    console.log(files)
     $('.answers').append("<div class='answer'><p>" + answer.body + "<ul class='answer-files'>" + files + "</ul></p>" + "<p><a class='edit-answer-link' data-answer-id='#{answer.id}'' href target='_self'>редактировать ответ</a></p><hr/></div>")
-  .bind 'ajax:error', (e, xhr, status, erros) ->
+  .bind 'ajax:error', (e, xhr, status, errors) ->
     errors = $.parseJSON(xhr.responseText)
     $.each errors, (index, value) ->
       $('.answer-errors').append(value)
@@ -37,4 +36,6 @@ $ ->
       files += "<li><a href='" + value.file["url"] + "'>" + name + "</li>"
     $(this).closest('.answer').children('.answer-files').html(files)
   .bind 'ajax:error', (e, xhr, status, errors) ->
-    alert("Fix_Me!")
+    errors = $.parseJSON(xhr.responseText)
+    $.each errors, (index, value) ->
+      $(e.target).find('.answer-errors').append(value)

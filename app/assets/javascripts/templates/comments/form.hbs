@@ -1,0 +1,11 @@
+<form class="edit_comment" action="/{{ parent }}/{{ parent_id }}/comments/{{ target_id }}" data-remote="true" data-type="json" id="edit_comment" method="post">
+  <div style="display: none">
+    <input name="_method" type="hidden" value="patch">
+  </div>
+  <fieldset>
+    <div class="comment-errors"></div>
+    <label for="comment_body">Комментарий</label>
+    <textarea id="comment_body" name="comment[body]">{{ body }}</textarea>
+    <input name="commit" type="submit" value="Сохранить комментарий">
+  </fieldset>
+</form>

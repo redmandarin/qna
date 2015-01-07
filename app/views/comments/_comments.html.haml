@@ -1,0 +1,12 @@
+.comments
+  - @question.comments.each do |comment|
+    .comment{id: comment.id}
+      .comment-body= comment.body
+      .comment-author
+        Автор: 
+        = User.find(comment.user_id).name
+      - if user_signed_in? && comment.author?(current_user)
+        = link_to 'редактировать', '', class: 'edit-comment-link', data: { action: "edit", parent_name: "questions", target_id: comment.id, parent_id: @question.id }
+    %hr
+= render 'comments/form', target: @question
+= link_to "Добавить комментарий", '', class: 'add-comment' if user_signed_in?

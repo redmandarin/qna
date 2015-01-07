@@ -34,6 +34,8 @@ gem 'devise'
 gem 'carrierwave'
 gem 'remotipart'
 gem "nested_form"
+gem 'handlebars_assets'
+gem 'active_model_serializers'
 
 group :test, :development do
   gem 'rspec-rails'
