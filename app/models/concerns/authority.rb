@@ -1,7 +1,7 @@
 module Authority
   extend ActiveSupport::Concern
 
-  def author?(user)
-    self.user == user
+  def author?(object)
+    object.user == self
   end
 end

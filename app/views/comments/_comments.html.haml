@@ -5,7 +5,7 @@
       .comment-author
         Автор: 
         = User.find(comment.user_id).name
-      - if user_signed_in? && comment.author?(current_user)
+      - if user_signed_in? && current_user.author?(comment)
         = link_to 'редактировать', '', class: 'edit-comment-link', data: { action: "edit", parent_name: "questions", target_id: comment.id, parent_id: @question.id }
     %hr
 = render 'comments/form', target: @question

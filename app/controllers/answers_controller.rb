@@ -44,7 +44,7 @@ class AnswersController < ApplicationController
   end
 
   def authorize
-    unless @answer.author?(current_user)
+    unless current_user.author?(@answer)
       redirect_to question_path(@question)
       flash[:alert] = "У вас нехватает прав для выполнения этого действия."
     end

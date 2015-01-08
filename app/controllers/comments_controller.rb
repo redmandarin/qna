@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
 
 
   def create
-    @comment = @target.comments.build(comment_params.merge(user_id: current_user.id))
+    @comment = @target.comments.build(comment_params.merge(user: current_user))
     respond_to do |format|
       if @comment.save
         format.json { render json: @comment }

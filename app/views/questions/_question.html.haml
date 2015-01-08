@@ -8,7 +8,7 @@
         = link_to a.file.file.filename, a.file.url
         –
         = link_to "удалить файл", "/attachments/#{a.id}", method: :delete, remote: true, data: { format: :json }, class: "destroy-question-file"
-- if user_signed_in? && @question.author?(current_user)
+- if user_signed_in? && current_user.author?(@question)
   %div.actions
     = link_to '[удалить вопрос]', question_path(@question), method: :delete
     = link_to '[редактировать]', '', class: 'edit-question-link'

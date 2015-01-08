@@ -22,11 +22,11 @@ RSpec.describe Answer, :type => :model do
     it "should return true" do
       puts "hello"
       puts answer.id
-      expect(answer.author?(user)).to eq(true)
+      expect(user.author?(answer)).to eq(true)
     end
 
     it "should return false" do
-      expect(answer.author?(another_user)).to eq(false)
+      expect(another_user.author?(answer)).to eq(false)
     end
   end
 end

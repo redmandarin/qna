@@ -21,11 +21,11 @@ RSpec.describe Question, :type => :model do
     let(:question) { create(:question, user: user) }
 
     it "should return true" do
-      expect(question.author?(user)).to eq(true)
+      expect(user.author?(question)).to eq(true)
     end
 
     it "should return false" do
-      expect(question.author?(another_user)).to eq(false)
+      expect(another_user.author?(question)).to eq(false)
     end
   end
 
