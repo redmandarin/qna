@@ -17,12 +17,13 @@ RSpec.describe QuestionsController, :type => :controller do
       expect(response).to render_template(:index)
     end
 
+    # Переделать 
     it "show questions by tag" do
       question1 = create(:question, tag_list: "tag1, tag2")
       question2 = create(:question, tag_list: "tag1")
-      get :index, tag: "tag1"
+      get :index, tag: "tag2"
 
-      expect(assigns(:questions)).to match_array([question1, question2])
+      expect(assigns(:questions)).to match_array([question1])
     end
   end
 

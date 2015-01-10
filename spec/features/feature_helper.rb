@@ -26,5 +26,6 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+    FileUtils.rm_rf(CarrierWave.root)
   end
 end
