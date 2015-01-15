@@ -1,4 +1,4 @@
-= form_for [target, Comment.new], remote: true do |f|
+= form_for [target, Comment.new], remote: true, data: { parent_name: target.class.name.downcase.pluralize } do |f|
   %fieldset
     .comment-errors
     = f.label :body

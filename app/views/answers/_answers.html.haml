@@ -19,4 +19,5 @@
             = f.link_to_add 'Добавить файл', :attachments, data: { :'blueprint-id' => "answer_attachments_fields_blueprint" }
             = render 'answers/blueprint_answer_file'
             = f.submit "Сохранить ответ"
+      = render 'comments/comments', target: answer
       %hr

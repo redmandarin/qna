@@ -6,11 +6,13 @@ Rails.application.routes.draw do
   
   get 'tags/:tag', to: 'questions#index', as: 'tag'
   
+  resources :answers do
+    resources :comments  
+  end
+
   resources :questions do
     resources :comments
-    resources :answers do
-      resources :comments
-    end
+    resources :answers
   end
   
   # The priority is based upon order of creation: first created -> highest priority.
