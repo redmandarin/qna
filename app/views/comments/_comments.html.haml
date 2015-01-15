@@ -1,12 +1,14 @@
 .comments
-  - @question.comments.each do |comment|
+  - target.comments.each do |comment|
     .comment{id: comment.id}
       .comment-body= comment.body
       .comment-author
         Автор: 
         = User.find(comment.user_id).name
       - if user_signed_in? && current_user.author?(comment)
-        = link_to 'редактировать', '', class: 'edit-comment-link', data: { action: "edit", parent_name: "questions", target_id: comment.id, parent_id: @question.id }
+        = link_to 'редактировать', '', class: 'edit-comment-link', data: { action: "edit", parent_name: target.class.name.downcase.pluralize, comment_id: comment.id, parent_id: target.id }
+        = link_to 'удалить комментарий', "/#{target.class.name.pluralize.downcase}/#{target.id}/comments/#{comment.id}", method: :delete, remote: true, data: { comment_id: comment.id, action: "destroy" }
+
     %hr
-= render 'comments/form', target: @question
+= render 'comments/form', target: target
 = link_to "Добавить комментарий", '', class: 'add-comment' if user_signed_in?

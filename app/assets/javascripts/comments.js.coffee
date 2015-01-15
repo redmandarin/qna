@@ -4,18 +4,23 @@
 
 $ ->
   $('.add-comment').on 'click', (e) ->
-    $(this).hide()
     e.preventDefault()
+    $(this).hide()
     $(this).prev(".new_comment").show()
+
+  $('.comments').on 'ajax:success', '[data-action="destroy"]', (e, data, status, xhr) ->
+    id = $(e.target).data('commentId')
+    $(e.target).parent().remove()
+    $(e.target).parent().next().remove()
 
   $('.comments').on 'click', '[data-action="edit"]', (e) ->
     e.preventDefault()
     $(this).hide()
-    parent = $(this).data('parentName')
+    parent_name = $(this).data('parentName')
     parent_id = $(this).data('parentId')
-    id = $(this).data('targetId')
+    id = $(this).data('commentId')
     body = $(".comment##{id} > .comment-body").text()
-    data = { "parent": parent, "parent_id": parent_id, "target_id": id, "body": body  }
+    data = { "parent_name": parent_name, "parent_id": parent_id, "comment_id": id, "body": body  }
     console.log(data)
     $(".comment##{id}").append(HandlebarsTemplates["comments/form"](data))
 

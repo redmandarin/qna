@@ -21,7 +21,6 @@ feature "User answer", %q{
         fill_in 'Комментарий', with: "Some words"
         click_on('Сохранить комментарий')
       end
-      save_and_open_page
 
       expect(page).to have_content("Some words")
       expect(page).to have_content(user.name)
@@ -37,7 +36,6 @@ feature "User answer", %q{
       expect(page).to have_content("Комментарий не может быть пустым.")
     end
 
-    scenario "create comment for answer with valid attributes"
   end
 
   scenario "not signed_in user try to create comment" do

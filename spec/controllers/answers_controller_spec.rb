@@ -5,6 +5,7 @@ RSpec.describe AnswersController, :type => :controller do
   let(:user) { create(:user) }
   let(:answer) { create(:answer, question: question, user: user) }
   let(:another_answer) { create(:answer) }
+  let(:another_user) { create(:user) }
   before { sign_in user }
 
   describe "GET #new" do
@@ -85,7 +86,10 @@ RSpec.describe AnswersController, :type => :controller do
 
     context "not an author" do
       it "redirects to question" do
+        sign_out user
+        sign_in another_user
         patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id), format: :json
+        answer.reload
 
         expect(answer.body).not_to eq("brand new title")
       end

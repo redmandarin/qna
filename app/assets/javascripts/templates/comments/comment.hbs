@@ -1,3 +1,4 @@
 <div class="comment-body">{{ body }}</div>
 <div class="comment-author">Автор: {{ user_name }}</div>
-<a class="edit-comment-link" data-action="edit" data-parent-id="{{ parent_id }}" data-parent-name="questions" data-target-id="{{ id }}" href="" target="_self">редактировать</a>
+<a class="edit-comment-link" data-action="edit" data-parent-id="{{ parent_id }}" data-parent-name="{{ parent_name }}" data-comment-id="{{ id }}" href="" target="_self">редактировать</a>
+<a data-action="destroy" data-comment-id="{{ id }}" data-method="delete" data-remote="true" href="/questions/{{ parent_id}}/comments/{{ id }}" rel="nofollow" target="_self">удалить комментарий</a>

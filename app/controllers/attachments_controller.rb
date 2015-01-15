@@ -11,7 +11,7 @@ class AttachmentsController < ApplicationController
       if @attachment.destroyed?
         format.json { render json: @attachment}
       else
-        format.json { render json: @attachment, status: :forbidden }
+        format.json { render json: @attachment, status: :unauthorized }
       end
     end
   end

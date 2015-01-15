@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
 
+  let!(:question) { create(:question_with_comment) }
+  let(:anothor_user) { create(:user) }
+
   describe "Question"
     sign_in_user_and_create_question
 
@@ -21,8 +24,35 @@ RSpec.describe CommentsController, type: :controller do
     end
 
     describe "PATCH #update" do
+      it "update comment with valid attributes" do
+        patch :update, question_id: @question, id: @comment, comment: { body: "New body" }, format: :json
+        @comment.reload
+        expect(@comment.body).to eq("New body")
+      end
+
+      it "does not update with invalid attributes" do
+        patch :update, question_id: @question, id: @comment, comment: { body: "" }, format: :json
+        expect(response.status).to eq(422)
+      end
+
+      it "not author can't update comment" do
+        sign_out @user
+        sign_in anothor_user
+        patch :update, question_id: @question, id: @comment, comment: { body: "Body" }, format: :json
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to(questions_path)
+      end
     end
 
     describe "DETELE #destroy" do
+      it "author destroy comment" do
+        expect { delete :destroy, question_id: @question, id: @comment, format: :json }.to change(Comment, :count).by(-1)
+      end
+
+      it "not author can't destroy comment" do
+        sign_out @user
+        sign_in anothor_user
+        expect { delete :destroy, question_id: @question, id: @comment, format: :json }.not_to change(Comment, :count)
+      end
     end
   end

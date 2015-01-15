@@ -1,6 +1,10 @@
 class CommentsController < ApplicationController
+  include Authority
+
   before_action :authenticate_user!
   before_action :set_target
+  before_action :set_comment, only: [:update, :destroy]
+  before_action :authorize, only: [:update, :destroy]
 
 
   def create
@@ -15,7 +19,6 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = Comment.find(params[:id])
     respond_to do |format|
       if @comment.update(comment_params)
         format.json { render json: @comment }
@@ -25,7 +28,22 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment.destroy
+    render json: { nothing: true, status: :ok }
+  end
+
   private
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def authorize
+    unless current_user.author?(@comment)
+      redirect_to questions_path
+    end
+  end
 
   def comment_params
     params.require(:comment).permit(:body)
