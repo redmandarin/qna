@@ -31,23 +31,18 @@ RSpec.describe AnswersController, :type => :controller do
   describe "POST #create" do
     context "with valid attributes" do
       it "saves the new answer in the database" do
-        expect { post :create, question_id: question, answer: attributes_for(:answer), format: :json }.to change(question.answers, :count).by(1)
+        expect { post :create, question_id: question, answer: attributes_for(:answer), format: :js }.to change(question.answers, :count).by(1)
       end
 
       it "200" do
-        post :create, question_id: question, answer: attributes_for(:answer, question_id: question.id), format: :json
+        post :create, question_id: question, answer: attributes_for(:answer, question_id: question.id), format: :js
         expect(response.status).to eq(200)
       end
     end
 
     context "with invalid attributes" do
       it "does not save answer" do
-        expect { post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :json }.not_to change(Answer, :count)
-      end
-
-      it "422 error" do
-        post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :json
-        expect(response.status).to eq(422)
+        expect { post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js }.not_to change(Answer, :count)
       end
     end
 

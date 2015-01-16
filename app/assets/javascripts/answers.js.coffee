@@ -9,19 +9,26 @@ $ ->
     answer_id = $(this).data("answerId")
     $("form#edit-answer-" + answer_id).show()
 
-  $('form.new_answer').bind 'ajax:success', (e, data, status, xhr) ->
-    answer = $.parseJSON(xhr.responseText)
-    files = ""
-    $.each answer.attachments, (index, value) ->
-      name = value.file["url"]
-      parts = name.split('/')
-      name = parts[parts.length-1]
-      files += "<li><a href='" + value.file["url"] + "'>" + name + "</li>"
-    $('.answers').append("<div class='answer'><p>" + answer.body + "<ul class='answer-files'>" + files + "</ul></p>" + "<p><a class='edit-answer-link' data-answer-id='#{answer.id}'' href target='_self'>редактировать ответ</a></p><hr/></div>")
-  .bind 'ajax:error', (e, xhr, status, errors) ->
-    errors = $.parseJSON(xhr.responseText)
-    $.each errors, (index, value) ->
-      $('.answer-errors').append(value)
+  # $('form.new_answer').bind 'ajax:success', (e, data, status, xhr) ->
+  #   answer = $.parseJSON(xhr.responseText)
+  #   files = ""
+  #   $.each answer.attachments, (index, value) ->
+  #     name = value.file["url"]
+  #     parts = name.split('/')
+  #     name = parts[parts.length-1]
+  #     files += "<li><a href='" + value.file["url"] + "'>" + name + "</li>"
+  #   $('.answers').append("<div class='answer'><p>" + answer.body + "<ul class='answer-files'>" + files + "</ul></p>" + "<p><a class='edit-answer-link' data-answer-id='#{answer.id}'' href target='_self'>редактировать ответ</a></p><hr/></div>")
+  # .bind 'ajax:error', (e, xhr, status, errors) ->
+  #   errors = $.parseJSON(xhr.responseText)
+  #   $.each errors, (index, value) ->
+  #     $('.answer-errors').append(value)
+
+  questionId = $('.answers').data('questionId')
+  PrivatePub.subscribe "/questions/#{questionId}/answers", (data, channel) ->
+    console.log(data)
+    $('.new_answer textarea').val('')
+    answer = $.parseJSON(data['answer'])
+    $('.answers').append(HandlebarsTemplates["answers/answer"](answer))
 
   $('form.edit_answer').bind 'ajax:success', (e, data, status, xhr) ->
     answer = $.parseJSON(xhr.responseText)

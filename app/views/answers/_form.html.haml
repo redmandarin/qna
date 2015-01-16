@@ -1,6 +1,6 @@
 - render 'shared/error_messages', target: @answer
 
-= nested_form_for [@question, @answer], remote: true, html: { :'data-type' => :json } do |f|
+= nested_form_for [@question, @answer], remote: true do |f|
   %fieldset
     = f.label :body, t('answer_body')
     = f.text_area :body

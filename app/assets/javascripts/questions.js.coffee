@@ -10,3 +10,10 @@ $ ->
 
   $('.question').on 'ajax:success', '.destroy-question-file', ->
     $(this).parent().hide()
+
+  PrivatePub.subscribe "/questions", (data, channel) ->
+    console.log(data)
+    question = $.parseJSON(data['question'])
+    date = moment(question.created_at).format('D.M.YYYY')
+    question.created_at = date    
+    $('.questions').append(HandlebarsTemplates["questions/question_link"](question))

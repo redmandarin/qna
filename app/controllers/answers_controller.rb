@@ -12,9 +12,12 @@ class AnswersController < ApplicationController
     @answer = @question.answers.build(answer_params.merge(user: current_user))
     respond_to do |format|
       if @answer.save
-        format.json { render json: @answer.to_json(include: :attachments) }
+        format.js do
+          PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: @answer.to_json
+          render nothing: true
+        end
       else
-        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
+        format.js
       end
     end
   end

@@ -27,11 +27,19 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params.merge(user: current_user))
-    if @question.save
-      redirect_to @question
-      flash[:notice] = "Ваш вопрос успешно создан."
-    else
-      render :new
+    respond_to do |format|
+      if @question.save
+        format.html do
+          redirect_to @question
+          flash[:notice] = "Ваш вопрос успешно создан."
+          PrivatePub.publish_to "/questions", question: @question.to_json
+        end
+        format.js do
+          render nothing: true
+        end
+      else
+        format.html { render :new }
+      end
     end
   end
 
