@@ -1,6 +1,7 @@
-.question
-  = render 'question'
-  = render 'comments/comments', target: @question
+.questions
+  .question{id: @question.id}
+    = render 'question'
+    = render 'comments/comments', target: @question
 
 %hr
 .answers{ "data-question-id" => @question.id}
@@ -8,4 +9,5 @@
 .new_answer_form
   = render 'answers/form'
 
+= subscribe_to "/questions/#{@question.id}/comments"
 = subscribe_to "/questions/#{@question.id}/answers"

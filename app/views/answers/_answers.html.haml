@@ -1,5 +1,5 @@
 - @question.answers.order(created_at: :asc).each do |answer|
-  %div.answer
+  %div.answer{id: answer.id}
     - if answer.persisted?
       %p.answer-body= answer.body
       %ul.answer-files

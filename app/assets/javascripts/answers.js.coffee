@@ -25,7 +25,6 @@ $ ->
 
   questionId = $('.answers').data('questionId')
   PrivatePub.subscribe "/questions/#{questionId}/answers", (data, channel) ->
-    console.log(data)
     $('.new_answer textarea').val('')
     answer = $.parseJSON(data['answer'])
     $('.answers').append(HandlebarsTemplates["answers/answer"](answer))

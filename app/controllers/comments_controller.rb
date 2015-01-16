@@ -11,7 +11,10 @@ class CommentsController < ApplicationController
     @comment = @target.comments.build(comment_params.merge(user: current_user))
     respond_to do |format|
       if @comment.save
-        format.json { render json: @comment }
+        format.js do
+          PrivatePub.publish_to "/questions/#{@question.id}/comments", CommentSerializer.new(@comment)
+          render nothing: true
+        end
       else
         format.json { render json: @comment.errors.full_messages, status: :unprocessable_entity}
       end
@@ -52,5 +55,10 @@ class CommentsController < ApplicationController
   def set_target
     klass = [Question, Answer].detect{ |c| params["#{c.name.underscore}_id"] }
     @target = klass.find(params["#{klass.name.underscore}_id"])
+    if @target.class.name == "Question"
+      @question = @target
+    else
+      @question = @target.question
+    end
   end
 end
