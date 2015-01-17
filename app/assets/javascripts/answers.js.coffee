@@ -26,7 +26,8 @@ $ ->
   questionId = $('.answers').data('questionId')
   PrivatePub.subscribe "/questions/#{questionId}/answers", (data, channel) ->
     $('.new_answer textarea').val('')
-    answer = $.parseJSON(data['answer'])
+    answer = data['answer']
+    console.log(answer.files)
     $('.answers').append(HandlebarsTemplates["answers/answer"](answer))
 
   $('form.edit_answer').bind 'ajax:success', (e, data, status, xhr) ->

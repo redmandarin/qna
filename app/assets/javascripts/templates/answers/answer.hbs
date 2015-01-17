@@ -2,6 +2,11 @@
   <p>
     {{ body }}
   </p>
+  <ul class="answer-files">
+    {{#each files }}
+      <li><a href="{{ url }}">{{ filename }}</a></li>
+    {{/each }}
+  </ul>
   <p>
     <a class='edit-answer-link' data-answer-id='#{id}' href target='_self'>редактировать ответ</a>
   </p>

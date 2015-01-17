@@ -9,7 +9,7 @@ feature 'Edit comment', %q{
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
   given!(:question) { create(:question) }
-  given!(:comment) { create(:comment, user_id: user.id, commentable_id: question.id, commentable_type: "Question") }
+  given!(:comment) { create(:comment, user_id: user.id, commentable: question) }
 
   describe "Authenticated user" do
     before do
@@ -22,9 +22,9 @@ feature 'Edit comment', %q{
         click_on 'редактировать'
         fill_in 'Комментарий', with: "New comment text"
         click_on 'Сохранить комментарий'
+        expect(page).to have_content("New comment text")
       end
 
-      expect(page).to have_content("New comment text")
     end
 
     scenario "edit comment with invalid attributes", js: true do 

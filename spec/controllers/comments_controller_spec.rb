@@ -10,7 +10,7 @@ RSpec.describe CommentsController, type: :controller do
 
     describe "POST #create" do
       it "saves comment with valid attributes" do
-        expect { post :create, question_id: @question, comment: { body: "Some body" }, format: :json}.to change(@question.comments, :count).by(1)
+        expect { post :create, question_id: @question, comment: { body: "Some body" }, format: :js}.to change(@question.comments, :count).by(1)
       end
 
       it "does not save invalid comment" do

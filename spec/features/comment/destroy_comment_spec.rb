@@ -9,7 +9,7 @@ feature 'Destroy comment', %q{
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
   given!(:question) { create(:question) }
-  given!(:comment) { create(:comment, user_id: user.id, commentable_id: question.id, commentable_type: "Question") }
+  given!(:comment) { create(:comment, user_id: user.id, commentable: question) }
 
   describe 'Authenticated user' do
     before do
