@@ -31,7 +31,15 @@ RSpec.describe Question, :type => :model do
 
   describe "Tag" do
     let(:question) { create(:question) }
-    tag_list = "tag1, tag2"
+    let(:another_question) { create(:question) }
+    let(:tag_list) { "tag1, tag2" }
+
+    it "does not create duplication" do
+      question.tag_list = tag_list
+      another_question.tag_list = "tag1"
+
+      expect(Tag.where(name: "tag1").count).to eq(1)
+    end
 
     it "#tags_before_create" do
       question.tag_list=(tag_list)

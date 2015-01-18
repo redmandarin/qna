@@ -16,15 +16,6 @@ RSpec.describe QuestionsController, :type => :controller do
     it "renders index view" do
       expect(response).to render_template(:index)
     end
-
-    # Переделать 
-    it "show questions by tag" do
-      question1 = create(:question, tag_list: "tag1, tag2")
-      question2 = create(:question, tag_list: "tag1")
-      get :index, tag: "tag2"
-
-      expect(assigns(:questions)).to match_array([question1])
-    end
   end
 
   describe "GET #show" do
@@ -157,13 +148,20 @@ RSpec.describe QuestionsController, :type => :controller do
     end
 
     context "not author" do
-      it "should not be able to #update question" do
+      before do
         another_user = create(:user)
         sign_in another_user
         patch :update, id: question, question: { title: "new title", body: "new body" }
+      end
+
+      it "should not be able to #update question" do
         question.reload
         expect(question.title).not_to eq("new title")
         expect(question.body).not_to eq("new body")
+      end
+
+      it "redirect to questions path" do
+        expect(response).to redirect_to(question_path(question))
       end
     end
 

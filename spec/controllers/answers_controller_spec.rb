@@ -33,11 +33,6 @@ RSpec.describe AnswersController, :type => :controller do
       it "saves the new answer in the database" do
         expect { post :create, question_id: question, answer: attributes_for(:answer), format: :js }.to change(question.answers, :count).by(1)
       end
-
-      it "200" do
-        post :create, question_id: question, answer: attributes_for(:answer, question_id: question.id), format: :js
-        expect(response.status).to eq(200)
-      end
     end
 
     context "with invalid attributes" do
