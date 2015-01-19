@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   include Authority
 
   before_action :authenticate_user!
-  before_action :set_target
+  before_action :set_target, only: :create
   before_action :set_comment, only: [:update, :destroy]
   before_action :authorize, only: [:update, :destroy]
 

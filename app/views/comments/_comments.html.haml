@@ -7,7 +7,7 @@
         = User.find(comment.user_id).name
       - if user_signed_in? && current_user.author?(comment)
         = link_to 'редактировать', '', class: 'edit-comment-link', data: { action: "edit", parent_name: target.class.name.downcase.pluralize, comment_id: comment.id, parent_id: target.id }
-        = link_to 'удалить комментарий', "/#{target.class.name.pluralize.downcase}/#{target.id}/comments/#{comment.id}", method: :delete, remote: true, data: { comment_id: comment.id, action: "destroy" }
+        = link_to 'удалить комментарий', "/comments/#{comment.id}", method: :delete, remote: true, data: { comment_id: comment.id, action: "destroy" }
 
     %hr
 = render 'comments/form', target: target

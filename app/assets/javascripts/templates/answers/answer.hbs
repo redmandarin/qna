@@ -11,7 +11,7 @@
     <a class='edit-answer-link' data-answer-id='{{ id }}' href target='_self'>редактировать ответ</a>
   </p>
 
-  <form accept-charset="UTF-8" action="/questions/{{ parent_id }}/answers/{{ id }}" class="edit_answer" data-remote="true" data-type="json" id="edit-answer-{{ id }}" method="post"><div style="display:none">
+  <form accept-charset="UTF-8" action="/answers/{{ id }}" class="edit_answer" data-remote="true" data-type="json" id="edit-answer-{{ id }}" method="post"><div style="display:none">
     <input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"></div>
     <fieldset>
       <label for="answer_body">Ответ</label>

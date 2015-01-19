@@ -1,15 +1,11 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_answer, only: [:edit, :update]
-  before_action :set_question
+  before_action :set_question, only: [:create]
   before_action :authorize, only: [:edit, :update]
   after_action :publish_answer, only: :create
 
   respond_to :json, :js
-
-  def new
-    @answer = Answer.new
-  end
 
   def create
     respond_with(@answer = @question.answers.create(answer_params.merge(user: current_user)))
@@ -50,7 +46,7 @@ class AnswersController < ApplicationController
 
   def authorize
     unless current_user.author?(@answer)
-      redirect_to question_path(@question)
+      redirect_to questions_path
       flash[:alert] = "У вас нехватает прав для выполнения этого действия."
     end
   end

@@ -8,26 +8,6 @@ RSpec.describe AnswersController, :type => :controller do
   let(:another_user) { create(:user) }
   before { sign_in user }
 
-  describe "GET #new" do
-    before { get :new, question_id: question }
-
-    it "assigns new answer to @answer" do
-      expect(assigns(:answer)).to be_a_new(Answer)
-    end
-
-    it "renders new view" do
-      expect(response).to render_template(:new)
-    end
-
-    context "not signed in" do
-      it "redirects to sign in" do
-        sign_out user
-        get :new, question_id: question
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-  end
-
   describe "POST #create" do
     context "with valid attributes" do
       it "saves the new answer in the database" do
@@ -63,11 +43,6 @@ RSpec.describe AnswersController, :type => :controller do
         expect(answer.body).to eq("brand new body")
       end
 
-      it "assigns the question" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :json
-        expect(assigns(:question)).to eq(question)
-      end
-
       it "200" do
         patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :json
         expect(response.status).to eq(200)
@@ -75,13 +50,22 @@ RSpec.describe AnswersController, :type => :controller do
     end
 
     context "not an author" do
-      it "redirects to question" do
+      it "not update question" do
         sign_out user
         sign_in another_user
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, body: "brand new title", quesition_id: question.id), format: :json
+        patch :update, id: answer, answer: attributes_for(:answer, body: "brand new title"), format: :json
         answer.reload
 
         expect(answer.body).not_to eq("brand new title")
+      end
+
+      it "redirects to question" do
+        sign_out user
+        sign_in another_user
+        patch :update, id: answer, answer: attributes_for(:answer, body: "brand new title"), format: :json
+        answer.reload
+
+        expect(response).to redirect_to(questions_path)
       end
     end
 
@@ -90,7 +74,7 @@ RSpec.describe AnswersController, :type => :controller do
 
       it "does not change answer attributes" do
         answer.reload
-        expect(answer.body).to eq("MyText")
+        expect(answer.body).to eq("My answer text")
       end
     end
 

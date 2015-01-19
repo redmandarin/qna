@@ -5,14 +5,13 @@ Rails.application.routes.draw do
   delete 'attachments/:id', to: 'attachments#destroy'
   
   get 'tags/:tag', to: 'questions#index', as: 'tag'
-  
-  resources :answers do
-    resources :comments  
-  end
 
-  resources :questions do
+  concern :commentable do
     resources :comments
-    resources :answers
+  end
+  
+  resources :questions, concerns: :commentable, shallow: true do
+    resources :answers, concerns: :commentable
   end
   
   # The priority is based upon order of creation: first created -> highest priority.
