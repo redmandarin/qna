@@ -21,7 +21,7 @@ feature 'Create question', %q{
       fill_in 'Список тегов', with: 'tag1, tag2'
       click_on 'Сохранить вопрос'
 
-      expect(page).to have_content("Ваш вопрос успешно создан.")
+      expect(page).to have_content("Вопрос успешно создан.")
       expect(page).to have_content("tag1")
       expect(page).to have_content("tag2")
       expect(page).to have_content("Автор: #{user.name}")

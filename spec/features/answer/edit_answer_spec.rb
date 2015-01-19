@@ -41,6 +41,20 @@ feature 'Answer editing', %q{
       end
     end
 
+    scenario 'try to edit right after creation', js: true do
+      question.answers.destroy_all
+      visit question_path(question)
+      fill_in('Ответ', with: "new answer")
+      click_on 'Сохранить ответ'
+      click_on 'редактировать ответ'
+      within '.edit_answer' do
+        fill_in 'Ответ', with: "edited answer"
+        click_on 'Сохранить ответ'
+      end
+
+      expect(page).to have_content('edited answer')
+    end
+
     scenario 'try to edit not his answer', js: true do
       click_on 'выйти'
       sign_in(another_user)

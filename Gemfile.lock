@@ -167,6 +167,8 @@ GEM
     rdoc (4.1.2)
       json (~> 1.4)
     remotipart (1.2.1)
+    responders (1.1.2)
+      railties (>= 3.2, < 4.2)
     rspec-core (3.1.7)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -254,6 +256,7 @@ DEPENDENCIES
   private_pub
   rails (= 4.1.8)
   remotipart
+  responders
   rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

@@ -2,23 +2,24 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
   before_action :authorize, only: [:edit, :update, :destroy]
+  before_action :build_answer,   only: :show
+
+  respond_to :html, :js
 
   def index
     if params[:tag]
-      @questions = Question.tagged_with(params[:tag])
+      respond_with(@questions = Question.tagged_with(params[:tag]))
     else
-      @questions = Question.all.includes(:answers).order(created_at: :desc)
+      respond_with(@questions = Question.all.includes(:answers).order(created_at: :desc))
     end
   end
 
   def show
-    @answer = @question.answers.build
-    @answer.attachments.build
+    respond_with @question
   end
 
   def new
-    @question = Question.new
-    @question.attachments.build
+    respond_with(@question = Question.new)
   end
 
   def edit
@@ -26,34 +27,38 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(question_params.merge(user: current_user))
-    respond_to do |format|
-      if @question.save
-        format.html do
-          redirect_to @question
-          flash[:notice] = "Ваш вопрос успешно создан."
-          PrivatePub.publish_to "/questions", question: @question.to_json
-        end
-        format.js do
-          render nothing: true
-        end
-      else
-        format.html { render :new }
-      end
-    end
+    respond_with(@question = Question.create(question_params.merge(user: current_user)))
+    # flash[:notice] = "Вопрос успешно создан." if @question.save
+    
+    # respond_to do |format|
+    #   if @question.save
+    #     format.html do
+    #       redirect_to @question
+    #       PrivatePub.publish_to "/questions", question: @question.to_json
+    #     end
+    #     format.js do
+    #       render nothing: true
+    #     end
+    #   else
+    #     format.html { render :new }
+    #   end
+    # end
   end
 
   def update
     @question.update(question_params)
+    respond_with @question
   end
 
   def destroy
-    @question.destroy
-    redirect_to questions_path
-    flash[:notice] = "Вопрос успешно удален."
+    respond_with(@question.destroy)
   end
 
   private
+
+  def build_answer
+    @answer = @question.answers.build
+  end
 
   def load_question
     @question = Question.includes([:answers, :comments, :attachments]).find(params[:id])

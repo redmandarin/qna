@@ -38,6 +38,7 @@ gem 'handlebars_assets'
 gem 'active_model_serializers'
 gem 'private_pub'
 gem 'thin'
+gem 'responders'
 
 group :test, :development do
   gem 'rspec-rails'

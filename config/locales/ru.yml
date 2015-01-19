@@ -27,6 +27,10 @@ ru:
         body: "Вопрос"
         tag_list: "Список тегов"
   activerecord:
+    models:
+      question:
+        one: "Вопрос"
+        other: "Вопросы"
     attributes:
       comment: 
         body: "Комментарий"

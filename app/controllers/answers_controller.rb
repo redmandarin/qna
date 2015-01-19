@@ -3,33 +3,31 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: [:edit, :update]
   before_action :set_question
   before_action :authorize, only: [:edit, :update]
+  after_action :publish_answer, only: :create
+
+  respond_to :json, :js
 
   def new
     @answer = Answer.new
   end
 
   def create
-    @answer = @question.answers.build(answer_params.merge(user: current_user))
-    respond_to do |format|
-      if @answer.save
-        format.js do
-          PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: AnswerSerializer.new(@answer, root: false)
-          render nothing: true
-        end
-      else
-        format.js
-      end
-    end
+    respond_with(@answer = @question.answers.create(answer_params.merge(user: current_user)))
   end
 
   def update
-    respond_to do |format|
-      if @answer.update(answer_params)
-        format.json { render json: @answer.to_json(include: :attachments) }
-      else
-        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
-      end
+    @answer.update(answer_params)
+    respond_with @answer do |format|
+      format.json { render json: @answer.to_json(include: :attachments) }
     end
+
+    # respond_to do |format|
+    #   if @answer.update(answer_params)
+    #     format.json { render json: @answer.to_json(include: :attachments) }
+    #   else
+    #     format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   private
@@ -40,6 +38,10 @@ class AnswersController < ApplicationController
 
   def set_question
     @question = Question.find(params[:question_id])
+  end
+
+  def publish_answer
+    PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: AnswerSerializer.new(@answer, root: false) if @answer.valid?
   end
 
   def answer_params

@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $(".edit-answer-link").on "click", (e) ->
+  $(".answers").on "click", ".edit-answer-link", (e) ->
     e.preventDefault()
     $(this).hide()
     answer_id = $(this).data("answerId")
@@ -13,21 +13,21 @@ $ ->
   PrivatePub.subscribe "/questions/#{questionId}/answers", (data, channel) ->
     $('.new_answer textarea').val('')
     answer = data['answer']
-    console.log(answer.files)
     $('.answers').append(HandlebarsTemplates["answers/answer"](answer))
 
-  $('form.edit_answer').bind 'ajax:success', (e, data, status, xhr) ->
+  $('.answers').on 'ajax:success', 'form.edit_answer', (e, data, status, xhr) ->
     answer = $.parseJSON(xhr.responseText)
     $(this).hide()
     $(this).parent().find('.edit-answer-link').show()
-    $(this).closest('.answer').children('.answer-body').html(answer.body)
-    files = ""
-    $.each answer.attachments, (index, value) ->
-      name = value.file["url"]
-      parts = name.split('/')
-      name = parts[parts.length-1]
-      files += "<li><a href='" + value.file["url"] + "'>" + name + "</li>"
-    $(this).closest('.answer').children('.answer-files').html(files)
+    $(".answers").find("##{answer.id}").html(HandlebarsTemplates["answers/answer"](answer))
+    # $(this).closest('.answer').children('.answer-body').html(answer.body)
+    # files = ""
+    # $.each answer.attachments, (index, value) ->
+    #   name = value.file["url"]
+    #   parts = name.split('/')
+    #   name = parts[parts.length-1]
+    #   files += "<li><a href='" + value.file["url"] + "'>" + name + "</li>"
+    # $(this).closest('.answer').children('.answer-files').html(files)
   .bind 'ajax:error', (e, xhr, status, errors) ->
     errors = $.parseJSON(xhr.responseText)
     $.each errors, (index, value) ->

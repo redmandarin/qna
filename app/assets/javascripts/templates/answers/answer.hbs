@@ -1,4 +1,4 @@
-<div class="answer">
+<div class="answer" id="{{ id }}">
   <p>
     {{ body }}
   </p>
@@ -8,8 +8,26 @@
     {{/each }}
   </ul>
   <p>
-    <a class='edit-answer-link' data-answer-id='#{id}' href target='_self'>редактировать ответ</a>
+    <a class='edit-answer-link' data-answer-id='{{ id }}' href target='_self'>редактировать ответ</a>
   </p>
+
+  <form accept-charset="UTF-8" action="/questions/{{ parent_id }}/answers/{{ id }}" class="edit_answer" data-remote="true" data-type="json" id="edit-answer-{{ id }}" method="post"><div style="display:none">
+    <input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"></div>
+    <fieldset>
+      <label for="answer_body">Ответ</label>
+      <div class="answer-errors"></div>
+      <textarea id="answer_body" name="answer[body]" rows="10">{{ body }}</textarea>
+      
+      <a class="add_nested_fields" data-association="attachments" data-blueprint-id="answer_attachments_fields_blueprint" href="javascript:void(0)">Добавить файл</a>
+      <div data-blueprint="&lt;div class=&quot;fields&quot;&gt;&lt;label for=&quot;answer_attachments_attributes_new_attachments_file&quot;&gt;Файл&lt;/label&gt;
+              &lt;input id=&quot;answer_attachments_attributes_new_attachments_file&quot; name=&quot;answer[attachments_attributes][new_attachments][file]&quot; type=&quot;file&quot; /&gt;
+              &lt;input id=&quot;answer_attachments_attributes_new_attachments__destroy&quot; name=&quot;answer[attachments_attributes][new_attachments][_destroy]&quot; type=&quot;hidden&quot; value=&quot;false&quot; /&gt;&lt;a class=&quot;remove_nested_fields&quot; data-association=&quot;attachments&quot; href=&quot;javascript:void(0)&quot;&gt;Удалить файл&lt;/a&gt;
+              &lt;/div&gt;" id="answer_attachments_fields_blueprint" style="display: none"></div>
+      <input name="commit" type="submit" value="Сохранить ответ">
+    </fieldset>
+  </form>
+
+  <a class="add-comment" href="">Добавить комментарий</a>
   <hr/>
 
 </div>
