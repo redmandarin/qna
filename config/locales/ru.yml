@@ -28,6 +28,9 @@ ru:
         tag_list: "Список тегов"
   activerecord:
     models:
+      comment:
+        one: "Комментарий"
+        other: "Комментарии"
       question:
         one: "Вопрос"
         other: "Вопросы"

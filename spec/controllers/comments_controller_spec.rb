@@ -3,14 +3,25 @@ require 'rails_helper'
 RSpec.describe CommentsController, type: :controller do
 
   let!(:question) { create(:question_with_comment) }
+  let!(:answer) { create(:answer) }
   let(:anothor_user) { create(:user) }
 
   describe "Question"
     sign_in_user_and_create_question
 
     describe "POST #create" do
+      it "load question if parent is question" do
+        post :create, comment: attributes_for(:comment), question_id: @question, format: :json
+        expect(assigns(:target)).to eq(@question)
+      end
+
+      it "load answer if parent is answer" do
+        post :create, comment: attributes_for(:comment), answer_id: answer, format: :json
+        expect(assigns(:target)).to eq(answer)
+      end
+
       it "saves comment with valid attributes" do
-        expect { post :create, question_id: @question, comment: { body: "Some body" }, format: :js}.to change(@question.comments, :count).by(1)
+        expect { post :create, question_id: @question, comment: { body: "Some body" }, format: :json}.to change(@question.comments, :count).by(1)
       end
 
       it "does not save invalid comment" do
