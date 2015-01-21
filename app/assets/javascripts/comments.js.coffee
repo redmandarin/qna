@@ -28,6 +28,8 @@ $ ->
     $('.new_comment textarea').val('')
     comment = data['comment']
     $(".#{comment.parent_name} ##{comment.parent_id} .comments").append(HandlebarsTemplates["comments/new_comment"](comment))
+    $('.new_comment').hide()
+    $('.add-comment').show()
     
   $('.answers, .questions').on 'ajax:error', '.new_comment', (e, xhr, status, errors) ->
     errors = $.parseJSON(xhr.responseText)
