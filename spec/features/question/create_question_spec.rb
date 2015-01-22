@@ -24,7 +24,7 @@ feature 'Create question', %q{
       expect(page).to have_content("Вопрос успешно создан.")
       expect(page).to have_content("tag1")
       expect(page).to have_content("tag2")
-      expect(page).to have_content("Автор: #{user.name}")
+      expect(page).to have_content("Автор: #{user.email}")
     end
 
     scenario 'Authenticated user try to create invalid quesiton' do

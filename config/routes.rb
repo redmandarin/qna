@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: "questions#index"
-  devise_for :users, path: "u"
+  devise_for :users, path: "u", controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   delete 'attachments/:id', to: 'attachments#destroy'
   

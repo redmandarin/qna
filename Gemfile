@@ -39,6 +39,8 @@ gem 'active_model_serializers'
 gem 'private_pub'
 gem 'thin'
 gem 'responders'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :test, :development do
   gem 'rspec-rails'

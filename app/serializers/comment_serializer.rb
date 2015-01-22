@@ -1,8 +1,8 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :body, :user_name, :parent_id, :parent_name
+  attributes :id, :body, :user_email, :parent_id, :parent_name
 
-  def user_name
-    User.find(object.user_id).name
+  def user_email
+    User.find(object.user_id).email
   end
 
   def parent_id

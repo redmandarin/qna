@@ -45,6 +45,8 @@ ru:
         title: "Заголовок"
         body: "Вопрос"
     errors:
+      messages:
+        record_invalid: "Запись не может быть сохранена."
       models:
         comment:
           attributes:

@@ -1,8 +1,8 @@
 class AnswerSerializer < ActiveModel::Serializer
-  attributes :id, :body, :user_name, :parent_id, :files
+  attributes :id, :body, :user_email, :parent_id, :files
 
   def user_name
-    User.find(object.user_id).name
+    User.find(object.user_id).email
   end
 
   def parent_id

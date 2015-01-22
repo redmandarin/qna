@@ -15,7 +15,7 @@
 %p
   .question-author
     Автор: 
-    = User.find(@question.user_id).name
+    = User.find(@question.user_id).email
   - @question.tags.each do |tag|
     = link_to tag.name, tag_path(tag.name), class: "tag"
   = nested_form_for @question, remote: true do |f|

@@ -22,7 +22,6 @@ feature "Create Answer", %q{
     expect(current_path).to eq(question_path(question))
     within '.answers' do
       expect(page).to have_content('Some text')
-      # expect(page).to have_content("Автор: #{another_user.name}")
     end
   end
 

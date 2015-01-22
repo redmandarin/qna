@@ -10,7 +10,7 @@
       %header
         - if signed_in?
           вы вошли как
-          = current_user.name
+          = current_user.email
           | 
           = link_to 'выйти', destroy_user_session_path, method: "delete"
         - else
