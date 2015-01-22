@@ -41,6 +41,7 @@ gem 'thin'
 gem 'responders'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 group :test, :development do
   gem 'rspec-rails'

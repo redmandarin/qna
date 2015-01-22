@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook]
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook, :twitter]
 
   has_many :authorizations
   has_many :votes
@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
     email = auth.info[:email]
     user = User.where(email: email).first
+    
     if user
       user.create_authorization(auth)
     else
