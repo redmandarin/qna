@@ -50,6 +50,7 @@ group :test, :development do
   gem 'capybara'
   gem 'launchy'
   gem "capybara-webkit"
+  gem 'capybara-email'
 end
 
 group :test do
