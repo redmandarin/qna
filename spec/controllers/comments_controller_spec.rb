@@ -6,6 +6,10 @@ RSpec.describe CommentsController, type: :controller do
   let!(:answer) { create(:answer) }
   let(:anothor_user) { create(:user) }
 
+  before do
+    anothor_user.confirm!
+  end
+
   describe "Question"
     sign_in_user_and_create_question
 

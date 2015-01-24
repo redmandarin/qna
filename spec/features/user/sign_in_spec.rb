@@ -26,6 +26,6 @@ feature 'User sign in', %q{
   end
 
   scenario 'Non-registered user try to sign_in via twitter'
-  scenatio 'registered(have email) user try to sign in via twitter'
+  scenario 'registered(have email) user try to sign in via twitter'
   scenario 'send confirmation email if user have account but sign in via twitter'
 end

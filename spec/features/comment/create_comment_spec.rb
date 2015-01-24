@@ -23,7 +23,7 @@ feature "User answer", %q{
       end
 
       expect(page).to have_content("Some words")
-      expect(page).to have_content(user.name)
+      expect(page).to have_content(user.email)
     end
 
     scenario "create comment for question with invalid attributes", js: true do

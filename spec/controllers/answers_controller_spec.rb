@@ -6,7 +6,11 @@ RSpec.describe AnswersController, :type => :controller do
   let(:answer) { create(:answer, question: question, user: user) }
   let(:another_answer) { create(:answer) }
   let(:another_user) { create(:user) }
-  before { sign_in user }
+  before do 
+    user.confirm!
+    another_user.confirm!
+    sign_in user
+  end
 
   describe "POST #create" do
     context "with valid attributes" do
@@ -33,7 +37,7 @@ RSpec.describe AnswersController, :type => :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "assigns requested answer to @answer" do
-        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :json
+        patch :update, question_id: question, id: answer, answer: attributes_for(:answer, quesition_id: question.id), format: :js
         expect(assigns(:answer)).to eq(answer)
       end
 

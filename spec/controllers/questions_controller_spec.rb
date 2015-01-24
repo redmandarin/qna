@@ -87,6 +87,7 @@ RSpec.describe QuestionsController, :type => :controller do
 
   describe "POST #create" do
     sign_in_user
+
     context "with valid attributes" do
       it "saves the new question in the database" do
         expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
@@ -142,6 +143,7 @@ RSpec.describe QuestionsController, :type => :controller do
     context "not author" do
       before do
         another_user = create(:user)
+        another_user.confirm!
         sign_in another_user
         patch :update, id: question, question: { title: "new title", body: "new body" }
       end

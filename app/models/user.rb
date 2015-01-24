@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_one :rating, as: :rateable
 
+  before_create :skip_confirmation
+
   # validates :name, presence: true
 
   def self.find_for_oauth(auth)
@@ -23,12 +25,12 @@ class User < ActiveRecord::Base
 
     if user
       user.create_authorization(auth)
+      user.send_confirmation_instructions
     elsif email
       password = Devise.friendly_token[0, 20]
       user = User.create(email: email, password: password, password_confirmation: password)
-      user.skip_confirmation! if email
       user.create_authorization(auth)
-      # user.send_confirmation_instructions
+      user.no_need_to_confirm(auth)
     else
       user = User.new
     end
@@ -38,5 +40,18 @@ class User < ActiveRecord::Base
 
   def create_authorization(auth) 
     self.authorizations.create(provider: auth.provider, uid: auth.uid)
+  end
+
+  def no_need_to_confirm(auth)
+    p = auth.provider
+    if p == "facebook" || p == 'github' || p == 'google'
+      self.skip_confirmation!
+    end
+  end
+
+  private
+
+  def skip_confirmation
+    
   end
 end

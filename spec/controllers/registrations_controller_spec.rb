@@ -10,10 +10,9 @@ RSpec.describe RegistrationsController, type: :controller do
 
     context 'with session provider' do
       it 'creates new user' do
-        session[:oauth_provider] = "new_provider"
-        session[:oauth_uid] = '123456'
+        session['devise.oauth'] = OmniAuth::AuthHash.new(provider: 'new_provider', uid: '123456')
 
-        expect { post :create, user: { email: "new@mail.com" } }.to change(User, :count).by(1)
+        expect { post :create, user: { email: "test@mail.com" } }.to change(User, :count).by(1)
       end
     end
 
