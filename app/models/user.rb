@@ -23,12 +23,14 @@ class User < ActiveRecord::Base
 
     if user
       user.create_authorization(auth)
-    else
+    elsif email
       password = Devise.friendly_token[0, 20]
-      user = User.create!(email: email, password: password, password_confirmation: password)
-      user.skip_confirmation! if auth.provider == 'facebook'
+      user = User.create(email: email, password: password, password_confirmation: password)
+      user.skip_confirmation! if email
       user.create_authorization(auth)
-      user.send_confirmation_instructions
+      # user.send_confirmation_instructions
+    else
+      user = User.new
     end
 
     user

@@ -24,4 +24,8 @@ feature 'User sign in', %q{
     expect(page).to have_content('Неверный email или пароль.')
     expect(current_path).to eq(new_user_session_path)
   end
+
+  scenario 'Non-registered user try to sign_in via twitter'
+  scenatio 'registered(have email) user try to sign in via twitter'
+  scenario 'send confirmation email if user have account but sign in via twitter'
 end
