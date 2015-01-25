@@ -25,7 +25,25 @@ feature 'User sign in', %q{
     expect(current_path).to eq(new_user_session_path)
   end
 
-  scenario 'Non-registered user try to sign_in via twitter'
-  scenario 'registered(have email) user try to sign in via twitter'
+  scenario 'Non-registered user try to sign_in via twitter' do
+    visit new_user_session_path
+    click_on 'Sign in with Twitter'
+    fill_in 'Эл. почта', with: 'new_twitter_mail@mail.com'
+    click_on 'Зарегистрироваться'
+
+    expect(page).to have_content('Вы должны подтвердить Вашу учётную запись.')
+  end
+
+  scenario 'registered(have email) user try to sign in via twitter' do
+    sign_in(user)
+    click_on 'выйти'
+    visit new_user_session_path
+    click_on 'Sign in with Twitter'
+    fill_in 'Эл. почта', with: 'new_twitter_mail@mail.com'
+    click_on 'Зарегистрироваться'
+
+    expect(page).to have_content('Вы должны подтвердить Вашу учётную запись.')
+  end
+
   scenario 'send confirmation email if user have account but sign in via twitter'
 end
