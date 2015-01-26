@@ -16,7 +16,7 @@
         - else
           = link_to 'войти', new_user_session_path
       - if notice
-        %p.notice= notice
+        %div.notice= notice
       - if alert
-        %p.alert= alert
+        %div.alert.error-explanation= alert
       = yield

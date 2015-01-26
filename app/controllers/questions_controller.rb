@@ -6,6 +6,8 @@ class QuestionsController < ApplicationController
 
   respond_to :html, :js
 
+  authorize_resource
+
   def index
     if params[:tag]
       respond_with(@questions = Question.tagged_with(params[:tag]))

@@ -1,5 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
-
+  skip_authorization_check
+  
   def create
     if session['devise.oauth']
       oauth_hash = OmniAuth::AuthHash.new(session['devise.oauth'], info: {})

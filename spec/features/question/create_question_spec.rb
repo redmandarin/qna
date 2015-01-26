@@ -37,10 +37,8 @@ feature 'Create question', %q{
 
   scenario 'Non-authenticated user try to create question' do
     visit questions_path
-    click_on 'Задать вопрос'
 
-    expect(page).to have_content 'Вам необходимо войти в систему или зарегистрироваться.'
-    expect(current_path).to eq(new_user_session_path)
+    expect(page).not_to have_content 'Задать вопрос'
   end
 
 

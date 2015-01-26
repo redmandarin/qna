@@ -1,4 +1,7 @@
 ru:
+  unauthorized:
+    manage:
+      all: "У вас не хватает прав для выполнения данного действия."
   answer_body: "Ответ"
   answer_submit: "Сохранить ответ"
   error:
