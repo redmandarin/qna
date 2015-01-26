@@ -6,8 +6,9 @@
 %hr
 .answers{ "data-question-id" => @question.id}
   = render 'answers/answers'
-.new_answer_form
-  = render 'answers/form'
+- if can?(:create, Answer)
+  .new_answer_form
+    = render 'answers/form'
 
 = subscribe_to "/questions/#{@question.id}/comments"
 = subscribe_to "/questions/#{@question.id}/answers"

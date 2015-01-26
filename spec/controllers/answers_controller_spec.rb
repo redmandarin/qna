@@ -69,7 +69,7 @@ RSpec.describe AnswersController, :type => :controller do
         patch :update, id: answer, answer: attributes_for(:answer, body: "brand new title"), format: :json
         answer.reload
 
-        expect(response).to redirect_to(questions_path)
+        expect(response).to redirect_to(root_path)
       end
     end
 

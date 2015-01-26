@@ -55,7 +55,7 @@ RSpec.describe CommentsController, type: :controller do
         sign_in anothor_user
         patch :update, question_id: @question, id: @comment, comment: { body: "Body" }, format: :json
         expect(response.status).to eq(302)
-        expect(response).to redirect_to(questions_path)
+        expect(response).to redirect_to(root_path)
       end
     end
 

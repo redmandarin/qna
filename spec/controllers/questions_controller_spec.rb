@@ -72,7 +72,7 @@ RSpec.describe QuestionsController, :type => :controller do
       it "should not be able to edit question" do
         get :edit, id: another_question
 
-        expect(response).to redirect_to(question_path(another_question))
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -155,7 +155,7 @@ RSpec.describe QuestionsController, :type => :controller do
       end
 
       it "redirect to questions path" do
-        expect(response).to redirect_to(question_path(question))
+        expect(response).to redirect_to(root_path)
       end
     end
 

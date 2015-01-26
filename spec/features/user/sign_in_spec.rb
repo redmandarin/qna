@@ -40,7 +40,6 @@ feature 'User sign in', %q{
     click_on 'выйти'
     visit new_user_session_path
     click_on 'Sign in with Twitter'
-    save_and_open_page
     fill_in 'Эл. почта', with: 'new_twitter_mail@mail.com'
     click_on 'Зарегистрироваться'
 

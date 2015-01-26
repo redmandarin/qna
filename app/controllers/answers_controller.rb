@@ -2,7 +2,6 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_answer, only: [:edit, :update]
   before_action :set_question, only: [:create]
-  before_action :authorize, only: [:edit, :update]
   after_action :publish_answer, only: :create
 
   respond_to :json, :js
@@ -44,12 +43,5 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, attachments_attributes: [:file, :_destroy])
-  end
-
-  def authorize
-    unless current_user.author?(@answer)
-      redirect_to questions_path
-      flash[:alert] = "У вас нехватает прав для выполнения этого действия."
-    end
   end
 end

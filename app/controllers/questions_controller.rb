@@ -1,7 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
-  before_action :authorize, only: [:edit, :update, :destroy]
   before_action :build_answer,   only: :show
 
   respond_to :html, :js
@@ -68,12 +67,5 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body, :tag_list, attachments_attributes: [:file, :_destroy])
-  end
-
-  def authorize
-    unless current_user.author?(@question)
-      redirect_to question_path(@question)
-      flash[:alert] = "У вас нехватает прав для выполнения этого действия."
-    end
   end
 end
