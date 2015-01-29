@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   resources :questions, concerns: :commentable, shallow: true do
     resources :answers, concerns: :commentable
   end
+
+  resources :users, only: [:index, :show]
   
   namespace :api do
     namespace :v1 do
