@@ -73,4 +73,35 @@ describe 'Questions API' do
       end
     end
   end
+
+  describe "POST /" do
+    context 'authorized' do
+
+      context 'invalid attributes' do
+        # before { post '/api/v1/questions', attributes_for(:question, body: nil), format: :json }
+        
+        it 'returns unprocesseble entity' do
+          post '/api/v1/questions', question: attributes_for(:question, body: nil), format: :json, access_token: access_token.token
+          expect(response.status).to eq(422)
+        end
+
+        it 'does not save question' do
+          expect { post '/api/v1/questions', question: attributes_for(:question, body: nil), format: :json, access_token: access_token.token }.not_to change(Question, :count)
+        end
+      end
+
+      context 'valid attributes' do
+        # before { post '/api/v1/questions', attributes_for(:question), format: :json }
+
+        it 'creates new question' do
+          expect { post '/api/v1/questions', question: attributes_for(:question), format: :json, access_token: access_token.token }.to change(Question, :count).by(1)
+        end
+
+        it 'should be success' do
+          post '/api/v1/questions', question: attributes_for(:question), format: :json, access_token: access_token.token
+          expect(response.status).to eq(201)
+        end
+      end
+    end
+  end
 end
