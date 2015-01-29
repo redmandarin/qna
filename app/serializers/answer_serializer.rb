@@ -1,5 +1,6 @@
 class AnswerSerializer < ActiveModel::Serializer
-  attributes :id, :body, :user_email, :parent_id, :files, :created_at, :updated_at
+  attributes :id, :body, :user_email, :parent_id, :created_at, :updated_at
+  has_many :attachments
 
   def user_email
     User.find(object.user_id).email

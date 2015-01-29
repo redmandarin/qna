@@ -42,6 +42,7 @@ describe 'Answer API' do
   describe 'GET /:id' do
     context 'authorized' do
       let(:answer) { create(:answer, question: question) }
+      let!(:attachment) { create(:attachment, attachmentable: answer) }
 
       before { get "/api/v1/answers/#{answer.id}", format: :json, access_token: access_token.token }
 
@@ -52,6 +53,17 @@ describe 'Answer API' do
       %w(id body created_at updated_at).each do |attr|
         it "contain #{attr}" do
           expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("answer/#{attr}")
+        end
+      end
+
+      context 'attachments' do
+
+        it 'contain filename' do
+          expect(response.body).to be_json_eql(attachment.file.file.filename.to_json).at_path("answer/attachments/0/filename")
+        end
+
+        it 'contain url' do
+          expect(response.body).to be_json_eql(attachment.file.url.to_json).at_path("answer/attachments/0/url")
         end
       end
     end

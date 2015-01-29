@@ -11,4 +11,14 @@ FactoryGirl.define do
     question_id nil
   end
 
+  factory :answer_with_file, class: Answer do
+    body "My answer text"
+    user
+    question
+
+    after(:build) do |answer, eval|
+      answer.attachments << FactoryGirl.build(:attachment, attachmentable: answer)
+    end
+  end
+
 end
