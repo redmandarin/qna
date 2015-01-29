@@ -43,6 +43,9 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'cancancan'
+gem 'doorkeeper'
+gem 'oj'
+gem 'oj_mimic_json'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -56,6 +59,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'json_spec'
 end
 
 # Use ActiveModel has_secure_password
