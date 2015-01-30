@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 describe 'Answer API' do
-  let!(:user) { create(:user) }
-  let(:access_token) { create(:access_token, resource_owner_id: user.id) }
+  let(:access_token) { create(:access_token) }
   let!(:question) { create(:question) }
 
   describe 'GET /' do
