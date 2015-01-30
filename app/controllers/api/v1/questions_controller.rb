@@ -10,9 +10,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def create
-    # Работает только так
-    @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
-    respond_with(@question = Question.create(question_params.merge(user: @current_resource_owner)))
+    respond_with(@question = Question.create(question_params.merge(user: current_resource_owner)))
   end
 
   private

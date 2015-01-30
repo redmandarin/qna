@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe 'Answer API' do
-  let(:access_token) { create(:access_token) }
+  let!(:user) { create(:user) }
+  let(:access_token) { create(:access_token, resource_owner_id: user.id) }
   let!(:question) { create(:question) }
 
   describe 'GET /' do
@@ -65,6 +66,34 @@ describe 'Answer API' do
         it 'contain url' do
           expect(response.body).to be_json_eql(attachment.file.url.to_json).at_path("answer/attachments/0/url")
         end
+      end
+    end
+  end
+
+  describe 'POST /' do
+    context 'authorized' do
+      context 'invalid attributes' do
+        it 'returns 422' do
+          post "/api/v1/questions/#{question.id}/answers", answer: attributes_for(:answer, body: nil), format: :json, access_token: access_token.token
+          expect(response.status).to eq(422)
+        end
+
+        it 'does not save the answer' do
+          expect { post "/api/v1/questions/#{question.id}/answers", answer: attributes_for(:answer, body: nil), format: :json, access_token: access_token.token }.not_to change(question.answers, :count)
+        end
+      end
+
+      context 'valid attributes' do
+        it 'returns 201' do
+          post "/api/v1/questions/#{question.id}/answers", answer: attributes_for(:answer), format: :json, access_token: access_token.token
+          expect(response.status).to eq(201)
+        end
+
+        it 'save the answer' do
+          expect { post "/api/v1/questions/#{question.id}/answers", answer: attributes_for(:answer), format: :json, access_token: access_token.token }.to change(question.answers, :count).by(1)
+        end
+
+        it 'returns json answer'
       end
     end
   end

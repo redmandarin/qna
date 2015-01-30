@@ -101,6 +101,8 @@ describe 'Questions API' do
           post '/api/v1/questions', question: attributes_for(:question), format: :json, access_token: access_token.token
           expect(response.status).to eq(201)
         end
+
+        it 'return json question'
       end
     end
   end
