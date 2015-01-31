@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Question, :type => :model do
   it { should belong_to :user }
-  it { should have_one :rating }
   it { should have_many :answers }
   it { should have_many :comments }
+  it { should have_many :votes }
   it { should have_many :tags }
   it { should have_many :taggings }
   it { should have_many :attachments }
@@ -27,6 +27,22 @@ RSpec.describe Question, :type => :model do
     it "should return false" do
       expect(another_user.author?(question)).to eq(false)
     end
+  end
+
+  describe '#vote' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question) }
+    let(:answer) { create(:answer) }
+    # let(:vote) { create(:vote) }
+
+    it 'should change rating of question by 1' do
+      expect { question.vote(1) }.to change(question, :rating).by(1)
+    end
+    
+    it 'should change rating of answer by 1' do
+      expect { question.vote(-1) }.to change(question, :rating).by(-1)
+    end
+
   end
 
   describe "Tag" do

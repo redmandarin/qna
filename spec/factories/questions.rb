@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :question do
     title "MyString"
     body "MyText"
+    rating 0
     user
   end
 

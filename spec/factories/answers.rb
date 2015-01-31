@@ -3,6 +3,7 @@ FactoryGirl.define do
     body "My answer text"
     user
     question
+    rating 0
   end
 
   factory :invalid_answer, class: Answer do
