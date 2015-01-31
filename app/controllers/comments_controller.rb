@@ -46,13 +46,4 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
-  def set_target
-    klass = [Question, Answer].detect{ |c| params["#{c.name.underscore}_id"] }
-    @target = klass.find(params["#{klass.name.underscore}_id"])
-    if @target.class.name == "Question"
-      @question = @target
-    else
-      @question = @target.question
-    end
-  end
 end

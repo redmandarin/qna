@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150126151446) do
+ActiveRecord::Schema.define(version: 20150131134634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20150126151446) do
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "rating",      default: 0
   end
 
   create_table "attachments", force: true do |t|
@@ -102,14 +103,7 @@ ActiveRecord::Schema.define(version: 20150126151446) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-  end
-
-  create_table "ratings", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "value",         default: 0
-    t.integer  "rateable_id"
-    t.string   "rateable_type"
+    t.integer  "rating",     default: 0
   end
 
   create_table "taggings", force: true do |t|
@@ -146,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150126151446) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.boolean  "admin"
+    t.integer  "rating",                 default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -154,10 +149,14 @@ ActiveRecord::Schema.define(version: 20150126151446) do
 
   create_table "votes", force: true do |t|
     t.integer  "user_id"
-    t.integer  "rating_id"
-    t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "value"
+    t.integer  "voteable_id"
+    t.string   "voteable_type"
   end
+
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
+  add_index "votes", ["voteable_id", "voteable_type"], name: "index_votes_on_voteable_id_and_voteable_type", using: :btree
 
 end

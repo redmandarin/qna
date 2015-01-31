@@ -23,4 +23,14 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :name, :email, :password, :remember_me) }
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password) }
   end
+
+  def set_target
+    klass = [Question, Answer].detect{ |c| params["#{c.name.underscore}_id"] }
+    @target = klass.find(params["#{klass.name.underscore}_id"])
+    if @target.class.name == "Question"
+      @question = @target
+    else
+      @question = @target.question
+    end
+  end
 end
