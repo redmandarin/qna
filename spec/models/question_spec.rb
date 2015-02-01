@@ -43,12 +43,12 @@ RSpec.describe Question, :type => :model do
       expect { question.vote(-1) }.to change(question, :rating).by(-1)
     end
 
-    it 'should change rating of user by 1' do
-      expect { question.vote(1) }.to change(question.user, :rating).by(1)
+    it 'should change rating of user by 2 ' do
+      expect { question.vote(1) }.to change(question.user, :rating).by(2)
     end
 
-    it 'should change rating of user by -1' do
-      expect { question.vote(-1) }.to change(question.user, :rating).by(-1)
+    it 'should change rating of user by -2' do
+      expect { question.vote(-1) }.to change(question.user, :rating).by(-2)
     end
 
   end
