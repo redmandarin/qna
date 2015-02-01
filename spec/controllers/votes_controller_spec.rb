@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe VotesController, type: :controller do
   let!(:user) { create(:user) }
-  let!(:question) { create(:question) }
-  let(:answer) { create(:answer, question: question) }
+  let!(:question) { create(:question, user: user) }
+  let(:answer) { create(:answer, question: question, user: user) }
   let(:vote) { create(:vote, value: 1) }
 
   describe 'POST #create' do
@@ -61,8 +61,13 @@ RSpec.describe VotesController, type: :controller do
     let!(:another_question) { create(:question, rating: -1)}
     let!(:another_vote) { create(:vote, voteable: another_question, value: -1) }
 
+    it 'response should be success' do
+      pacth :update, id: another_vote, vote: { value: 1 }, format: :js
+      expect(response).to be_success
+    end
+
     it 'change rating of the question by +1' do
-      put :update, id: another_vote, vote: { value: 1 }, format: :js
+      patch :update, id: another_vote, vote: { value: 1 }, format: :js
       another_question.reload
       expect(another_question.rating).to eq(0)
     end

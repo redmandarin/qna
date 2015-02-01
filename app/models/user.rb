@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
   has_many :comments
-  has_one :rating, as: :rateable
 
   before_create :skip_confirmation
 
