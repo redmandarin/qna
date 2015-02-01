@@ -1,0 +1,7 @@
+- target = @target if @target
+= form_for target.votes.where(user: current_user).first || [target, target.votes.build], remote: true do |f|
+  - model_name = t(target.class.name.downcase)
+  = f.label "голосовать за #{model_name}"
+  = f.radio_button :value, 1, onclick: "$(this).trigger('submit.rails')"
+  = f.label 'голосовать против'
+  = f.radio_button :value, -1, onclick: "$(this).trigger('submit.rails')"

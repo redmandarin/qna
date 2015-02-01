@@ -14,9 +14,10 @@ class VotesController < ApplicationController
 
   def update
     @vote = Vote.find(params[:id])
+    @target = @vote.voteable
     unless @vote.value == vote_params[:value].to_i
       @vote.update(vote_params) 
-      @vote.voteable.vote(@vote.value) if @vote.save
+      @vote.voteable.vote(@vote.value.to_i * 2) if @vote.save
     end
     respond_with(@vote)
   end

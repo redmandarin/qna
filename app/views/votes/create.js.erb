@@ -1,0 +1,6 @@
+<% if @vote.persisted? %>
+  $('.<%= @vote.voteable_type.downcase %>#<%= @vote.voteable_id %>').find('.vote-form').html('<%= render("votes/form").gsub("\n", "").html_safe %>');
+  $('.<%= @vote.voteable_type.downcase %>#<%= @vote.voteable_id %>').find('.votes').html('<%= @vote.voteable.rating %>');
+<% else %>
+  $('.<%= @vote.voteable_type.downcase %>#<%= @vote.voteable_id %>').find('.vote-form').remove();
+<% end %>

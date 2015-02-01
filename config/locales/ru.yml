@@ -1,4 +1,6 @@
 ru:
+  question: 'вопрос'
+  answer: 'ответ'
   unauthorized:
     manage:
       all: "У вас не хватает прав для выполнения данного действия."

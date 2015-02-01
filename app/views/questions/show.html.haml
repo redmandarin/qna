@@ -2,6 +2,11 @@
   .question{id: @question.id}
     = render 'question'
     = render 'comments/comments', target: @question
+    .question-votes
+      - if can?(:create, Vote)
+        .vote-form= render 'votes/form', target: @question
+        // .vote-form= render 'votes/form', target: @question unless Vote.exists?(user: current_user, voteable: @question)
+      .votes= @question.rating
 
 %hr
 .answers{ "data-question-id" => @question.id}
