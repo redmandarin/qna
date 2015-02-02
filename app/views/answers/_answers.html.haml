@@ -23,6 +23,10 @@
         - if can?(:create, Vote)
           .vote-form= render 'votes/form', target: answer
         .votes= answer.rating
-      .best-answer-action= link_to 'этот ответ лучший', 
+      .best-answer
+        - if answer.best
+          это лучший ответ
+        - elsif can?(:mark_best, Answer)
+          = link_to 'этот ответ лучший', mark_best_answer_path(answer), method: 'patch', remote: true
       = render 'comments/comments', target: answer
       %hr

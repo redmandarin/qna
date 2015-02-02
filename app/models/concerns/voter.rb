@@ -14,6 +14,7 @@ module Voter
   end
 
   def mark_best
+    self.question.answers.where.not(id: self.id).update_all(best: false)
     self.user.rating += 3
     self.user.save
   end

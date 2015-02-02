@@ -1,0 +1,7 @@
+<% @answer.question.answers.each do |answer| %>
+  <% if answer.best %>
+    $(".answer#<%= answer.id %>").find('.best-answer').html('это лучший ответ')
+  <% else %>
+    $(".answer#<%= answer.id %>").find('.best-answer').html('<a data-method="patch" data-remote="true" href="/answers/<%= answer.id %>/mark_best" rel="nofollow">этот ответ лучший</a>')
+  <% end %>
+<% end %>

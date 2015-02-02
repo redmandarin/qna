@@ -14,7 +14,7 @@ RSpec.describe AnswersController, :type => :controller do
 
   describe 'PATCH #mark_best' do
     context 'author' do
-      before { patch :mark_best, id: answer, format: :json }
+      before { patch :mark_best, id: answer, format: :js }
       
       it 'change answer best field' do
         answer.reload
@@ -36,7 +36,7 @@ RSpec.describe AnswersController, :type => :controller do
 
       it 'does not change best answer' do
         sign_out @user
-        patch :mark_best, id: answer, format: :json
+        patch :mark_best, id: answer, format: :js
         answer.reload
         expect(answer.best).to eq(false)
       end

@@ -19,9 +19,16 @@ RSpec.describe Answer, :type => :model do
   let(:answer) { create(:answer, question: question, user: user) }
 
   describe "#mark_best" do
+    let!(:best_answer) { create(:answer, question: question, best: true) }
+    before { answer.mark_best }
+
     it 'add +3 points' do
-      answer.mark_best
       expect(answer.user.rating).to eq(3)
+    end
+
+    it 'change other answers field to false' do
+      best_answer.reload
+      expect(best_answer.best).to eq(false)
     end
   end
 
