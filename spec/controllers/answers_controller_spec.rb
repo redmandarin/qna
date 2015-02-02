@@ -1,15 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, :type => :controller do
-  let!(:question) { create(:question) }
+  sign_in_user
+  let!(:question) { create(:question, user: @user) }
   let(:user) { create(:user) }
-  let(:answer) { create(:answer, question: question, user: user) }
-  let(:another_answer) { create(:answer) }
-  let(:another_user) { create(:user) }
+  let(:answer) { create(:answer, question: question, user: @user) }
+  let(:another_answer) { create(:answer, question: question) }
+  let!(:another_user) { create(:user) }
+
   before do 
-    user.confirm!
     another_user.confirm!
-    sign_in user
+  end
+
+  describe 'PATCH #mark_best' do
+    context 'author' do
+      before { patch :mark_best, id: answer, format: :json }
+      
+      it 'change answer best field' do
+        answer.reload
+        expect(answer.best).to eq(true)
+      end
+
+      it 'make other answers best field eq. to false' do
+        expect(another_answer.best).to eq(false)
+      end
+
+      it 'give to answer author +3 to rating' do
+        answer.reload
+        expect(answer.user.rating).to eq(3)
+      end
+    end
+    
+    context 'not an author' do
+      sign_in_user
+
+      it 'does not change best answer' do
+        sign_out @user
+        patch :mark_best, id: answer, format: :json
+        answer.reload
+        expect(answer.best).to eq(false)
+      end
+    end
   end
 
   describe "POST #create" do

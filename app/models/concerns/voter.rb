@@ -12,4 +12,9 @@ module Voter
     self.user.save
     self.save
   end
+
+  def mark_best
+    self.user.rating += 3
+    self.user.save
+  end
 end

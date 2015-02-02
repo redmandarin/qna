@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @answers = @question.answers.order("best DESC")
     respond_with @question
   end
 

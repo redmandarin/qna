@@ -1,4 +1,4 @@
-- @question.answers.order(created_at: :asc).each do |answer|
+- @answers.each do |answer|
   %div.answer{id: answer.id}
     - if answer.persisted?
       %p.answer-body= answer.body
@@ -23,5 +23,6 @@
         - if can?(:create, Vote)
           .vote-form= render 'votes/form', target: answer
         .votes= answer.rating
+      .best-answer-action= link_to 'этот ответ лучший', 
       = render 'comments/comments', target: answer
       %hr

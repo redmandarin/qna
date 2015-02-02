@@ -4,6 +4,7 @@ FactoryGirl.define do
     user
     question
     rating 0
+    best false
   end
 
   factory :invalid_answer, class: Answer do

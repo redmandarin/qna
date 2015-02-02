@@ -26,6 +26,9 @@ class Ability
     can :update, [Question, Answer, Comment, Vote], user: user
     can :destroy, [Question, Comment], user: user
     can :destroy, Attachment, attachmentable: { user: user }
+    can :mark_best, Answer do |answer|
+      answer.question.user == user
+    end
   end
 
 end

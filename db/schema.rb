@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150131134634) do
+ActiveRecord::Schema.define(version: 20150202123504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150131134634) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "rating",      default: 0
+    t.boolean  "best",        default: false
   end
 
   create_table "attachments", force: true do |t|

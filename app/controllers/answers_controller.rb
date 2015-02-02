@@ -17,14 +17,13 @@ class AnswersController < ApplicationController
     respond_with @answer do |format|
       format.json { render json: @answer.to_json(include: :attachments) }
     end
+  end
 
-    # respond_to do |format|
-    #   if @answer.update(answer_params)
-    #     format.json { render json: @answer.to_json(include: :attachments) }
-    #   else
-    #     format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
-    #   end
-    # end
+  def mark_best
+    @answer = Answer.find(params[:id])
+    @answer.update(best: true)
+    @answer.mark_best if @answer.save
+    respond_with @answer
   end
 
   private
@@ -42,6 +41,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, attachments_attributes: [:file, :_destroy])
+    params.require(:answer).permit(:body, :mark_best, attachments_attributes: [:file, :_destroy])
   end
 end

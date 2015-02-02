@@ -32,6 +32,16 @@ RSpec.describe QuestionsController, :type => :controller do
     it "renders show view" do
       expect(response).to render_template(:show)
     end
+
+    context 'answers order' do
+      let!(:answer) { create(:answer, question: another_question) }
+      let!(:another_answer) { create(:answer, question: another_question, best: true) }
+
+      it "show best answer first" do
+        get :show, id: another_question
+        expect(assigns(:answers)[0]).to eq(another_answer)
+      end
+    end
   end
 
   describe "GET #new" do

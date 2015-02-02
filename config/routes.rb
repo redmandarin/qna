@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   end
   
   resources :questions, concerns: [:commentable, :voteable], shallow: true do
-    resources :answers, concerns: [:commentable, :voteable]
+    resources :answers, concerns: [:commentable, :voteable] do
+      patch 'mark_best', on: :member
+    end
   end
 
   resources :users, only: [:index, :show]

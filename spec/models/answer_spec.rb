@@ -13,11 +13,19 @@ RSpec.describe Answer, :type => :model do
 
   it { should accept_nested_attributes_for :attachments }
 
+  let(:user) { create(:user) }
+  let(:another_user) { create(:user) }
+  let(:question) { create(:question, user: user) }
+  let(:answer) { create(:answer, question: question, user: user) }
+
+  describe "#mark_best" do
+    it 'add +3 points' do
+      answer.mark_best
+      expect(answer.user.rating).to eq(3)
+    end
+  end
+
   describe "#author?" do
-    let(:user) { create(:user) }
-    let(:another_user) { create(:user) }
-    let(:question) { create(:question, user: user) }
-    let(:answer) { create(:answer, question: question, user: user) }
 
     it "should return true" do
       puts "hello"
