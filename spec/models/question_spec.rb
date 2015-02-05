@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Question, :type => :model do
+  subject { build(:question) }
+  
   it { should belong_to :user }
   it { should have_many :answers }
   it { should have_many :comments }
@@ -15,6 +17,27 @@ RSpec.describe Question, :type => :model do
   it { should validate_presence_of :body }
   it { should validate_presence_of :user_id }
 
+  describe 'rating' do
+    let(:user) { create(:user) }
+    subject { build(:question, user: user) }
+
+    it 'should calculate reputation after creating' do
+      expect(Ratingable).to receive(:calculate)
+      subject.save!
+    end
+
+    it 'should not calculate reputation after update' do
+      subject.save!
+      expect(Ratingable).to_not receive(:calculate)
+      subject.update(title: '123')
+    end
+
+    it 'should save user reputation' do
+      allow(Ratingable).to receive(:calculate).and_return(5)
+      expect { subject.save! }.to change(user, :rating).by(5)
+    end
+  end
+
   describe "#author?" do
     let(:user) { create(:user) }
     let(:another_user) { create(:user) }
@@ -27,30 +50,6 @@ RSpec.describe Question, :type => :model do
     it "should return false" do
       expect(another_user.author?(question)).to eq(false)
     end
-  end
-
-  describe '#vote' do
-    let(:user) { create(:user) }
-    let(:question) { create(:question) }
-    let(:answer) { create(:answer) }
-    # let(:vote) { create(:vote) }
-
-    it 'should change rating of question by 1' do
-      expect { question.vote(1) }.to change(question, :rating).by(1)
-    end
-    
-    it 'should change rating of question by -1' do
-      expect { question.vote(-1) }.to change(question, :rating).by(-1)
-    end
-
-    it 'should change rating of user by 2 ' do
-      expect { question.vote(1) }.to change(question.user, :rating).by(2)
-    end
-
-    it 'should change rating of user by -2' do
-      expect { question.vote(-1) }.to change(question.user, :rating).by(-2)
-    end
-
   end
 
   describe "Tag" do

@@ -4,18 +4,8 @@ describe 'Answer API' do
   let(:access_token) { create(:access_token) }
   let!(:question) { create(:question) }
 
-  describe 'GET /' do
-    context 'unauthorized' do
-      it 'returns 401 if there no access token' do
-        get "/api/v1/questions/#{question.id}/answers", format: :json
-        expect(response.status).to eq(401)
-      end
-
-      it 'returns 401 if access token is invalid' do
-        get "/api/v1/questions/#{question.id}/answers", format: :json, access_token: '123456'
-        expect(response.status).to eq(401)
-      end
-    end
+  describe 'GET /questions' do
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       let!(:answers) { create_list(:answer, 2, question: question) }
@@ -23,9 +13,7 @@ describe 'Answer API' do
 
       before { get "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token }
 
-      it 'response shoul be success' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'Success response'
 
       it 'return list of answers' do
         expect(response.body).to have_json_size(2).at_path("answers")
@@ -39,16 +27,16 @@ describe 'Answer API' do
     end
   end
 
-  describe 'GET /:id' do
+  describe 'GET /questions/:id' do
+    it_behaves_like 'API Authenticable'
+
     context 'authorized' do
       let(:answer) { create(:answer, question: question) }
       let!(:attachment) { create(:attachment, attachmentable: answer) }
 
       before { get "/api/v1/answers/#{answer.id}", format: :json, access_token: access_token.token }
 
-      it 'respond should be success' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'Success response'
 
       %w(id body created_at updated_at).each do |attr|
         it "contain #{attr}" do
@@ -69,7 +57,9 @@ describe 'Answer API' do
     end
   end
 
-  describe 'POST /' do
+  describe 'POST /questions' do
+    it_behaves_like 'API Authenticable'
+    
     context 'authorized' do
       context 'invalid attributes' do
         it 'returns 422' do
@@ -95,5 +85,9 @@ describe 'Answer API' do
         it 'returns json answer'
       end
     end
+  end
+
+  def do_request(options = {})
+    get "api/v1/questions/#{question.id}/answers", { format: :json }.merge(options)
   end
 end

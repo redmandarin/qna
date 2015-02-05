@@ -1,4 +1,4 @@
-module Voter
+module Voteable
   extend ActiveSupport::Concern
 
   def vote(value)

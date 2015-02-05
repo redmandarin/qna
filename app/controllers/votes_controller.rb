@@ -8,17 +8,12 @@ class VotesController < ApplicationController
 
   def create
     @vote = @target.votes.create(vote_params.merge(user: current_user))
-    @target.vote(@vote.value) if @vote.persisted?
     respond_with(@vote)
   end
 
   def update
     @vote = Vote.find(params[:id])
-    @target = @vote.voteable
-    unless @vote.value == vote_params[:value].to_i
-      @vote.update(vote_params) 
-      @vote.voteable.vote(@vote.value.to_i * 2) if @vote.save
-    end
+    @vote.update(vote_params) 
     respond_with(@vote)
   end
 

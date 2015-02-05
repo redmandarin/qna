@@ -10,46 +10,24 @@ RSpec.describe VotesController, type: :controller do
     sign_in_user
     
     context 'question' do
-      it 'change rating of the question by +1' do
-        post :create, vote: { value: 1 }, question_id: question, format: :js
-        question.reload
-        expect(question.rating).to eq(1)
-      end
-
-      it 'change rating by -1' do
-        post :create, vote: { value: -1 }, question_id: question, format: :js
-        question.reload
-        expect(question.rating).to eq(-1)
-      end
-
       it 'creates vote' do
-        expect { post :create, vote: { value: 1 }, question_id: question, format: :js }.to change(Vote, :count).by(1)
+        expect { post :create, vote: { value: 1 }, question_id: question, format: :js }.to change(question.votes, :count).by(1)
       end
 
       it 'user can not create vote for the question two times' do
         post :create, vote: { value: -1 }, question_id: question, format: :js
-        expect { post :create, vote: { value: -1 }, question_id: question, format: :js }.not_to change(Vote, :count)
-      end
-
-      it 'user can not vote save value two times' do
-        post :create, vote: { value: -1 }, question_id: question, format: :js
-        post :create, vote: { value: -1 }, question_id: question, format: :js
-        question.reload
-        expect(question.rating).to eq(-1)
+        expect { post :create, vote: { value: -1 }, question_id: question, format: :js }.not_to change(question.votes, :count)
       end
     end
 
     context 'answer' do
-      it 'change rating of the question by +1' do
-        post :create, vote: { value: 1 }, answer_id: answer, format: :js
-        answer.reload
-        expect(answer.rating).to eq(1)
+      it 'creates vote' do
+        expect { post :create, vote: { value: 1 }, answer_id: answer, format: :js }.to change(answer.votes, :count).by(1)
       end
 
-      it 'change rating by -1' do
+      it 'user can not create vote for two times' do
         post :create, vote: { value: -1 }, answer_id: answer, format: :js
-        answer.reload
-        expect(answer.rating).to eq(-1)
+        expect { post :create, vote: { value: -1 }, answer_id: answer, format: :js }.not_to change(answer.votes, :count)
       end
     end
   end
@@ -62,26 +40,8 @@ RSpec.describe VotesController, type: :controller do
     let!(:another_vote) { create(:vote, voteable: another_question, value: -1) }
 
     it 'response should be success' do
-      pacth :update, id: another_vote, vote: { value: 1 }, format: :js
-      expect(response).to be_success
-    end
-
-    it 'change rating of the question by +1' do
       patch :update, id: another_vote, vote: { value: 1 }, format: :js
-      another_question.reload
-      expect(another_question.rating).to eq(0)
-    end
-
-    it 'change rating of the question by -1' do
-      patch :update, vote: { value: -1 }, id: vote, format: :js
-      question.reload
-      expect(question.rating).to eq(0)
-    end
-
-    it 'can not change by +2' do
-      put :update, id: vote, vote: { value: 1 }, format: :js
-      question.reload
-      expect(question.rating).to eq(1)
+      expect(response).to be_success
     end
 
     it 'change value of vote from 1 to -1' do
@@ -91,7 +51,7 @@ RSpec.describe VotesController, type: :controller do
     end
 
     it 'does not change votes count' do
-      expect { patch :update, vote: { value: -1 }, id: vote, format: :js }.not_to change(Vote, :count)
+      expect { patch :update, vote: { value: -1 }, id: vote, format: :js }.not_to change(question.votes, :count)
     end
   end
 end

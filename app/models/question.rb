@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
   include Authority
-  include Voter
+  include Ratingable
 
   has_many :answers, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
@@ -14,6 +14,8 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
+  after_create :calculate_rating
+
   def self.tagged_with(name)
     Tag.where(name: name).first.questions
   end
@@ -26,6 +28,13 @@ class Question < ActiveRecord::Base
 
   def tag_list
     self.tags.map(&:name).join(', ')
+  end
+
+  protected
+
+  def calculate_rating
+    rating = Ratingable.calculate
+    self.user.update(rating: rating)
   end
 
 end

@@ -22,13 +22,30 @@ RSpec.describe Answer, :type => :model do
     let!(:best_answer) { create(:answer, question: question, best: true) }
     before { answer.mark_best }
 
-    it 'add +3 points' do
-      expect(answer.user.rating).to eq(3)
+    it 'make answer the best' do
+      expect(answer.best).to eq(true)
     end
 
     it 'change other answers field to false' do
       best_answer.reload
       expect(best_answer.best).to eq(false)
+    end
+
+  end
+
+  describe 'calc reputaiton' do
+    subject { build(:answer, user: user) }
+    
+    it 'calsulate reputation after update' do
+      subject.save!
+      expect(Ratingable).to receive(:best_answer).with(subject)
+      subject.update(best: true)
+    end
+
+    it 'not calculate reputation if not #mark_best' do
+      subject.save!
+      expect(Ratingable).not_to receive(:best_answer)
+      subject.update(body: '123')
     end
   end
 

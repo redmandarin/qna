@@ -1,6 +1,5 @@
 class Answer < ActiveRecord::Base
   include Authority
-  include Voter
   
   belongs_to :question
   belongs_to :user
@@ -11,5 +10,18 @@ class Answer < ActiveRecord::Base
   validates :body, :user_id, :question_id, presence: true
   
   accepts_nested_attributes_for :attachments, allow_destroy: true, :reject_if => lambda { |a| a['file'].blank? }
+
+  after_save :calculate_rating, if: :best_changed?
+
+  def mark_best
+    self.update(best: true)
+    self.question.answers.where.not(id: self.id).update_all(best: false)
+  end
+
+  private
+
+  def calculate_rating
+    Ratingable.best_answer(self)
+  end
 
 end

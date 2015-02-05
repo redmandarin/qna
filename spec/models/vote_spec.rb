@@ -11,4 +11,21 @@ RSpec.describe Vote, :type => :model do
 
   it { should ensure_inclusion_of(:value).in_array(%w(1 -1))}
   # it { should validates_uniqueness_of(:user_id) }
+
+  describe 'rating' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question) }
+    subject { build(:vote, user: user, voteable: question) }
+
+    it 'should calculate reputaiton after creation' do
+      expect(Ratingable).to receive(:vote)
+      subject.save!
+    end
+
+    it 'should calc. reputation after update' do
+      subject.save!
+      expect(Ratingable).to receive(:vote).with(:vote)
+      subject.update(value: -1)
+    end
+  end
 end

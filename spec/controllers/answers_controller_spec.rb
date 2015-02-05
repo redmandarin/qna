@@ -24,11 +24,6 @@ RSpec.describe AnswersController, :type => :controller do
       it 'make other answers best field eq. to false' do
         expect(another_answer.best).to eq(false)
       end
-
-      it 'give to answer author +3 to rating' do
-        answer.reload
-        expect(answer.user.rating).to eq(3)
-      end
     end
     
     context 'not an author' do
@@ -53,6 +48,13 @@ RSpec.describe AnswersController, :type => :controller do
     context "with invalid attributes" do
       it "does not save answer" do
         expect { post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js }.not_to change(Answer, :count)
+      end
+    end
+
+    context "PrivatePub" do
+      it 'publish to' do
+        expect(PrivatePub).to receive(:publish_to)
+        post :create, question_id: question, answer: attributes_for(:answer), format: :js
       end
     end
 

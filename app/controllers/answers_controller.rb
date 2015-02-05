@@ -21,7 +21,6 @@ class AnswersController < ApplicationController
 
   def mark_best
     @answer = Answer.find(params[:id])
-    @answer.update(best: true)
     @answer.mark_best if @answer.save
     respond_with @answer
   end

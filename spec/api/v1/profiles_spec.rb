@@ -3,17 +3,7 @@ require 'rails_helper'
 describe 'Profile API' do
 
   describe 'GET /me' do
-    context 'unauthorized' do
-      it 'returns 401 status if there no access_token' do
-        get '/api/v1/profiles/me', format: :json
-        expect(response.status).to eq(401)
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        get '/api/v1/profiles/me', format: :json, access_token: '123445'
-        expect(response.status).to eq(401)
-      end
-    end
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       let(:me) { create(:user) }
@@ -40,16 +30,7 @@ describe 'Profile API' do
   end
 
   describe 'GET /' do
-    context 'unauthorized' do
-      it 'returns 401 if no given access_token' do
-        get '/api/v1/profiles', format: :json
-        expect(response.status).to eq(401)
-      end
-
-      it 'returns 401 error if access_token is invalid' do
-        get '/api/v1/profiles', format: :json, access_token: '12345'
-      end
-    end
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       let!(:users) { create_list(:user, 3) }
@@ -73,5 +54,10 @@ describe 'Profile API' do
         end
       end
     end
+  end
+
+
+  def do_request(options = {})
+    get 'api/v1/questions', { format: :json }.merge(options)
   end
 end
