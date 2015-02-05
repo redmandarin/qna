@@ -20,7 +20,7 @@ describe Ability do
   end
 
   describe 'for user' do
-    let(:user) { create(:user) }
+    let!(:user) { create(:user) }
     let(:another_user) { create(:user) }
     let(:question) { create(:question, user: user) }
 
@@ -38,8 +38,8 @@ describe Ability do
     it { should be_able_to :update, create(:answer, user: user), user: user }
     it { should_not be_able_to :update, create(:answer, user: another_user), user: user }
 
-    it { should be_able_to :update, create(:vote, user: user), user: user }
-    it { should_not be_able_to :update, create(:vote, user: another_user), user: user }
+    it { should be_able_to :update, create(:vote, user: user), user: user } # ?
+    it { should_not be_able_to :update, create(:vote, user: another_user), user: user } # ?
 
     it { should be_able_to :mark_best, create(:answer, question: question), user: user}
 

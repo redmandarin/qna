@@ -6,6 +6,7 @@ module Ratingable
 
   def self.vote(vote)
     user = vote.voteable.user
+    puts user.to_json
     case vote.voteable_type
     when 'Question'
       user.rating += vote.value.to_i * 2

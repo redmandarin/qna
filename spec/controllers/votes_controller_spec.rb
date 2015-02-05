@@ -1,16 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe VotesController, type: :controller do
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
   let!(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question, user: user) }
-  let(:vote) { create(:vote, value: 1) }
+  let(:vote) { create(:vote, value: 1, voteable: question) }
+
+  before { user.update(rating: 0) } # ?
 
   describe 'POST #create' do
     sign_in_user
     
     context 'question' do
       it 'creates vote' do
+        puts create(:user).to_json
         expect { post :create, vote: { value: 1 }, question_id: question, format: :js }.to change(question.votes, :count).by(1)
       end
 
@@ -34,13 +37,9 @@ RSpec.describe VotesController, type: :controller do
 
   describe 'PATCH #update' do
     sign_in_user
-    let!(:question) { create(:question, rating: 1)}
-    let!(:vote) { create(:vote, voteable: question, value: 1) }
-    let!(:another_question) { create(:question, rating: -1)}
-    let!(:another_vote) { create(:vote, voteable: another_question, value: -1) }
 
     it 'response should be success' do
-      patch :update, id: another_vote, vote: { value: 1 }, format: :js
+      patch :update, id: vote, vote: { value: 1 }, format: :js
       expect(response).to be_success
     end
 
@@ -51,6 +50,7 @@ RSpec.describe VotesController, type: :controller do
     end
 
     it 'does not change votes count' do
+      vote
       expect { patch :update, vote: { value: -1 }, id: vote, format: :js }.not_to change(question.votes, :count)
     end
   end

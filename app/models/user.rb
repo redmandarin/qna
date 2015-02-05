@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   before_create :skip_confirmation
 
   # validates :name, presence: true
+  # validates :rating, presence: true
 
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first

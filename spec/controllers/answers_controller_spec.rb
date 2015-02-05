@@ -10,6 +10,7 @@ RSpec.describe AnswersController, :type => :controller do
 
   before do 
     another_user.confirm!
+    @user.update(rating: 0)
   end
 
   describe 'PATCH #mark_best' do
@@ -53,6 +54,7 @@ RSpec.describe AnswersController, :type => :controller do
 
     context "PrivatePub" do
       it 'publish to' do
+        # expect(PrivatePub).to receive(:publish_to).with("/questions/#{question.id}/answers", answer: AnswerSerializer.new(answer, root: false) )
         expect(PrivatePub).to receive(:publish_to)
         post :create, question_id: question, answer: attributes_for(:answer), format: :js
       end

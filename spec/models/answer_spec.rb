@@ -13,14 +13,17 @@ RSpec.describe Answer, :type => :model do
 
   it { should accept_nested_attributes_for :attachments }
 
-  let(:user) { create(:user) }
-  let(:another_user) { create(:user) }
   let(:question) { create(:question, user: user) }
-  let(:answer) { create(:answer, question: question, user: user) }
+  let!(:user) { create(:user) }
+  let(:another_user) { create(:user) }
+  let!(:answer) { create(:answer, question: question, user: another_user) }
 
   describe "#mark_best" do
     let!(:best_answer) { create(:answer, question: question, best: true) }
-    before { answer.mark_best }
+
+    before do
+      answer.mark_best 
+    end
 
     it 'make answer the best' do
       expect(answer.best).to eq(true)
@@ -50,15 +53,12 @@ RSpec.describe Answer, :type => :model do
   end
 
   describe "#author?" do
-
     it "should return true" do
-      puts "hello"
-      puts answer.id
-      expect(user.author?(answer)).to eq(true)
+      expect(another_user.author?(answer)).to eq(true)
     end
 
     it "should return false" do
-      expect(another_user.author?(answer)).to eq(false)
+      expect(user.author?(answer)).to eq(false)
     end
   end
 end

@@ -13,18 +13,26 @@ RSpec.describe Vote, :type => :model do
   # it { should validates_uniqueness_of(:user_id) }
 
   describe 'rating' do
-    let(:user) { create(:user) }
-    let(:question) { create(:question) }
-    subject { build(:vote, user: user, voteable: question) }
+    subject { build(:vote, user: create(:user), voteable: question, value: 1) }
+    let(:user) { create(:user, rating: 0) }
+    let(:question) { create(:question, user: user) }
 
     it 'should calculate reputaiton after creation' do
-      expect(Ratingable).to receive(:vote)
+      expect(Ratingable).to receive(:vote).with(subject)
       subject.save!
     end
 
-    it 'should calc. reputation after update' do
+    it 'should not calc. reputation if value not changed' do
+      expect(Ratingable).to receive(:vote).with(subject) # ?
       subject.save!
-      expect(Ratingable).to receive(:vote).with(:vote)
+      expect(Ratingable).not_to receive(:vote)
+      subject.update(value: 1)
+    end
+
+    it 'should calc. reputation after update' do
+      expect(Ratingable).to receive(:vote).with(subject) # ?
+      subject.save!
+      expect(Ratingable).to receive(:vote).with(subject)
       subject.update(value: -1)
     end
   end
