@@ -1,4 +1,4 @@
 <% if @vote.save %>
   $('.<%= @vote.voteable_type.downcase %>#<%= @vote.voteable_id %>').find('.vote-form').html('<%= render("votes/form").gsub("\n", "").html_safe %>');
-  $('.<%= @vote.voteable_type.downcase %>#<%= @vote.voteable_id %>').find('.votes').html('<%= @vote.voteable.rating %>');
+  $('.<%= @vote.voteable_type.downcase %>#<%= @vote.voteable_id %>').find('.<%= @vote.voteable_type.downcase %>-votes').find('.votes').html('<%= @vote.voteable.rating %>');
 <% end %>

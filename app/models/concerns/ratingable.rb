@@ -5,14 +5,16 @@ module Ratingable
   end
 
   def self.vote(vote)
-    user = vote.voteable.user
-    puts user.to_json
+    user = User.find(vote.voteable.user.id)
+    # puts user.to_json
     case vote.voteable_type
     when 'Question'
       user.rating += vote.value.to_i * 2
     when 'Answer'
       user.rating += vote.value.to_i
     end
+    vote.voteable.rating = vote.voteable.votes.where(value: 1).count - vote.voteable.votes.where(value: -1).count
+    vote.voteable.save
     user.save
   end
 

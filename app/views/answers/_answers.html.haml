@@ -1,5 +1,9 @@
 - @answers.each do |answer|
   %div.answer{id: answer.id}
+    .answer-votes
+      - if can?(:create, Vote)
+        .vote-form= render 'votes/form', target: answer
+      .votes= answer.rating
     - if answer.persisted?
       %p.answer-body= answer.body
       %ul.answer-files
@@ -19,10 +23,6 @@
             = f.link_to_add 'Добавить файл', :attachments, data: { :'blueprint-id' => "answer_attachments_fields_blueprint" }
             = render 'answers/blueprint_answer_file'
             = f.submit "Сохранить ответ"
-      .answer-votes
-        - if can?(:create, Vote)
-          .vote-form= render 'votes/form', target: answer
-        .votes= answer.rating
       .best-answer
         - if answer.best
           это лучший ответ

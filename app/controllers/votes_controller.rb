@@ -14,6 +14,7 @@ class VotesController < ApplicationController
   def update
     @vote = Vote.find(params[:id])
     @vote.update(vote_params) 
+    @target = @vote.voteable
     respond_with(@vote)
   end
 

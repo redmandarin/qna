@@ -6,14 +6,15 @@ RSpec.describe VotesController, type: :controller do
   let(:answer) { create(:answer, question: question, user: user) }
   let(:vote) { create(:vote, value: 1, voteable: question) }
 
-  before { user.update(rating: 0) } # ?
+  before { user.update(rating: 0) } # ? Создается без rating: 0
 
   describe 'POST #create' do
     sign_in_user
     
     context 'question' do
       it 'creates vote' do
-        puts create(:user).to_json
+        # puts user.to_json
+        # puts create(:user).to_json
         expect { post :create, vote: { value: 1 }, question_id: question, format: :js }.to change(question.votes, :count).by(1)
       end
 

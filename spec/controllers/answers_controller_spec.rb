@@ -10,7 +10,7 @@ RSpec.describe AnswersController, :type => :controller do
 
   before do 
     another_user.confirm!
-    @user.update(rating: 0)
+    @user.update(rating: 0) # ?
   end
 
   describe 'PATCH #mark_best' do

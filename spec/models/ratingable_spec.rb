@@ -11,20 +11,19 @@ describe Ratingable do
     expect(another_user.rating).to eq(3)
   end
 
-  # ?
-  before do
-    user.update(rating: 0)
-  end
+  before { user.update(rating: 0) } # ?
 
   describe '.vote' do
     context 'question' do
       it 'gives +2 to author' do
         Ratingable.vote(build(:positive_vote, voteable: question))
+        user.reload
         expect(user.rating).to eq(2)
       end
 
       it 'gives -2 to author' do
         Ratingable.vote(build(:negative_vote, voteable: question))
+        user.reload
         expect(user.rating).to eq(-2)
       end
     end
@@ -38,6 +37,7 @@ describe Ratingable do
 
       it 'gives -1 to author' do
         Ratingable.vote(build(:negative_vote, voteable: answer))
+        another_user.reload
         expect(another_user.rating).to eq(-1)
       end
     end
