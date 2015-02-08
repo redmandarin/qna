@@ -8,8 +8,8 @@ feature 'Answer editing', %q{
 
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
-  given!(:question) { create(:question, user: user) }
-  given!(:answer) { create(:answer, user: user, question: question) }
+  given(:question) { create(:question, user: user) }
+  given(:answer) { create(:answer, user: user, question: question) }
 
   scenario 'Unauthenticated user try to edit the answer' do
     visit question_path(question)
@@ -20,6 +20,7 @@ feature 'Answer editing', %q{
   describe 'Authenticated user' do
     before do
       sign_in(user)
+      answer
       visit question_path(question)
     end
 
@@ -59,7 +60,7 @@ feature 'Answer editing', %q{
       click_on 'выйти'
       sign_in(another_user)
       visit question_path(question)
-      
+
       within '.answers' do
         expect(page).not_to have_link('редактировать ответ')
       end

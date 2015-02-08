@@ -8,7 +8,7 @@ feature "Create Answer", %q{
 
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
-  given!(:question) { create(:question, user: user) }
+  given(:question) { create(:question, user: user) }
 
   scenario "Authenticated user create answer", js: true do
     sign_in(user)
@@ -32,7 +32,7 @@ feature "Create Answer", %q{
     within '.new_answer_form' do
       click_on 'Сохранить ответ'
     end
-    
+
     expect(page).to have_content('Ответ не может быть пустым')
   end
 end
