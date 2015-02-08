@@ -8,7 +8,7 @@ RSpec.describe AnswersController, :type => :controller do
   let(:another_answer) { create(:answer, question: question) }
   let!(:another_user) { create(:user) }
 
-  before do 
+  before do
     another_user.confirm!
     @user.update(rating: 0) # ?
   end
@@ -16,7 +16,7 @@ RSpec.describe AnswersController, :type => :controller do
   describe 'PATCH #mark_best' do
     context 'author' do
       before { patch :mark_best, id: answer, format: :js }
-      
+
       it 'change answer best field' do
         answer.reload
         expect(answer.best).to eq(true)
@@ -26,7 +26,7 @@ RSpec.describe AnswersController, :type => :controller do
         expect(another_answer.best).to eq(false)
       end
     end
-    
+
     context 'not an author' do
       sign_in_user
 
