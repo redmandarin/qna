@@ -1,7 +1,10 @@
 - target = @target if @target
-= form_for target.votes.where(user: current_user).first || [target, target.votes.build], remote: true do |f|
-  - model_name = t(target.class.name.downcase)
-  = f.label "голосовать за #{model_name}"
-  = f.radio_button :value, 1, onclick: "$(this).trigger('submit.rails')"
-  = f.label 'голосовать против'
-  = f.radio_button :value, -1, onclick: "$(this).trigger('submit.rails')"
+- vote = target.votes.where(user: current_user).first 
+- params = Hash.new
+- if vote
+  - vote.value == 1 ? params = { value: -1, message: 'голосовать против' } : params = { value: 1, message: 'голосовать за' }
+  = link_to params[:message], vote_path(vote, vote: { value: params[:value] }), method: 'patch', remote: true 
+- else
+  - target_name = target.class.name.downcase
+  = link_to 'голосовать за', send("#{target_name}_votes_path", target, vote: { value: 1 }), method: 'post', remote: true
+  = link_to 'голосовать против', send("#{target_name}_votes_path", target, vote: { value: -1 }), method: 'post', remote: true

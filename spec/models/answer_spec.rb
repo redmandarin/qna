@@ -22,7 +22,7 @@ RSpec.describe Answer, :type => :model do
     let!(:best_answer) { create(:answer, question: question, best: true) }
 
     before do
-      answer.mark_best 
+      answer.mark_best
     end
 
     it 'make answer the best' do
@@ -38,12 +38,6 @@ RSpec.describe Answer, :type => :model do
 
   describe 'calc reputaiton' do
     subject { build(:answer, user: user) }
-    
-    it 'calsulate reputation after update' do
-      subject.save!
-      expect(Ratingable).to receive(:best_answer).with(subject)
-      subject.update(best: true)
-    end
 
     it 'not calculate reputation if not #mark_best' do
       subject.save!

@@ -5,21 +5,20 @@ module Ratingable
   end
 
   def self.vote(vote)
-    user = User.find(vote.voteable.user.id)
-    # puts user.to_json
+    user = vote.voteable.user
+    voteable = vote.voteable
     case vote.voteable_type
     when 'Question'
-      user.rating += vote.value.to_i * 2
+      user_rating_inc = vote.value.to_i * 2
     when 'Answer'
-      user.rating += vote.value.to_i
+      user_rating_inc = vote.value.to_i
     end
-    vote.voteable.rating = vote.voteable.votes.where(value: 1).count - vote.voteable.votes.where(value: -1).count
-    vote.voteable.save
-    user.save
+    rating = voteable.votes.where(value: 1).count - voteable.votes.where(value: -1).count
+    voteable.increment!(:rating, rating)
+    user.increment!(:rating, user_rating_inc)
   end
 
   def self.best_answer(answer)
-    answer.user.rating += 3
-    answer.user.save
+    answer.user.increment!(:rating, 3)
   end
 end

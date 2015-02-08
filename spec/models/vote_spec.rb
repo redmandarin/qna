@@ -16,7 +16,6 @@ RSpec.describe Vote, :type => :model do
     let!(:user) { create(:user) }
     let!(:question) { create(:question, user: user) }
     subject { build(:vote, user: create(:user), voteable: question, value: 1) }
-    before { user.update(rating: 0) } # ?
 
     it 'should calculate reputaiton after creation' do
       expect(Ratingable).to receive(:vote).with(subject)

@@ -1,22 +1,19 @@
 require_relative "../feature_helper"
 
-feature 'Add vote to question', %q{
+feature 'Add vote to answer', %q{
   It order make dicision
   As an User
   I want to be able to make vote
 } do
 
-  given(:user) { create(:user) }
-  given!(:question) { create(:question, user: user) }
-  given!(:answer) { create(:answer, user: user, question: question) }
-  # given!(:another_question) { create(:question, user: user) }
-  # given(:another_user) { create(:user) }
-  # given!(:another_answer) { create(:answer, question: another_question, user: user) }
+  # given(:user) { create(:user) }
+  given!(:a_user) { create(:user) }
+  given!(:question) { create(:question, user: create(:user)) }
+  given!(:answer) { create(:answer, user: create(:user), question: question) }
 
   background do
-    sign_in(user)
+    sign_in(a_user)
     visit question_path(question)
-    user.update(rating: 0)
   end
 
   scenario 'not authenticated user does not see vote link', js: true do
@@ -31,14 +28,15 @@ feature 'Add vote to question', %q{
 
   scenario 'Add -1 vote to answer', js: true do
     within '.answer-votes' do
-      choose 'vote_value_-1'
+      click_on 'голосовать против'
+      sleep(1)
       expect(page).to have_content('-1')
     end
   end
 
   scenario 'Add +1 vote to answer', js: true do
     within '.answer-votes' do
-      choose 'vote_value_1'
+      click_on 'голосовать за'
       expect(page).to have_content('1')
     end
   end
@@ -46,8 +44,8 @@ feature 'Add vote to question', %q{
   scenario 'update +1 vote to answer', js: true do
     visit question_path(question)
     within '.answer-votes' do
-      choose 'vote_value_-1'
-      choose 'vote_value_1'
+      click_on 'голосовать против'
+      click_on 'голосовать за'
       expect(page).to have_content('1')
     end
   end

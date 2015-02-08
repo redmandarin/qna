@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Ratingable do
   let!(:user) { create(:user) }
-  let!(:another_user) { create(:user, rating: 0) }
+  let!(:another_user) { create(:user) }
   let!(:question) { create(:question, user: user) }
   let!(:answer) { create(:answer, question: question, user: another_user)}
 
@@ -10,8 +10,6 @@ describe Ratingable do
     Ratingable.best_answer(answer)
     expect(another_user.rating).to eq(3)
   end
-
-  before { user.update(rating: 0) } # ?
 
   describe '.vote' do
     context 'question' do
