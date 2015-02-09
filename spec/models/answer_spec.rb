@@ -14,9 +14,9 @@ RSpec.describe Answer, :type => :model do
   it { should accept_nested_attributes_for :attachments }
 
   let(:question) { create(:question, user: user) }
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-  let!(:answer) { create(:answer, question: question, user: another_user) }
+  let(:answer) { create(:answer, question: question, user: another_user) }
 
   describe "#mark_best" do
     let!(:best_answer) { create(:answer, question: question, best: true) }
@@ -55,4 +55,22 @@ RSpec.describe Answer, :type => :model do
       expect(user.author?(answer)).to eq(false)
     end
   end
+
+  describe 'rating' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question, user: user) }
+    subject { build(:answer, question: question, user: user) }
+
+    it 'should calculate reputation after creating' do
+      expect(Ratingable).to receive(:calculate)
+      subject.save!
+    end
+
+    it 'should not calculate reputation after update' do
+      subject.save!
+      expect(Ratingable).to_not receive(:calculate)
+      subject.update(body: '123')
+    end
+  end
+
 end
