@@ -12,6 +12,7 @@ class Answer < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, allow_destroy: true, :reject_if => lambda { |a| a['file'].blank? }
 
   after_create :calculate_reputation
+  after_create :send_notification
 
   def mark_best
     self.update(best: true)
@@ -22,6 +23,11 @@ class Answer < ActiveRecord::Base
   private
 
   def calculate_reputation
-    Ratingable.calculate(self)
+    Ratingable.delay.calculate(self)
+  end
+
+  def send_notification
+    question = self.question
+    AnswerMailer.delay.notify(question)
   end
 end

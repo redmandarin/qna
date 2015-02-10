@@ -48,6 +48,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.send_daily_digest
+    find_each.each do |user|
+      DailyMailer.delay.digest(user)
+    end
+  end
+
   private
 
   def skip_confirmation

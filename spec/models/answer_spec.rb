@@ -33,7 +33,6 @@ RSpec.describe Answer, :type => :model do
       best_answer.reload
       expect(best_answer.best).to eq(false)
     end
-
   end
 
   describe 'calc reputaiton' do
@@ -62,7 +61,7 @@ RSpec.describe Answer, :type => :model do
     subject { build(:answer, question: question, user: user) }
 
     it 'should calculate reputation after creating' do
-      expect(Ratingable).to receive(:calculate)
+      expect(Ratingable).to receive(:calculate).with(subject)
       subject.save!
     end
 
@@ -73,4 +72,12 @@ RSpec.describe Answer, :type => :model do
     end
   end
 
+  describe 'deliver' do
+    subject { build(:answer) }
+
+    it 'notify the creator of question' do
+      expect(AnswerMailer).to receive(:notify).with(subject.question).and_call_original
+      subject.save!
+    end 
+  end
 end

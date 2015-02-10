@@ -1,8 +1,8 @@
 module Ratingable
   extend ActiveSupport::Concern
 
-  def self.calculate
-    sleep(3)
+  def self.calculate(user)
+    # sleep(3)
   end
 
   def self.vote(vote)
