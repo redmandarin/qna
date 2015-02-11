@@ -1,5 +1,12 @@
 %h4= @question.title
 %p= @question.body
+- if can?(:create, Subscription)
+  .subscription
+    - if Subscription.exists?(user: current_user, question: @question)
+      .have-subscription
+        вы подписаны на обновления
+    - else
+      .subscribe= link_to "подписаться на обновления", subscriptions_path(subscription: { question_id: @question.id }), method: 'post', remote: true
 %p Файлы:
 %ul
   - @question.attachments.each do |a|

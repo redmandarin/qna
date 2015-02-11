@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   delete 'attachments/:id', to: 'attachments#destroy'
   
   get 'tags/:tag', to: 'questions#index', as: 'tag'
+  post 'subscriptions', to: 'subscriptions#create'
 
   concern :commentable do
     resources :comments

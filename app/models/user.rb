@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
   has_many :comments
+  has_many :subscriptions
+  # has_many :subscribed, through: :subscriptions, foreign_key: 'question_id'
 
   before_create :skip_confirmation
 

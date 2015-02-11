@@ -12,4 +12,11 @@ class AnswerMailer < ActionMailer::Base
 
     mail to: question.user.email
   end
+
+  def notify_subscriber(question, user)
+    @greeting = "Hi. there some update waiting to you"
+    @question = question
+    
+    mail to: user.email
+  end
 end

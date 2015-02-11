@@ -13,6 +13,7 @@ class Answer < ActiveRecord::Base
 
   after_create :calculate_reputation
   after_create :send_notification
+  after_create :notify_subscribers
 
   def mark_best
     self.update(best: true)
@@ -27,7 +28,12 @@ class Answer < ActiveRecord::Base
   end
 
   def send_notification
-    question = self.question
-    AnswerMailer.delay.notify(question)
+    AnswerMailer.delay.notify(self.question)
+  end
+
+  def notify_subscribers
+    self.question.subscribers.each do |user|
+      AnswerMailer.delay.notify_subscriber(self.question, user)
+    end
   end
 end

@@ -8,6 +8,8 @@ class Question < ActiveRecord::Base
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   has_many :attachments, as: :attachmentable
+  has_many :subscriptions, dependent: :destroy
+  has_many :subscribers, through: :subscriptions, source: :user
   belongs_to :user
 
   validates :title, :body, :user_id, presence: true

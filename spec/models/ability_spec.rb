@@ -31,6 +31,7 @@ describe Ability do
     it { should be_able_to :create, Answer }
     it { should be_able_to :create, Vote }
     it { should be_able_to :create, Comment }
+    it { should be_able_to :create, Subscription }
 
     it { should be_able_to :update, create(:question, user: user), user: user }
     it { should_not be_able_to :update, create(:question, user: another_user), user: user }
@@ -42,6 +43,5 @@ describe Ability do
     it { should_not be_able_to :update, create(:vote, user: another_user), user: user } # ?
 
     it { should be_able_to :mark_best, create(:answer, question: question), user: user}
-
   end
 end

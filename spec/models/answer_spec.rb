@@ -80,4 +80,18 @@ RSpec.describe Answer, :type => :model do
       subject.save!
     end 
   end
+
+  describe 'notify subscribers of question' do
+    let!(:question) { create(:question) }
+    let!(:user) { create(:user) }
+    let!(:another_user) { create(:user) }
+    let!(:subscription) { create(:subscription, user: user, question: question) }
+    let!(:another_subscription) { create(:subscription, user: another_user, question: question) }
+    subject { build(:answer, question: question) }
+
+    it 'notify users' do
+      [user, another_user].each { |user| expect(AnswerMailer).to receive(:notify_subscriber).with(subject.question, user).and_call_original }
+      subject.save!    
+    end
+  end
 end

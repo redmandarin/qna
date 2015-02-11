@@ -5,6 +5,8 @@ RSpec.describe User, :type => :model do
   it { should have_many :answers }
   it { should have_many :comments }
   it { should have_many :votes }
+  it { should have_many :subscriptions }
+  # it { should have_many :subscribed }
 
   # it { should validate_presence_of :name }
 
