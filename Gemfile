@@ -51,6 +51,8 @@ gem 'sidekiq'
 gem 'sidetiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'whenever'
+gem 'mysql2'
+gem 'thinking-sphinx'
 
 group :test, :development do
   gem 'rspec-rails'

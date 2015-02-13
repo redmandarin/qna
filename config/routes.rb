@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'tags/:tag', to: 'questions#index', as: 'tag'
   post 'subscriptions', to: 'subscriptions#create'
 
+  resources :search, only: :index
+
   concern :commentable do
     resources :comments
   end

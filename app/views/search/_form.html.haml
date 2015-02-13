@@ -1,0 +1,9 @@
+= form_tag search_index_path, method: :get do
+	= text_field_tag :q, params[:q], id: 'search'
+	= label_tag 'вопросы'
+	= radio_button_tag :scope, 'question'
+	= label_tag 'ответы'
+	= radio_button_tag :scope, 'answer'
+	= label_tag 'комментарии'
+	= radio_button_tag :scope, 'comment'
+	= submit_tag 'Поиск'

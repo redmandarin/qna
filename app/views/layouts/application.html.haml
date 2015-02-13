@@ -8,6 +8,7 @@
   %body
     %div.container
       %header
+        = link_to 'вопросы', questions_path
         - if signed_in?
           вы вошли как
           = current_user.email
@@ -19,4 +20,6 @@
         %div.notice= notice
       - if alert
         %div.alert.error-explanation= alert
+      .search
+        = render 'search/form'
       = yield
