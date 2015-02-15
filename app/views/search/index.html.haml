@@ -1,4 +1,4 @@
 %hr
 %ul
-	- @results.each do |result|
-		%li= link_to result.body, result
+	- @results.each do |object|
+    %li= link_for_search(object)

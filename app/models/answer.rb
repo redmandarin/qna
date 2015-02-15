@@ -28,12 +28,12 @@ class Answer < ActiveRecord::Base
   end
 
   def send_notification
-    AnswerMailer.delay.notify(self.question)
+    AnswerMailer.delay.notify(self.question.id)
   end
 
   def notify_subscribers
     self.question.subscribers.find_each.each do |user|
-      AnswerMailer.delay.notify_subscriber(self.question, user)
+      AnswerMailer.delay.notify_subscriber(self.question.id, user.id)
     end
   end
 end

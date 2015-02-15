@@ -89,7 +89,7 @@ RSpec.describe User, :type => :model do
     let(:users) { create_list(:user, 2) }
 
     it 'should send daily digest to all users' do
-      users.each { |user| expect(DailyMailer).to receive(:digest).with(user).and_call_original }
+      users.each { |user| expect(DailyMailer).to receive(:digest).with(user.id).and_call_original }
       User.send_daily_digest
     end
   end

@@ -76,7 +76,7 @@ RSpec.describe Answer, :type => :model do
     subject { build(:answer) }
 
     it 'notify the creator of question' do
-      expect(AnswerMailer).to receive(:notify).with(subject.question).and_call_original
+      expect(AnswerMailer).to receive(:notify).with(subject.question.id).and_call_original
       subject.save!
     end 
   end
@@ -90,7 +90,7 @@ RSpec.describe Answer, :type => :model do
     subject { build(:answer, question: question) }
 
     it 'notify users' do
-      [user, another_user].each { |user| expect(AnswerMailer).to receive(:notify_subscriber).with(subject.question, user).and_call_original }
+      [user, another_user].each { |user| expect(AnswerMailer).to receive(:notify_subscriber).with(subject.question.id, user.id).and_call_original }
       subject.save!    
     end
   end

@@ -6,7 +6,8 @@ class DailyMailer < ActionMailer::Base
   #
   #   en.daily_mailer.digest.subject
   #
-  def digest(user)
+  def digest(user_id)
+    user = User.find(user_id)
     @greeting = "Daily questions digest"
     @questions = Question.where('created_at >= ?', 1.day.ago)
 
