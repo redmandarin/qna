@@ -10,11 +10,12 @@ feature 'search', %q{
 	given!(:answer) { create(:answer, body: "Very important answer") }
 	given!(:comment) { create(:comment, body: "Very important comment") }
 
-	scenario 'search through all' do
+	scenario 'search through all', js: true do
+		create(:question, body: "Very important question")
 		# system('rake RAILS_ENV=test ts:index')
 		# system('rake RAILS_ENV=test ts:start')
+		ThinkingSphinx::Test.index
 	  ThinkingSphinx::Test.run do
-			ThinkingSphinx::Test.index
 			sleep(1)
 	    visit root_path
 			within ".search" do

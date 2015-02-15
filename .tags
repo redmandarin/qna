@@ -1,0 +1,224 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Ability	./app/models/ability.rb	/^class Ability$/;"	c
+AcceptanceHelper	./spec/support/acceptance_helper.rb	/^module AcceptanceHelper$/;"	m
+AddAdminFlagToUsers	./db/migrate/20150125161251_add_admin_flag_to_users.rb	/^class AddAdminFlagToUsers < ActiveRecord::Migration$/;"	c
+AddBestFieldToAnswers	./db/migrate/20150202123504_add_best_field_to_answers.rb	/^class AddBestFieldToAnswers < ActiveRecord::Migration$/;"	c
+AddConfirmableToDevise	./db/migrate/20150122181735_add_confirmable_to_devise.rb	/^class AddConfirmableToDevise < ActiveRecord::Migration$/;"	c
+AddDeviseToUsers	./db/migrate/20141213105843_add_devise_to_users.rb	/^class AddDeviseToUsers < ActiveRecord::Migration$/;"	c
+AddIndexToVotes	./db/migrate/20150131134634_add_index_to_votes.rb	/^class AddIndexToVotes < ActiveRecord::Migration$/;"	c
+AddPolimorphicAssociation	./db/migrate/20141208230410_add_polimorphic_association.rb	/^class AddPolimorphicAssociation < ActiveRecord::Migration$/;"	c
+AddPolimorphicToVotes	./db/migrate/20150131121504_add_polimorphic_to_votes.rb	/^class AddPolimorphicToVotes < ActiveRecord::Migration$/;"	c
+AddQuestionToAttachment	./db/migrate/20141224123106_add_question_to_attachment.rb	/^class AddQuestionToAttachment < ActiveRecord::Migration$/;"	c
+AddUserIdToQuestions	./db/migrate/20141206185455_add_user_id_to_questions.rb	/^class AddUserIdToQuestions < ActiveRecord::Migration$/;"	c
+Answer	./app/models/answer.rb	/^class Answer < ActiveRecord::Base$/;"	c
+AnswerMailer	./app/mailers/answer_mailer.rb	/^class AnswerMailer < ActionMailer::Base$/;"	c
+AnswerSerializer	./app/serializers/answer_serializer.rb	/^class AnswerSerializer < ActiveModel::Serializer$/;"	c
+AnswersController	./app/controllers/answers_controller.rb	/^class AnswersController < ApplicationController$/;"	c
+AnswersHelper	./app/helpers/answers_helper.rb	/^module AnswersHelper$/;"	m
+Api	./app/controllers/api/v1/answers_controller.rb	/^class Api::V1::AnswersController < Api::V1::BaseController$/;"	c
+Api	./app/controllers/api/v1/base_controller.rb	/^class Api::V1::BaseController < ApplicationController$/;"	c
+Api	./app/controllers/api/v1/profiles_controller.rb	/^class Api::V1::ProfilesController < Api::V1::BaseController$/;"	c
+Api	./app/controllers/api/v1/questions_controller.rb	/^class Api::V1::QuestionsController < Api::V1::BaseController$/;"	c
+Application	./config/application.rb	/^  class Application < Rails::Application$/;"	c	class:Qna
+ApplicationController	./app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
+ApplicationHelper	./app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+ApplicationResponder	./lib/application_responder.rb	/^class ApplicationResponder < ActionController::Responder$/;"	c
+Attachment	./app/models/attachment.rb	/^class Attachment < ActiveRecord::Base$/;"	c
+AttachmentSerializer	./app/serializers/attachment_serializer.rb	/^class AttachmentSerializer < ActiveModel::Serializer$/;"	c
+AttachmentsController	./app/controllers/attachments_controller.rb	/^class AttachmentsController < ApplicationController$/;"	c
+AttachmentsHelper	./app/helpers/attachments_helper.rb	/^module AttachmentsHelper$/;"	m
+Authority	./app/models/concerns/authority.rb	/^module Authority$/;"	m
+Authorization	./app/models/authorization.rb	/^class Authorization < ActiveRecord::Base$/;"	c
+ChangeIndexes	./db/migrate/20141225090935_change_indexes.rb	/^class ChangeIndexes < ActiveRecord::Migration$/;"	c
+Comment	./app/models/comment.rb	/^class Comment < ActiveRecord::Base$/;"	c
+CommentSerializer	./app/serializers/comment_serializer.rb	/^class CommentSerializer < ActiveModel::Serializer$/;"	c
+CommentsController	./app/controllers/comments_controller.rb	/^class CommentsController < ApplicationController$/;"	c
+CommentsHelper	./app/helpers/comments_helper.rb	/^module CommentsHelper$/;"	m
+ControllerMacros	./spec/support/controller_macros.rb	/^module ControllerMacros$/;"	m
+ConvertAttachmentToPolymorphic	./db/migrate/20141224190950_convert_attachment_to_polymorphic.rb	/^class ConvertAttachmentToPolymorphic < ActiveRecord::Migration$/;"	c
+CreateAnswers	./db/migrate/20141206172845_create_answers.rb	/^class CreateAnswers < ActiveRecord::Migration$/;"	c
+CreateAttachments	./db/migrate/20141224122524_create_attachments.rb	/^class CreateAttachments < ActiveRecord::Migration$/;"	c
+CreateAuthorizations	./db/migrate/20150121161449_create_authorizations.rb	/^class CreateAuthorizations < ActiveRecord::Migration$/;"	c
+CreateComments	./db/migrate/20141206185426_create_comments.rb	/^class CreateComments < ActiveRecord::Migration$/;"	c
+CreateDelayedJobs	./db/migrate/20150209171746_create_delayed_jobs.rb	/^class CreateDelayedJobs < ActiveRecord::Migration$/;"	c
+CreateDoorkeeperTables	./db/migrate/20150126151446_create_doorkeeper_tables.rb	/^class CreateDoorkeeperTables < ActiveRecord::Migration$/;"	c
+CreateQuestions	./db/migrate/20141206134804_create_questions.rb	/^class CreateQuestions < ActiveRecord::Migration$/;"	c
+CreateRatings	./db/migrate/20141206182656_create_ratings.rb	/^class CreateRatings < ActiveRecord::Migration$/;"	c
+CreateSubscriptions	./db/migrate/20150210141812_create_subscriptions.rb	/^class CreateSubscriptions < ActiveRecord::Migration$/;"	c
+CreateTaggings	./db/migrate/20141209220442_create_taggings.rb	/^class CreateTaggings < ActiveRecord::Migration$/;"	c
+CreateTags	./db/migrate/20141206174924_create_tags.rb	/^class CreateTags < ActiveRecord::Migration$/;"	c
+CreateUsers	./db/migrate/20141206175534_create_users.rb	/^class CreateUsers < ActiveRecord::Migration$/;"	c
+CreateVotes	./db/migrate/20141206211012_create_votes.rb	/^class CreateVotes < ActiveRecord::Migration$/;"	c
+DailyDigestWorker	./app/models/daily_digest_worker.rb	/^class DailyDigestWorker$/;"	c
+DailyMailer	./app/mailers/daily_mailer.rb	/^class DailyMailer < ActionMailer::Base$/;"	c
+DropRatingTable	./db/migrate/20150130214721_drop_rating_table.rb	/^class DropRatingTable < ActiveRecord::Migration$/;"	c
+FileUploader	./app/uploaders/file_uploader.rb	/^class FileUploader < CarrierWave::Uploader::Base$/;"	c
+OmniauthCallbacksController	./app/controllers/omniauth_callbacks_controller.rb	/^class OmniauthCallbacksController < Devise::OmniauthCallbacksController$/;"	c
+Qna	./config/application.rb	/^module Qna$/;"	m
+Question	./app/models/question.rb	/^class Question < ActiveRecord::Base$/;"	c
+QuestionSerializer	./app/serializers/question_serializer.rb	/^class QuestionSerializer < ActiveModel::Serializer$/;"	c
+QuestionsController	./app/controllers/questions_controller.rb	/^class QuestionsController < ApplicationController$/;"	c
+QuestionsHelper	./app/helpers/questions_helper.rb	/^module QuestionsHelper$/;"	m
+Ratingable	./app/models/concerns/ratingable.rb	/^module Ratingable$/;"	m
+RegistrationsController	./app/controllers/registrations_controller.rb	/^class RegistrationsController < Devise::RegistrationsController$/;"	c
+RemoveModelNameFromRating	./db/migrate/20141206232650_remove_model_name_from_rating.rb	/^class RemoveModelNameFromRating < ActiveRecord::Migration$/;"	c
+RemoveQuestionIdFromTag	./db/migrate/20141209220234_remove_question_id_from_tag.rb	/^class RemoveQuestionIdFromTag < ActiveRecord::Migration$/;"	c
+RemoveRating	./db/migrate/20141211212308_remove_rating.rb	/^class RemoveRating < ActiveRecord::Migration$/;"	c
+RemoveValueFromVote	./db/migrate/20150130180649_remove_value_from_vote.rb	/^class RemoveValueFromVote < ActiveRecord::Migration$/;"	c
+SearchController	./app/controllers/search_controller.rb	/^class SearchController < ApplicationController$/;"	c
+SearchHelper	./app/helpers/search_helper.rb	/^module SearchHelper$/;"	m
+SetDefaultValueToZeroInRating	./db/migrate/20141206224337_set_default_value_to_zero_in_rating.rb	/^class SetDefaultValueToZeroInRating < ActiveRecord::Migration$/;"	c
+SphinxHelpers	./spec/support/sphinx.rb	/^module SphinxHelpers$/;"	m
+Subscription	./app/models/subscription.rb	/^class Subscription < ActiveRecord::Base$/;"	c
+SubscriptionsController	./app/controllers/subscriptions_controller.rb	/^class SubscriptionsController < ApplicationController$/;"	c
+SubscriptionsHelper	./app/helpers/subscriptions_helper.rb	/^module SubscriptionsHelper$/;"	m
+Tag	./app/models/tag.rb	/^class Tag < ActiveRecord::Base$/;"	c
+Tagging	./app/models/tagging.rb	/^class Tagging < ActiveRecord::Base$/;"	c
+User	./app/models/user.rb	/^class User < ActiveRecord::Base$/;"	c
+UserRatingToNotNull	./db/migrate/20150207094003_user_rating_to_not_null.rb	/^class UserRatingToNotNull < ActiveRecord::Migration$/;"	c
+UserSerializer	./app/serializers/user_serializer.rb	/^class UserSerializer < ActiveModel::Serializer$/;"	c
+UsersController	./app/controllers/users_controller.rb	/^class UsersController < ApplicationController$/;"	c
+Vote	./app/models/vote.rb	/^class Vote < ActiveRecord::Base$/;"	c
+Voteable	./app/models/concerns/voteable.rb	/^module Voteable$/;"	m
+VotesController	./app/controllers/votes_controller.rb	/^class VotesController < ApplicationController$/;"	c
+admin_abilities	./app/models/ability.rb	/^  def admin_abilities$/;"	f	class:Ability
+answer_params	./app/controllers/answers_controller.rb	/^  def answer_params$/;"	f	class:AnswersController
+answer_params	./app/controllers/api/v1/answers_controller.rb	/^  def answer_params$/;"	f	class:Api
+attach_files	./spec/support/acceptance_helper.rb	/^  def attach_files(type, scope)$/;"	f	class:AcceptanceHelper
+author?	./app/models/concerns/authority.rb	/^  def author?(object)$/;"	f	class:Authority
+best_answer	./app/models/concerns/ratingable.rb	/^  def self.best_answer(answer)$/;"	F	class:Ratingable
+build_answer	./app/controllers/questions_controller.rb	/^  def build_answer$/;"	f	class:QuestionsController
+calculate	./app/models/concerns/ratingable.rb	/^  def self.calculate(user)$/;"	F	class:Ratingable
+calculate_rating	./app/models/question.rb	/^  def calculate_rating$/;"	f	class:Question
+calculate_reputation	./app/models/answer.rb	/^  def calculate_reputation$/;"	f	class:Answer
+calculate_reputation	./app/models/vote.rb	/^  def calculate_reputation$/;"	f	class:Vote
+change	./db/migrate/20141206134804_create_questions.rb	/^  def change$/;"	f	class:CreateQuestions
+change	./db/migrate/20141206172845_create_answers.rb	/^  def change$/;"	f	class:CreateAnswers
+change	./db/migrate/20141206174924_create_tags.rb	/^  def change$/;"	f	class:CreateTags
+change	./db/migrate/20141206175534_create_users.rb	/^  def change$/;"	f	class:CreateUsers
+change	./db/migrate/20141206182656_create_ratings.rb	/^  def change$/;"	f	class:CreateRatings
+change	./db/migrate/20141206185426_create_comments.rb	/^  def change$/;"	f	class:CreateComments
+change	./db/migrate/20141206185455_add_user_id_to_questions.rb	/^  def change$/;"	f	class:AddUserIdToQuestions
+change	./db/migrate/20141206211012_create_votes.rb	/^  def change$/;"	f	class:CreateVotes
+change	./db/migrate/20141206224337_set_default_value_to_zero_in_rating.rb	/^  def change$/;"	f	class:SetDefaultValueToZeroInRating
+change	./db/migrate/20141206232650_remove_model_name_from_rating.rb	/^  def change$/;"	f	class:RemoveModelNameFromRating
+change	./db/migrate/20141208230410_add_polimorphic_association.rb	/^  def change$/;"	f	class:AddPolimorphicAssociation
+change	./db/migrate/20141209220234_remove_question_id_from_tag.rb	/^  def change$/;"	f	class:RemoveQuestionIdFromTag
+change	./db/migrate/20141209220442_create_taggings.rb	/^  def change$/;"	f	class:CreateTaggings
+change	./db/migrate/20141211212308_remove_rating.rb	/^  def change$/;"	f	class:RemoveRating
+change	./db/migrate/20141224122524_create_attachments.rb	/^  def change$/;"	f	class:CreateAttachments
+change	./db/migrate/20141224123106_add_question_to_attachment.rb	/^  def change$/;"	f	class:AddQuestionToAttachment
+change	./db/migrate/20141224190950_convert_attachment_to_polymorphic.rb	/^  def change$/;"	f	class:ConvertAttachmentToPolymorphic
+change	./db/migrate/20141225090935_change_indexes.rb	/^  def change$/;"	f	class:ChangeIndexes
+change	./db/migrate/20150121161449_create_authorizations.rb	/^  def change$/;"	f	class:CreateAuthorizations
+change	./db/migrate/20150125161251_add_admin_flag_to_users.rb	/^  def change$/;"	f	class:AddAdminFlagToUsers
+change	./db/migrate/20150126151446_create_doorkeeper_tables.rb	/^  def change$/;"	f	class:CreateDoorkeeperTables
+change	./db/migrate/20150130180649_remove_value_from_vote.rb	/^  def change$/;"	f	class:RemoveValueFromVote
+change	./db/migrate/20150130214721_drop_rating_table.rb	/^  def change$/;"	f	class:DropRatingTable
+change	./db/migrate/20150131121504_add_polimorphic_to_votes.rb	/^  def change$/;"	f	class:AddPolimorphicToVotes
+change	./db/migrate/20150131134634_add_index_to_votes.rb	/^  def change$/;"	f	class:AddIndexToVotes
+change	./db/migrate/20150202123504_add_best_field_to_answers.rb	/^  def change$/;"	f	class:AddBestFieldToAnswers
+change	./db/migrate/20150207094003_user_rating_to_not_null.rb	/^  def change$/;"	f	class:UserRatingToNotNull
+change	./db/migrate/20150210141812_create_subscriptions.rb	/^  def change$/;"	f	class:CreateSubscriptions
+comment_params	./app/controllers/comments_controller.rb	/^  def comment_params$/;"	f	class:CommentsController
+configure_permitted_parameters	./app/controllers/application_controller.rb	/^  def configure_permitted_parameters$/;"	f	class:ApplicationController
+create	./app/controllers/answers_controller.rb	/^  def create$/;"	f	class:AnswersController
+create	./app/controllers/api/v1/answers_controller.rb	/^  def create$/;"	f	class:Api
+create	./app/controllers/api/v1/questions_controller.rb	/^  def create$/;"	f	class:Api
+create	./app/controllers/comments_controller.rb	/^  def create$/;"	f	class:CommentsController
+create	./app/controllers/questions_controller.rb	/^  def create$/;"	f	class:QuestionsController
+create	./app/controllers/registrations_controller.rb	/^  def create$/;"	f	class:RegistrationsController
+create	./app/controllers/subscriptions_controller.rb	/^  def create$/;"	f	class:SubscriptionsController
+create	./app/controllers/votes_controller.rb	/^  def create$/;"	f	class:VotesController
+create_authorization	./app/models/user.rb	/^  def create_authorization(auth)$/;"	f	class:User
+create_question_with_one_file	./spec/support/acceptance_helper.rb	/^  def create_question_with_one_file$/;"	f	class:AcceptanceHelper
+current_resource_owner	./app/controllers/api/v1/base_controller.rb	/^  def current_resource_owner$/;"	f	class:Api
+destroy	./app/controllers/attachments_controller.rb	/^  def destroy$/;"	f	class:AttachmentsController
+destroy	./app/controllers/comments_controller.rb	/^  def destroy$/;"	f	class:CommentsController
+destroy	./app/controllers/questions_controller.rb	/^  def destroy$/;"	f	class:QuestionsController
+digest	./app/mailers/daily_mailer.rb	/^  def digest(user)$/;"	f	class:DailyMailer
+do_request	./spec/api/v1/answers_spec.rb	/^  def do_request(options = {})$/;"	f
+do_request	./spec/api/v1/profiles_spec.rb	/^  def do_request(options = {})$/;"	f
+do_request	./spec/api/v1/questions_spec.rb	/^  def do_request(options = {})$/;"	f
+down	./db/migrate/20141213105843_add_devise_to_users.rb	/^  def self.down$/;"	F	class:AddDeviseToUsers
+down	./db/migrate/20150122181735_add_confirmable_to_devise.rb	/^  def down$/;"	f	class:AddConfirmableToDevise
+down	./db/migrate/20150209171746_create_delayed_jobs.rb	/^  def self.down$/;"	F	class:CreateDelayedJobs
+edit	./app/controllers/questions_controller.rb	/^  def edit$/;"	f	class:QuestionsController
+facebook	./app/controllers/omniauth_callbacks_controller.rb	/^  def facebook$/;"	f	class:OmniauthCallbacksController
+filename	./app/serializers/attachment_serializer.rb	/^  def filename$/;"	f	class:AttachmentSerializer
+files	./app/serializers/answer_serializer.rb	/^  def files$/;"	f	class:AnswerSerializer
+find_for_oauth	./app/models/user.rb	/^  def self.find_for_oauth(auth)$/;"	F	class:User
+guest_abilities	./app/models/ability.rb	/^  def guest_abilities$/;"	f	class:Ability
+index	./app/controllers/api/v1/answers_controller.rb	/^  def index$/;"	f	class:Api
+index	./app/controllers/api/v1/profiles_controller.rb	/^  def index$/;"	f	class:Api
+index	./app/controllers/api/v1/questions_controller.rb	/^  def index$/;"	f	class:Api
+index	./app/controllers/questions_controller.rb	/^  def index$/;"	f	class:QuestionsController
+index	./app/controllers/search_controller.rb	/^  def index$/;"	f	class:SearchController
+index	./app/controllers/users_controller.rb	/^  def index$/;"	f	class:UsersController
+index	./spec/support/sphinx.rb	/^  def index$/;"	f	class:SphinxHelpers
+index_finished?	./spec/support/sphinx.rb	/^  def index_finished?$/;"	f	class:SphinxHelpers
+initialize	./app/models/ability.rb	/^  def initialize(user)$/;"	f	class:Ability
+load_question	./app/controllers/questions_controller.rb	/^  def load_question$/;"	f	class:QuestionsController
+mark_best	./app/controllers/answers_controller.rb	/^  def mark_best$/;"	f	class:AnswersController
+mark_best	./app/models/answer.rb	/^  def mark_best$/;"	f	class:Answer
+mark_best	./app/models/concerns/voteable.rb	/^  def mark_best$/;"	f	class:Voteable
+me	./app/controllers/api/v1/profiles_controller.rb	/^  def me$/;"	f	class:Api
+new	./app/controllers/questions_controller.rb	/^  def new$/;"	f	class:QuestionsController
+no_need_to_confirm	./app/models/user.rb	/^  def no_need_to_confirm(auth)$/;"	f	class:User
+notify	./app/mailers/answer_mailer.rb	/^  def notify(question)$/;"	f	class:AnswerMailer
+notify_subscriber	./app/mailers/answer_mailer.rb	/^  def notify_subscriber(question, user)$/;"	f	class:AnswerMailer
+notify_subscribers	./app/models/answer.rb	/^  def notify_subscribers$/;"	f	class:Answer
+parent_id	./app/serializers/answer_serializer.rb	/^  def parent_id$/;"	f	class:AnswerSerializer
+parent_id	./app/serializers/comment_serializer.rb	/^  def parent_id$/;"	f	class:CommentSerializer
+parent_name	./app/serializers/comment_serializer.rb	/^  def parent_name$/;"	f	class:CommentSerializer
+perform	./app/models/daily_digest_worker.rb	/^  def perform$/;"	f	class:DailyDigestWorker
+publish_answer	./app/controllers/answers_controller.rb	/^  def publish_answer$/;"	f	class:AnswersController
+publish_comment	./app/controllers/comments_controller.rb	/^  def publish_comment$/;"	f	class:CommentsController
+question_params	./app/controllers/api/v1/questions_controller.rb	/^  def question_params$/;"	f	class:Api
+question_params	./app/controllers/questions_controller.rb	/^  def question_params$/;"	f	class:QuestionsController
+send_daily_digest	./app/models/user.rb	/^  def self.send_daily_digest$/;"	F	class:User
+send_notification	./app/models/answer.rb	/^  def send_notification$/;"	f	class:Answer
+set_answer	./app/controllers/answers_controller.rb	/^  def set_answer$/;"	f	class:AnswersController
+set_answer	./app/controllers/api/v1/answers_controller.rb	/^  def set_answer$/;"	f	class:Api
+set_comment	./app/controllers/comments_controller.rb	/^  def set_comment$/;"	f	class:CommentsController
+set_question	./app/controllers/answers_controller.rb	/^  def set_question$/;"	f	class:AnswersController
+set_target	./app/controllers/application_controller.rb	/^  def set_target$/;"	f	class:ApplicationController
+set_user	./app/controllers/users_controller.rb	/^  def set_user$/;"	f	class:UsersController
+short_title	./app/serializers/question_serializer.rb	/^  def short_title$/;"	f	class:QuestionSerializer
+show	./app/controllers/api/v1/answers_controller.rb	/^  def show$/;"	f	class:Api
+show	./app/controllers/api/v1/questions_controller.rb	/^  def show$/;"	f	class:Api
+show	./app/controllers/comments_controller.rb	/^  def show$/;"	f	class:CommentsController
+show	./app/controllers/questions_controller.rb	/^  def show$/;"	f	class:QuestionsController
+show	./app/controllers/users_controller.rb	/^  def show$/;"	f	class:UsersController
+sign_in	./spec/support/acceptance_helper.rb	/^  def sign_in(user)$/;"	f	class:AcceptanceHelper
+sign_in_user	./spec/support/controller_macros.rb	/^  def sign_in_user$/;"	f	class:ControllerMacros
+sign_in_user_and_create_question	./spec/support/controller_macros.rb	/^  def sign_in_user_and_create_question$/;"	f	class:ControllerMacros
+sign_in_via	./app/controllers/omniauth_callbacks_controller.rb	/^  def sign_in_via(provider_name)$/;"	f	class:OmniauthCallbacksController
+skip_confirmation	./app/models/user.rb	/^  def skip_confirmation$/;"	f	class:User
+store_dir	./app/uploaders/file_uploader.rb	/^  def store_dir$/;"	f	class:FileUploader
+subscription_params	./app/controllers/subscriptions_controller.rb	/^  def subscription_params$/;"	f	class:SubscriptionsController
+tag_links	./app/helpers/questions_helper.rb	/^  def tag_links(list)$/;"	f	class:QuestionsHelper
+tag_list	./app/models/question.rb	/^  def tag_list$/;"	f	class:Question
+tag_list=	./app/models/question.rb	/^  def tag_list=(tag_list)$/;"	f	class:Question
+tagged_with	./app/models/question.rb	/^  def self.tagged_with(name)$/;"	F	class:Question
+twitter	./app/controllers/omniauth_callbacks_controller.rb	/^  def twitter$/;"	f	class:OmniauthCallbacksController
+up	./db/migrate/20141213105843_add_devise_to_users.rb	/^  def self.up$/;"	F	class:AddDeviseToUsers
+up	./db/migrate/20150122181735_add_confirmable_to_devise.rb	/^  def up$/;"	f	class:AddConfirmableToDevise
+up	./db/migrate/20150209171746_create_delayed_jobs.rb	/^  def self.up$/;"	F	class:CreateDelayedJobs
+update	./app/controllers/answers_controller.rb	/^  def update$/;"	f	class:AnswersController
+update	./app/controllers/comments_controller.rb	/^  def update$/;"	f	class:CommentsController
+update	./app/controllers/questions_controller.rb	/^  def update$/;"	f	class:QuestionsController
+update	./app/controllers/votes_controller.rb	/^  def update$/;"	f	class:VotesController
+update_rating	./app/models/question.rb	/^  def update_rating$/;"	f	class:Question
+url	./app/serializers/attachment_serializer.rb	/^  def url$/;"	f	class:AttachmentSerializer
+user_abilities	./app/models/ability.rb	/^  def user_abilities$/;"	f	class:Ability
+user_email	./app/serializers/answer_serializer.rb	/^  def user_email$/;"	f	class:AnswerSerializer
+user_email	./app/serializers/comment_serializer.rb	/^  def user_email$/;"	f	class:CommentSerializer
+vote	./app/models/concerns/ratingable.rb	/^  def self.vote(vote)$/;"	F	class:Ratingable
+vote	./app/models/concerns/voteable.rb	/^  def vote(value)$/;"	f	class:Voteable
+vote_params	./app/controllers/votes_controller.rb	/^  def vote_params$/;"	f	class:VotesController

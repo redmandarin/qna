@@ -14,7 +14,7 @@ class Answer < ActiveRecord::Base
   after_create :calculate_reputation
   after_create :send_notification
   after_create :notify_subscribers
-
+  
   def mark_best
     self.update(best: true)
     self.question.answers.where.not(id: self.id).update_all(best: false)
@@ -32,7 +32,7 @@ class Answer < ActiveRecord::Base
   end
 
   def notify_subscribers
-    self.question.subscribers.each do |user|
+    self.question.subscribers.find_each.each do |user|
       AnswerMailer.delay.notify_subscriber(self.question, user)
     end
   end

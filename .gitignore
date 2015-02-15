@@ -20,3 +20,5 @@
 config/database.yml
 config/*.sphinx.conf
 db/sphinx
+subl
+ctags_for_ruby
