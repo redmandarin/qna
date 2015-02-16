@@ -38,6 +38,11 @@ RSpec.describe Answer, :type => :model do
   describe 'calc reputaiton' do
     subject { build(:answer, user: user) }
 
+    it 'calls Ratingable.make_answer after creation' do
+      expect(Ratingable).to receive(:make_answer).with(subject)
+      subject.save!
+    end
+
     it 'not calculate reputation if not #mark_best' do
       subject.save!
       expect(Ratingable).not_to receive(:best_answer)

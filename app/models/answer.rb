@@ -23,8 +23,9 @@ class Answer < ActiveRecord::Base
 
   private
 
+
   def calculate_reputation
-    Ratingable.delay.calculate(self)
+    Ratingable.delay.make_answer(self)
   end
 
   def send_notification

@@ -19,26 +19,26 @@ RSpec.describe Question, :type => :model do
   it { should validate_presence_of :body }
   it { should validate_presence_of :user_id }
 
-  describe 'rating' do
-    let(:user) { create(:user) }
-    subject { build(:question, user: user) }
+  # describe 'rating' do
+  #   let(:user) { create(:user) }
+  #   subject { build(:question, user: user) }
 
-    it 'should calculate reputation after creating' do
-      expect(Ratingable).to receive(:calculate)
-      subject.save!
-    end
+  #   it 'should calculate reputation after creating' do
+  #     expect(Ratingable).to receive(:calculate)
+  #     subject.save!
+  #   end
 
-    it 'should not calculate reputation after update' do
-      subject.save!
-      expect(Ratingable).to_not receive(:calculate)
-      subject.update(title: '123')
-    end
+  #   it 'should not calculate reputation after update' do
+  #     subject.save!
+  #     expect(Ratingable).to_not receive(:calculate)
+  #     subject.update(title: '123')
+  #   end
 
-    it 'should save user reputation' do
-      allow(Ratingable).to receive(:calculate).and_return(5)
-      expect { subject.save! }.to change(user, :rating).by(5)
-    end
-  end
+  #   it 'should save user reputation' do
+  #     allow(Ratingable).to receive(:calculate).and_return(5)
+  #     expect { subject.save! }.to change(user, :rating).by(5)
+  #   end
+  # end
 
   describe "#author?" do
     let(:user) { create(:user) }

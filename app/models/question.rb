@@ -37,10 +37,4 @@ class Question < ActiveRecord::Base
   def update_rating
     self.delay.calculate_rating
   end
-
-  def calculate_rating
-    rating = Ratingable.calculate(self)
-    self.user.update(rating: rating)
-  end
-
 end

@@ -1,6 +1,20 @@
 module Ratingable
   extend ActiveSupport::Concern
 
+  def self.make_answer(answer)
+    case answer.question.answers.count
+    when 1
+      if answer.user == answer.question.user
+        increment_by = 3
+      else
+        increment_by = 1
+      end
+    when 2
+      increment_by = 2
+    end
+    answer.user.increment(:rating, increment_by)
+  end
+
   def self.calculate(user)
     # sleep(3)
   end
