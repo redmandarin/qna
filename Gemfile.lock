@@ -97,6 +97,9 @@ GEM
     diff-lcs (1.2.5)
     doorkeeper (2.1.0)
       railties (>= 3.1)
+    dotenv (1.0.2)
+    dotenv-deployment (0.2.0)
+      dotenv (~> 1.0)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
       cookiejar
@@ -360,6 +363,8 @@ DEPENDENCIES
   database_cleaner
   devise
   doorkeeper
+  dotenv
+  dotenv-deployment
   factory_girl_rails (~> 4.0)
   haml-rails
   handlebars_assets

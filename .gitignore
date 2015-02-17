@@ -28,3 +28,7 @@ dump.rdb
 
 .gemtags
 subl
+
+Capfile
+config/deploy.rb
+config/deploy/*
