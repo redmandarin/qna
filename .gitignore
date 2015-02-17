@@ -25,3 +25,6 @@ subl
 ctags_for_ruby
 .DS_Store
 dump.rdb
+
+.gemtags
+subl
