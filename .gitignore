@@ -27,7 +27,6 @@ ctags_for_ruby
 dump.rdb
 
 .gemtags
-subl
 
 Capfile
 config/deploy.rb

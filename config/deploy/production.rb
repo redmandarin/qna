@@ -9,7 +9,7 @@ role :web, %w{deployer@109.234.38.22}
 role :db,  %w{deployer@109.234.38.22}
 
 set :rails_env, :production
-
+set :stage, :production
 
 # Extended Server Syntax
 # ======================
