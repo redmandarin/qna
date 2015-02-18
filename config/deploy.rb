@@ -62,8 +62,10 @@ end
 
 namespace :sphinx do
   task :index do
-    execute :chown, 'cd ~/qna/current; RAILS_ENV=production rake ts:index'
-    execute :chown, 'cd ~/qna/current; RAILS_ENV=production rake ts:restart'
+    on roles(:app) do
+      execute :chown, 'cd ~/qna/current; RAILS_ENV=production rake ts:index'
+      execute :chown, 'cd ~/qna/current; RAILS_ENV=production rake ts:restart'
+    end
   end
 end
 
