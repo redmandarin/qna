@@ -62,8 +62,8 @@ end
 
 namespace :sphinx do
   task :index do
-    execute 'RAILS_ENV=production rake ts:index'
-    execute 'RAILS_ENV=production rake ts:restart'
+    run 'RAILS_ENV=production rake ts:index'
+    run 'RAILS_ENV=production rake ts:restart'
   end
 end
 
