@@ -58,3 +58,5 @@ namespace :private_pub do
     end
   end
 end
+
+after 'deploy:publishing', 'private_pub:restart'
