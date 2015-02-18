@@ -8,7 +8,7 @@ class AnswerMailer < ActionMailer::Base
   #
   def notify(question_id)
     question = Question.find(question_id)
-    @greeting = "Hi. Someone just answer for your quesiton"
+    @greeting = "Hi. Someone just answer to your quesiton"
     @question = question
 
     mail to: question.user.email

@@ -2,11 +2,12 @@ require "rails_helper"
 
 RSpec.describe AnswerMailer, :type => :mailer do
   describe "notify" do
-    let(:mail) { AnswerMailer.notify }
+    let(:question) { create(:question) }
+    let(:mail) { AnswerMailer.notify(question.id) }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Notify")
-      expect(mail.to).to eq(["to@example.org"])
+      expect(mail.to).to eq([question.user.email])
       expect(mail.from).to eq(["from@example.com"])
     end
 

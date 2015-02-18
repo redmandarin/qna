@@ -16,7 +16,7 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
-  after_create :update_rating
+  # after_create :update_rating
 
   def self.tagged_with(name)
     Tag.where(name: name).first.questions
@@ -34,7 +34,7 @@ class Question < ActiveRecord::Base
 
   protected
 
-  def update_rating
-    self.delay.calculate_rating
-  end
+  # def update_rating
+  #   self.delay.calculate
+  # end
 end

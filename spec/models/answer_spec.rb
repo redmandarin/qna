@@ -66,13 +66,13 @@ RSpec.describe Answer, :type => :model do
     subject { build(:answer, question: question, user: user) }
 
     it 'should calculate reputation after creating' do
-      expect(Ratingable).to receive(:calculate).with(subject)
+      expect(Ratingable).to receive(:make_answer).with(subject)
       subject.save!
     end
 
     it 'should not calculate reputation after update' do
       subject.save!
-      expect(Ratingable).to_not receive(:calculate)
+      expect(Ratingable).to_not receive(:make_answer)
       subject.update(body: '123')
     end
   end

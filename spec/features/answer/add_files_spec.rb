@@ -19,8 +19,8 @@ feature 'Add files to answer', %q{
     attach_file 'Файл', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Сохранить ответ'
     
+      expect(page).to have_link('spec_helper.rb')
     within '.answers' do
-      expect(page).to have_link('spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb')
     end
   end
 

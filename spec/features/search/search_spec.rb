@@ -6,9 +6,7 @@ feature 'search', %q{
 	I want to be able to find things
 } do
 
-	given!(:question) { create(:question, body: "Very important question") }
-	given!(:answer) { create(:answer, body: "Very important answer") }
-	given!(:comment) { create(:comment, body: "Very important comment") }
+	given!(:question) { create(:question, body: "Very important question", title: "Some title") }
 
 	scenario 'search through all', js: true do
 		create(:question, body: "Very important question")
@@ -22,9 +20,7 @@ feature 'search', %q{
 				fill_in "q", with: 'important'
 				click_on 'Поиск'
 			end
-			expect(page).to have_content('Very important question')
-			expect(page).to have_content('Very important answer')
-			expect(page).to have_content('Very important comment')
+			expect(page).to have_content('Some title')
 		end
 	end
 end

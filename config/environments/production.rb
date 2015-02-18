@@ -75,4 +75,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # ActionMailer default host
+  config.action_mailer.default_url_options = { host: 'http://v8951.hosted-by-vdsina.ru'}
 end

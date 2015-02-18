@@ -31,7 +31,7 @@ feature 'Add files to question', %q{
     attach_files(".new_question", ".fields")
     click_on 'Сохранить вопрос'
     
-    expect(page).to have_link('spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb')
-    expect(page).to have_link('rails_helper.rb', href: '/uploads/attachment/file/2/rails_helper.rb')
+    expect(page).to have_link('spec_helper.rb')
+    expect(page).to have_link('rails_helper.rb')
   end
 end

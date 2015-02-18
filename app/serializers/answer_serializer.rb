@@ -11,6 +11,6 @@ class AnswerSerializer < ActiveModel::Serializer
   end
 
   def files
-    object.attachments.collect { |attachment| {filename: attachment.file.file.filename, url: attachment.file.url} }
+    object.attachments.collect { |attachment| { filename: attachment.file.file.filename, url: attachment.file.url } }
   end
 end
