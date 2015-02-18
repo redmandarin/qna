@@ -2,5 +2,3 @@ test:
   mysql41: 9307
 development:
   mysql41: 9306
-production:
-  mysql141:3306
