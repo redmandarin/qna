@@ -1,5 +1,4 @@
 %h4= @question.title
-%p= @question.body
 - if can?(:create, Subscription)
   .subscription
     - if Subscription.exists?(user: current_user, question: @question)
@@ -7,36 +6,40 @@
         вы подписаны на обновления
     - else
       .subscribe= link_to "подписаться на обновления", subscriptions_path(subscription: { question_id: @question.id }), method: 'post', remote: true
-- if @question.attachments.size > 0
-  %p Файлы:
-%ul
-  - @question.attachments.each do |a|
-    - if a.file.present?
-      %li
-        = link_to a.file.file.filename, a.file.url
-        –
-        = link_to "удалить файл", "/attachments/#{a.id}", method: :delete, remote: true, data: { format: :json }, class: "destroy-question-file"
-- if user_signed_in? && current_user.author?(@question)
-  %div.actions
-    = link_to '[удалить вопрос]', question_path(@question), method: :delete
-    = link_to '[редактировать]', '', class: 'edit-question-link'
-%p
-  .question-author
-    Автор: 
-    = User.find(@question.user_id).email
-  - @question.tags.each do |tag|
-    = link_to tag.name, tag_path(tag.name), class: "tag"
-  = nested_form_for @question, remote: true do |f|
-    .question-errors
-    = f.label :title
-    = f.text_field :title
-    = f.label :body
-    = f.text_area :body
-    = f.label :tag_list
-    = f.text_field :tag_list
-    = f.fields_for :attachments do |a|
-      = a.label :file
-      = a.file_field :file, name: "answer"
-      = a.link_to_remove "Удалить файл"
-    = f.link_to_add "Добавить файл", :attachments, class: "add-file-to-question"
-    = f.submit "Сохранить вопрос"
+.border
+  .question-votes
+    .votes= @question.rating
+    - if can?(:create, Vote)
+      .vote-form= render 'votes/form', target: @question
+      // .vote-form= render 'votes/form', target: @question unless Vote.exists?(user: current_user, voteable: @question)
+  - if user_signed_in? && current_user.author?(@question)
+    %div.actions
+      = link_to '[удалить вопрос]', question_path(@question), method: :delete
+      = link_to '[редактировать]', '', class: 'edit-question-link'
+  %p= @question.body
+  %p
+    .question-author
+      Автор: 
+      = User.find(@question.user_id).email
+    - @question.tags.each do |tag|
+      = link_to tag.name, tag_path(tag.name), class: "tag"
+  %ul
+    - @question.attachments.each do |a|
+      - if a.file.file
+        %li
+          = link_to a.file.file.filename, a.file.url
+          = link_to "[удалить файл]", "/attachments/#{a.id}", method: :delete, remote: true, data: { format: :json }, class: "destroy-question-file" if user_signed_in? && current_user.author?(@question) 
+    = nested_form_for @question, remote: true do |f|
+      .question-errors
+      = f.label :title
+      = f.text_field :title
+      = f.label :body
+      = f.text_area :body
+      = f.label :tag_list
+      = f.text_field :tag_list
+      = f.fields_for :attachments do |a|
+        = a.label :file
+        = a.file_field :file, name: "answer"
+        = a.link_to_remove "Удалить файл"
+      = f.link_to_add "Добавить файл", :attachments, class: "add-file-to-question"
+      = f.submit "Сохранить вопрос"

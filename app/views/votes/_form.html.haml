@@ -7,4 +7,5 @@
 - else
   - target_name = target.class.name.downcase
   = link_to 'голосовать за', send("#{target_name}_votes_path", target, vote: { value: 1 }), method: 'post', remote: true
+  |
   = link_to 'голосовать против', send("#{target_name}_votes_path", target, vote: { value: -1 }), method: 'post', remote: true

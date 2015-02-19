@@ -1,9 +1,9 @@
 - @answers.each do |answer|
   %div.answer{id: answer.id}
     .answer-votes
+      .votes= answer.rating
       - if can?(:create, Vote)
         .vote-form= render 'votes/form', target: answer
-      .votes= answer.rating
     - if answer.persisted?
       %p.answer-body= answer.body
       %ul.answer-files
@@ -29,4 +29,3 @@
         - elsif can?(:mark_best, Answer)
           = link_to 'этот ответ лучший', mark_best_answer_path(answer), method: 'patch', remote: true
       = render 'comments/comments', target: answer
-      %hr

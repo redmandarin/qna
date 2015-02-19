@@ -1,3 +1,6 @@
+// Colors
+$gray: #dddddd;
+$green-blue: #43bac9;
 
 div.container {
   @include outer-container;
@@ -12,16 +15,49 @@ div.container {
 
 hr { margin: .5em 0; }
 
+.question-votes, .answer-votes {
+
+  .votes, .vote-form { display: inline; }
+  .votes { 
+    color: $green-blue;
+    font-size: 1.3em;
+  }
+  .vote-form {
+    font-size: 1em;
+    a[data-method="patch"] { color: #BACDE8; }
+  }
+}
+
+.answer {
+  border: 1px solid #dddddd;
+  padding: .7em;
+  min-height: 6em;
+  margin-bottom: .5em;
+
+  .answer-body { font-size: 1.1em; }
+}
+
+
 .comment {
   hr { 
     margin: .3em 0; 
   }
-  .comment-body, .comment-author { padding: 0 1em; }
+
+  .comment-body, .comment-author { 
+    font-size: 0.9em;
+  }
+
+  padding-left: 9em;
   text-align: right;
 } 
 
-.comments{
+.comments {
   margin-bottom: 1em;
+}
+
+.question {
+  border-bottom: .4em solid $gray;
+  margin-bottom: 2em;
 }
 
 .actions { text-align: right; }
@@ -29,6 +65,10 @@ hr { margin: .5em 0; }
 header, .question-author { 
   text-align: right;
   margin-bottom: .5em;
+}
+
+.question-author {
+  float: right;
 }
 
 .tag {
@@ -48,6 +88,18 @@ header, .question-author {
 .search {
   label { display: inline; }
   margin-bottom: 1em;
+}
+
+.add-comment {
+  text-align: right;
+  @include outer-container;
+}
+
+.border {
+  border: 1px solid #dddddd;
+  padding: .7em;
+  min-height: 6em;
+  margin-bottom: .5em;
 }
 
 .error-explanation {
