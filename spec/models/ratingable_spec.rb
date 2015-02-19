@@ -25,6 +25,20 @@ describe Ratingable do
         user.reload
         expect(user.rating).to eq(-2)
       end
+
+      it 'gives +1 to voteable' do
+        create(:positive_vote, voteable: question)
+        # Ratingable.vote(build(:positive_vote, voteable: question))
+        question.reload
+        expect(question.rating).to eq(1)
+      end
+
+      it 'gives +1 to voteable' do
+        create(:negative_vote, voteable: question)
+        # Ratingable.vote(build(:negative_vote, voteable: question))
+        question.reload
+        expect(question.rating).to eq(-1)
+      end
     end
 
     context 'answer' do

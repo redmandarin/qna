@@ -1,2 +1,2 @@
-$('.<%= @vote.voteable_type.downcase %>#<%= @vote.voteable_id %> .<%= @vote.voteable_type.downcase %>-votes .votes').html('<%= render("votes/form").gsub("\n", "").html_safe %>');
+$('.<%= @vote.voteable_type.downcase %>#<%= @vote.voteable_id %> .<%= @vote.voteable_type.downcase %>-votes .vote-form').html('<%= render("votes/form").gsub("\n", "").html_safe %>');
 $('.<%= @vote.voteable_type.downcase %>#<%= @vote.voteable_id %> .<%= @vote.voteable_type.downcase %>-votes .votes').html('<%= @vote.voteable.rating %>')

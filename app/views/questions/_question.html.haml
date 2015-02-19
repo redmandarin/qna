@@ -7,7 +7,8 @@
         вы подписаны на обновления
     - else
       .subscribe= link_to "подписаться на обновления", subscriptions_path(subscription: { question_id: @question.id }), method: 'post', remote: true
-%p Файлы:
+- if @question.attachments.size > 0
+  %p Файлы:
 %ul
   - @question.attachments.each do |a|
     - if a.file.present?

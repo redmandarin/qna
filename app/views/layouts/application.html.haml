@@ -8,7 +8,11 @@
   %body
     %div.container
       %header
-        = link_to 'вопросы', questions_path
+        %div.float-left
+          = link_to 'все вопросы', questions_path
+          - if can?(:create, Question)
+            |
+            = link_to "задать вопрос", new_question_path
         - if signed_in?
           вы вошли как
           = current_user.email

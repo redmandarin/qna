@@ -29,7 +29,7 @@ module Ratingable
       user_rating_inc = vote.value.to_i
     end
     rating = voteable.votes.where(value: 1).count - voteable.votes.where(value: -1).count
-    voteable.increment!(:rating, rating)
+    voteable.update(rating: rating)
     user.increment!(:rating, user_rating_inc)
   end
 

@@ -39,6 +39,15 @@ header, .question-author {
 .notice {
   border: 2px solid #43bac9;
   padding: 7px;
+  margin-bottom: 1em;
+}
+
+.float-left { float: left }
+.float-right { float: right }
+
+.search {
+  label { display: inline; }
+  margin-bottom: 1em;
 }
 
 .error-explanation {

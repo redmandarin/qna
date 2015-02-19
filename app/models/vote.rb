@@ -8,7 +8,6 @@ class Vote < ActiveRecord::Base
   validates_uniqueness_of :user_id, scope: [:voteable_id, :voteable_type]
 
   after_save :calculate_reputation, if: :value_changed?
-  # after_create :calculate_reputation
 
   private
 
