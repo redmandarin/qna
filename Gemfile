@@ -55,6 +55,7 @@ gem 'thinking-sphinx'
 gem 'dotenv'
 gem 'dotenv-deployment', require: 'dotenv/deployment'
 gem 'therubyracer'
+gem 'unicorn'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -77,6 +78,7 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-sidekiq', require: false
+  gem 'capistrano3-unicorn', require: false
 end
 
 # Use ActiveModel has_secure_password
