@@ -16,6 +16,17 @@ RSpec.describe QuestionsController, :type => :controller do
     it "renders index view" do
       expect(response).to render_template(:index)
     end
+
+    describe 'popularity' do
+      it 'show questions with higher rating first' do
+        # ? Почему-то не работает с questions. В логах массивы совпадают.
+        q1 = create(:question)
+        q2 = create(:question)
+        another_question.update(rating: 5)
+        get :index, { scope: 'best_first'}
+        expect(assigns(:questions).to_a).to eq([another_question] << q1 << q2)
+      end
+    end
   end
 
   describe "GET #show" do

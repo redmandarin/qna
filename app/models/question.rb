@@ -16,6 +16,8 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
+  scope :best_first, -> { order(rating: :desc) }
+
   # after_create :update_rating
 
   def self.tagged_with(name)

@@ -11,7 +11,12 @@ class QuestionsController < ApplicationController
     if params[:tag]
       respond_with(@questions = Question.tagged_with(params[:tag]))
     else
-      respond_with(@questions = Question.all.includes(:answers).order(created_at: :desc))
+      case params[:scope]
+      when 'best_first'
+        respond_with(@questions = Question.best_first)
+      else
+        respond_with(@questions = Question.all.includes(:answers).order(created_at: :desc))
+      end
     end
   end
 
@@ -30,21 +35,6 @@ class QuestionsController < ApplicationController
 
   def create
     respond_with(@question = Question.create(question_params.merge(user: current_user)))
-    # flash[:notice] = "Вопрос успешно создан." if @question.save
-    
-    # respond_to do |format|
-    #   if @question.save
-    #     format.html do
-    #       redirect_to @question
-    #       PrivatePub.publish_to "/questions", question: @question.to_json
-    #     end
-    #     format.js do
-    #       render nothing: true
-    #     end
-    #   else
-    #     format.html { render :new }
-    #   end
-    # end
   end
 
   def update

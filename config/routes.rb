@@ -28,6 +28,10 @@ Rails.application.routes.draw do
     resources :answers, concerns: [:commentable, :voteable] do
       patch 'mark_best', on: :member
     end
+
+    collection do
+      get 'index', to: 'question#index', scope: 'best_first'
+    end
   end
 
   resources :users, only: [:index, :show]
