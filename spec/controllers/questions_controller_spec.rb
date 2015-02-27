@@ -20,8 +20,8 @@ RSpec.describe QuestionsController, :type => :controller do
     describe 'popularity' do
       it 'show questions with higher rating first' do
         # ? Почему-то не работает с questions. В логах массивы совпадают.
-        q1 = create(:question)
-        q2 = create(:question)
+        q1 = create(:question, rating: 1)
+        q2 = create(:question, rating: 4)
         another_question.update(rating: 5)
         get :index, { scope: 'best_first'}
         expect(assigns(:questions).to_a).to eq([another_question] << q1 << q2)

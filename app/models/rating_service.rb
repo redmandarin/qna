@@ -1,16 +1,13 @@
-module Ratingable
-  extend ActiveSupport::Concern
-
+# Class for models: Vote, Answer
+class RatingService
   def self.make_answer(answer)
     case answer.question.answers.count
     when 1
-      if answer.user == answer.question.user
-        increment_by = 3
-      else
-        increment_by = 1
-      end
+      increment_by = answer.user == answer.question.user ? 3 : 1
     when 2
       increment_by = 2
+    else
+      increment_by = 1
     end
     answer.user.increment(:rating, increment_by)
   end
@@ -22,13 +19,10 @@ module Ratingable
   def self.vote(vote)
     user = vote.voteable.user
     voteable = vote.voteable
-    case vote.voteable_type
-    when 'Question'
-      user_rating_inc = vote.value.to_i * 2
-    when 'Answer'
-      user_rating_inc = vote.value.to_i
-    end
+
+    user_rating_inc = vote.voteable_type == 'Question' ? vote.value * 2 : vote.value
     rating = voteable.votes.where(value: 1).count - voteable.votes.where(value: -1).count
+
     voteable.update(rating: rating)
     user.increment!(:rating, user_rating_inc)
   end

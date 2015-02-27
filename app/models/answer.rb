@@ -15,17 +15,16 @@ class Answer < ActiveRecord::Base
   after_create :send_notification
   after_create :notify_subscribers
   
+  private
+
   def mark_best
     self.update(best: true)
     self.question.answers.where.not(id: self.id).update_all(best: false)
-    Ratingable.best_answer(self)
+    RatingService.best_answer(self)
   end
 
-  private
-
-
   def calculate_reputation
-    Ratingable.delay.make_answer(self)
+    RatingService.delay.make_answer(self)
   end
 
   def send_notification

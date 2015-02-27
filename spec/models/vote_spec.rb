@@ -18,19 +18,19 @@ RSpec.describe Vote, :type => :model do
     subject { build(:vote, user: create(:user), voteable: question, value: 1) }
 
     it 'should calculate reputaiton after creation' do
-      expect(Ratingable).to receive(:vote).with(subject)
+      expect(RatingService).to receive(:vote).with(subject)
       subject.save!
     end
 
     it 'should not calc. reputation if value not changed' do
       subject.save!
-      expect(Ratingable).not_to receive(:vote)
+      expect(RatingService).not_to receive(:vote)
       subject.update(value: 1)
     end
 
     it 'should calc. reputation after update' do
       subject.save!
-      expect(Ratingable).to receive(:vote).with(subject)
+      expect(RatingService).to receive(:vote).with(subject)
       subject.update(value: -1)
     end
   end

@@ -38,14 +38,14 @@ RSpec.describe Answer, :type => :model do
   describe 'calc reputaiton' do
     subject { build(:answer, user: user) }
 
-    it 'calls Ratingable.make_answer after creation' do
-      expect(Ratingable).to receive(:make_answer).with(subject)
+    it 'calls RatingService.make_answer after creation' do
+      expect(RatingService).to receive(:make_answer).with(subject)
       subject.save!
     end
 
     it 'not calculate reputation if not #mark_best' do
       subject.save!
-      expect(Ratingable).not_to receive(:best_answer)
+      expect(RatingService).not_to receive(:best_answer)
       subject.update(body: '123')
     end
   end
@@ -66,13 +66,13 @@ RSpec.describe Answer, :type => :model do
     subject { build(:answer, question: question, user: user) }
 
     it 'should calculate reputation after creating' do
-      expect(Ratingable).to receive(:make_answer).with(subject)
+      expect(RatingService).to receive(:make_answer).with(subject)
       subject.save!
     end
 
     it 'should not calculate reputation after update' do
       subject.save!
-      expect(Ratingable).to_not receive(:make_answer)
+      expect(RatingService).to_not receive(:make_answer)
       subject.update(body: '123')
     end
   end

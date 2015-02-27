@@ -45,9 +45,7 @@ class User < ActiveRecord::Base
 
   def no_need_to_confirm(auth)
     p = auth.provider
-    if p == "facebook" || p == 'github' || p == 'google'
-      self.skip_confirmation!
-    end
+    self.skip_confirmation! if p == 'facebook' || p == 'github' || p == 'google'
   end
 
   def self.send_daily_digest

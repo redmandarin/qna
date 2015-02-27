@@ -1,5 +1,4 @@
 class Vote < ActiveRecord::Base
-  include Ratingable
   belongs_to :user
   belongs_to :voteable, polymorphic: true
   
@@ -12,6 +11,6 @@ class Vote < ActiveRecord::Base
   private
 
   def calculate_reputation
-    Ratingable.vote(self)
+    RatingService.vote(self)
   end
 end
