@@ -1,31 +1,32 @@
 - @answers.each do |answer|
-  %div.answer{id: answer.id}
-    .answer-votes
-      .votes= answer.rating
-      - if can?(:create, Vote)
-        .vote-form= render 'votes/form', target: answer
-    - if answer.persisted?
-      %p.answer-body= answer.body
-      %ul.answer-files
-        - answer.attachments.each do |a|
-          %li= link_to a.file.file.filename, a.file.url
-      - if signed_in? && current_user.author?(answer)
-        %p= link_to 'редактировать ответ', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-        = nested_form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}", :'data-type' => :json } do |f|
-          %fieldset
-            = f.label :body, I18n.t('answer_body')
-            .answer-errors
-            = f.text_area :body, rows: 10
-            = f.fields_for :attachments do |a|
-              = a.label :file
-              = a.file_field :file
-              = a.link_to_remove "удалить файл"
-            = f.link_to_add 'Добавить файл', :attachments, data: { :'blueprint-id' => "answer_attachments_fields_blueprint" }
-            = render 'answers/blueprint_answer_file'
-            = f.submit "Сохранить ответ"
-      .best-answer
-        - if answer.best
-          это лучший ответ
-        - elsif can?(:mark_best, Answer)
-          = link_to 'этот ответ лучший', mark_best_answer_path(answer), method: 'patch', remote: true
-      = render 'comments/comments', target: answer
+  - if answer.persisted?
+    - cache answer do
+      %div.answer{id: answer.id}
+        .answer-votes
+          .votes= answer.rating
+          - if can?(:create, Vote)
+            .vote-form= render 'votes/form', target: answer
+          %p.answer-body= answer.body
+          %ul.answer-files
+            - answer.attachments.each do |a|
+              %li= link_to a.file.file.filename, a.file.url
+          - if signed_in? && current_user.author?(answer)
+            %p= link_to 'редактировать ответ', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+            = nested_form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}", :'data-type' => :json } do |f|
+              %fieldset
+                = f.label :body, I18n.t('answer_body')
+                .answer-errors
+                = f.text_area :body, rows: 10
+                = f.fields_for :attachments do |a|
+                  = a.label :file
+                  = a.file_field :file
+                  = a.link_to_remove "удалить файл"
+                = f.link_to_add 'Добавить файл', :attachments, data: { :'blueprint-id' => "answer_attachments_fields_blueprint" }
+                = render 'answers/blueprint_answer_file'
+                = f.submit "Сохранить ответ"
+          .best-answer
+            - if answer.best
+              это лучший ответ
+            - elsif can?(:mark_best, Answer)
+              = link_to 'этот ответ лучший', mark_best_answer_path(answer), method: 'patch', remote: true
+          = render 'comments/comments', target: answer

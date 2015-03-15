@@ -15,7 +15,7 @@ module ControllerMacros
       @user.confirm!
       @request.env['devise.mapping'] = Devise.mappings[:user]
       @question = create(:question, user_id: @user.id)
-      @comment = create(:comment, user_id: @user.id, commentable_id: @question.id, commentable_type: "question")
+      @comment = create(:comment, user_id: @user.id, commentable: @question)
       sign_in @user
     end
   end

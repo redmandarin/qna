@@ -24,7 +24,7 @@ RSpec.describe QuestionsController, :type => :controller do
         q2 = create(:question, rating: 4)
         another_question.update(rating: 5)
         get :index, { scope: 'best_first'}
-        expect(assigns(:questions).to_a).to eq([another_question] << q1 << q2)
+        expect(assigns(:questions).to_a).to eq([another_question] << q2 << q1)
       end
     end
   end
@@ -51,6 +51,7 @@ RSpec.describe QuestionsController, :type => :controller do
       it "show best answer first" do
         get :show, id: another_question
         expect(assigns(:answers)[0]).to eq(another_answer)
+        expect(assigns(:answers)[1]).to eq(answer)
       end
     end
   end

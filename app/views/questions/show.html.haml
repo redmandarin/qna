@@ -1,13 +1,14 @@
-.questions
-  .question{id: @question.id}
-    = render 'question'
-    = render 'comments/comments', target: @question
+- cache @question do
+  .questions
+    .question{id: @question.id}
+      = render 'question'
+      = render 'comments/comments', target: @question
 
-.answers{ "data-question-id" => @question.id}
-  = render 'answers/answers'
-- if can?(:create, Answer)
-  .new_answer_form
-    = render 'answers/form'
+  .answers{ "data-question-id" => @question.id}
+    = render 'answers/answers'
+  - if can?(:create, Answer)
+    .new_answer_form
+      = render 'answers/form'
 
 = subscribe_to "/questions/#{@question.id}/comments"
 = subscribe_to "/questions/#{@question.id}/answers"

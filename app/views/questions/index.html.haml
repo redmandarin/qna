@@ -1,8 +1,9 @@
-.questions
-  - @questions.each do |q|
-    %h5
-      = link_to q.title, q
-      .right.mute= q.created_at.strftime("%d.%m.%Y")
-    %hr
+- cache collection_cache_key_for :question do
+  .questions
+    - @questions.each do |q|
+      %h5
+        = link_to q.title, q
+        .right.mute= q.created_at.strftime("%d.%m.%Y")
+      %hr
 
 = subscribe_to "/questions"

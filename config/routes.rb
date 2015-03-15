@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     end
 
     collection do
-      get 'index', to: 'question#index', scope: 'best_first'
+      get 'best_first', to: 'question#index', scope: 'best_first'
     end
   end
 

@@ -1,15 +1,16 @@
 .comments
   - target.comments.each do |comment|
-    .comment{id: comment.id}
-      .comment-body= comment.body
-      .comment-author
-        Автор: 
-        = User.find(comment.user_id).email
-      - if user_signed_in? && current_user.author?(comment)
-        = link_to '[редактировать]', '', class: 'edit-comment-link', data: { action: "edit", parent_name: target.class.name.downcase.pluralize, comment_id: comment.id, parent_id: target.id }
-        = link_to '[удалить комментарий]', "/comments/#{comment.id}", method: :delete, remote: true, data: { comment_id: comment.id, action: "destroy", format: "json" }
+    - cache comment do
+      .comment{id: comment.id}
+        .comment-body= comment.body
+        .comment-author
+          Автор: 
+          = User.find(comment.user_id).email
+        - if user_signed_in? && current_user.author?(comment)
+          = link_to '[редактировать]', '', class: 'edit-comment-link', data: { action: "edit", parent_name: target.class.name.downcase.pluralize, comment_id: comment.id, parent_id: target.id }
+          = link_to '[удалить комментарий]', "/comments/#{comment.id}", method: :delete, remote: true, data: { comment_id: comment.id, action: "destroy", format: "json" }
 
-      %hr
+        %hr
 = render 'comments/form', target: target
 .add-comment
   = link_to "Добавить комментарий", '', class: '', type: 'button' if user_signed_in?
