@@ -15,14 +15,14 @@ class Answer < ActiveRecord::Base
   after_create :send_notification
   after_create :notify_subscribers
 
-  scope :ordered, -> { order("best DESC")}
+  scope :ordered, -> { order("best DESC") }
   
   def mark_best
     self.update(best: true)
     self.question.answers.where.not(id: self.id).update_all(best: false)
     RatingService.best_answer(self)
   end
-  
+
   private
 
   def calculate_reputation
