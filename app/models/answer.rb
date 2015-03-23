@@ -1,6 +1,4 @@
 class Answer < ActiveRecord::Base
-  include Authority
-  
   belongs_to :question, touch: true
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
